@@ -40,7 +40,6 @@ public class _MappingKit {
 		arp.addMapping("task", "id", Task.class);
 		arp.addMapping("task_depend", "id", TaskDepend.class);
 		arp.addMapping("task_group", "id", TaskGroup.class);
-		arp.addMapping("zc_user", "id", ZcUser.class);
 	}
 }
 

@@ -6,7 +6,6 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.ehcache.CacheInterceptor;
 import com.jfinal.plugin.ehcache.CacheName;
 import com.langmy.jFinal.model.User;
-import com.langmy.jFinal.model.ZcUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +36,7 @@ public class IndexController extends Controller{
 //		List<User> users=User.dao.find("select * from sec_user");
 //		List<User> users=User.dao.find("select * from sec_user");
 //		List<Record> users= Db.find("select * from sec_user");
-		List<ZcUser> users= ZcUser.dao.find("select * from zc_user");
+		List<User> users= User.dao.find("select * from sec_user");
 		setAttr("users", users);
 		render("front/index.html");
 	}
