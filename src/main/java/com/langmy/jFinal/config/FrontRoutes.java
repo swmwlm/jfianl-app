@@ -1,9 +1,9 @@
 package com.langmy.jFinal.config;
 
 import com.jfinal.config.Routes;
-import com.langmy.jFinal.IndexController;
+import com.langmy.jFinal.controller.web.IndexController;
 
-public class FrontRoutes extends Routes{
+public class FrontRoutes extends Routes {
 
 	@Override
 	public void config() {
