@@ -3,8 +3,10 @@ package com.langmy.jFinal.common;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.*;
+import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.kit.HashKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
@@ -12,10 +14,10 @@ import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
 import com.langmy.jFinal.beetl.MyBeetlRenderFactory;
 import com.langmy.jFinal.common.handler.HtmlHandler;
+import com.langmy.jFinal.common.model._MappingKit;
 import com.langmy.jFinal.common.utils.ext.plugin.shiro.ShiroInterceptor;
 import com.langmy.jFinal.common.utils.ext.plugin.shiro.ShiroPlugin;
 import com.langmy.jFinal.common.utils.ext.route.AutoBindRoutes;
-import com.langmy.jFinal.model._MappingKit;
 import org.beetl.core.GroupTemplate;
 
 import java.util.Properties;
@@ -62,19 +64,21 @@ public class Config extends JFinalConfig {
         me.add(new ContextPathHandler("path"));
         DruidStatViewHandler dvh = new DruidStatViewHandler("/druid");
         me.add(dvh);
-
         me.add(new HtmlHandler());
     }
 
     @Override
     public void configInterceptor(Interceptors me) {
+        //让视图freemarker,beetl可以使用session
+        me.add(new SessionInViewInterceptor());
         //shiro权限拦截器配置
         me.add(new ShiroInterceptor());
+        //me.add(new CommonInterceptor());
+
         //开发时不用开启  避免不能实时看到数据效果
 //    me.add(new CacheRemoveInterceptor());
 //    me.add(new CacheInterceptor());
-        //让freemarker可以使用session
-        me.add(new SessionInViewInterceptor());
+
     }
 
     @Override
@@ -93,13 +97,15 @@ public class Config extends JFinalConfig {
         // 防御sql注入攻击
         WallFilter wall = new WallFilter();
         wall.setDbType(getProperty("jdbc.dbType"));
+        //druidPlugin.setFilters("stat,wall");
         druidPlugin.addFilter(wall);
-
         druidPlugin.addFilter(new StatFilter());
+
         druidPlugin.setInitialSize(getPropertyToInt("db.default.poolInitialSize"));
         druidPlugin.setMaxPoolPreparedStatementPerConnectionSize(getPropertyToInt("db.default.poolMaxSize"));
         druidPlugin.setTimeBetweenConnectErrorMillis(getPropertyToInt("db.default.connectionTimeoutMillis"));
         me.add(druidPlugin);
+
         // 配置ActiveRecord插件
         ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
         me.add(arp);
@@ -110,12 +116,8 @@ public class Config extends JFinalConfig {
         // 每次sql表有变动,可以使用GeneratorDemo搞定
         _MappingKit.mapping(arp);
 
-//        //sql语句plugin
-//        me.add(new SqlInXmlPlugin());
-
         //启用本地缓存
-        EhCachePlugin ecp = new EhCachePlugin();
-        me.add(ecp);
+        me.add(new EhCachePlugin());
 
         //shiro权限框架
         ShiroPlugin shiroPlugin = new ShiroPlugin(routes);
@@ -126,17 +128,6 @@ public class Config extends JFinalConfig {
     public void configRoute(Routes me) {
         this.routes = me;
         me.add(new AutoBindRoutes());
-        // 第三个参数为该Controller的视图存放路径
-        // 第三个参数省略时默认与第一个参数值相同，在此即为 "/gencode"
-//        me.add("/jhtml", HtmlController.class);
-//        //  /gencode?db_list=table
-//        me.add("/gencode", AutoGenController.class, "/gencode");
-//        me.add(new FrontRoutes());
-//        me.add(new AdminRoutes());
-
-//        暂不使用自动绑定功能 ,jfinal2.2开发了generator插件
-//        RouteBind routeBind = new RouteBind();
-//        routes.add(routeBind);
     }
 
     @Override
@@ -144,11 +135,36 @@ public class Config extends JFinalConfig {
         super.afterJFinalStart();
     }
 
+    /**
+     * 启动完毕所做的处理
+     */
+//    @Override
+//    public void afterJFinalStart() {
+//        try {
+//            String qq_properties = "qqconnectconfig.properties";
+//            Properties qq_prop = PropKit.use(qq_properties).getProperties();
+//            qq_prop.setProperty("app_ID", com.jfinalbbs.common.Constants.getValue("qq_appId"));
+//            qq_prop.setProperty("app_KEY", com.jfinalbbs.common.Constants.getValue("qq_appKey"));
+//            qq_prop.setProperty("redirect_URI", com.jfinalbbs.common.Constants.getValue("qq_redirect_URI"));
+//            qq_prop.store(new FileOutputStream(PathKit.getRootClassPath() + "/" + qq_properties), "read db config write to prop file");
+//
+//            String sina_properties = "weiboconfig.properties";
+//            Properties sina_prop = PropKit.use(sina_properties).getProperties();
+//            sina_prop.setProperty("client_ID", com.jfinalbbs.common.Constants.getValue("sina_clientId"));
+//            sina_prop.setProperty("client_SERCRET", com.jfinalbbs.common.Constants.getValue("sina_clientSercret"));
+//            sina_prop.setProperty("redirect_URI", com.jfinalbbs.common.Constants.getValue("sina_redirect_URI"));
+//            sina_prop.store(new FileOutputStream(PathKit.getRootClassPath() + "/" + sina_properties), "read db config write to prop file");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 /**
  * 建议使用 JFinal 手册推荐的方式启动项目
  * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
  */
-//    public static void main(String[] args) {
-//        JFinal.start("src/main/webapp", 80, "/", 5);
-//    }
+    public static void main(String[] args) {
+        System.out.println(HashKit.md5("123456"));
+        JFinal.start("src/main/webapp", 80, "/", 5);
+    }
 }

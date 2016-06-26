@@ -1,6 +1,6 @@
 package com.langmy.jFinal.common.utils;
 
-import com.langmy.jFinal.model.User;
+import com.langmy.jFinal.common.model.User;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -30,7 +30,7 @@ public class PasswordHelper {
         String newPassword = new SimpleHash(
                 algorithmName,
                 user.getPassword(),
-                ByteSource.Util.bytes(user.getStr("username") + user.getStr("salt")),
+                ByteSource.Util.bytes(user.getUsername() + user.getSalt()),
                 hashIterations).toHex();
         user.setPassword(newPassword);
     }
@@ -42,6 +42,6 @@ public class PasswordHelper {
         user.setPassword("123456");
         user.setSalt("123456");
         encryptPassword(user);
-        System.out.println(user.toJson());
+        System.out.println(user.toString());
     }
 }

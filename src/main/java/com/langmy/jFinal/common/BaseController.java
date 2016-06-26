@@ -4,8 +4,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.langmy.jFinal.common.utils.Result;
 import com.langmy.jFinal.common.utils.StrUtil;
-import com.langmy.jFinal.config.AppConstants;
-import com.langmy.jFinal.model.User;
+import com.langmy.jFinal.common.model.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 

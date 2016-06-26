@@ -1,6 +1,6 @@
 package com.langmy.jFinal.common;
 
-import com.langmy.jFinal.model.SysConfig;
+import com.langmy.jFinal.common.model.SysConfig;
 
 /**
  * Created by wangrenhui on 13-12-31.
@@ -19,6 +19,13 @@ public class AppConstants {
 
   public static final String CURRENT_USER = "currentUser";
 
+
+  // COOKIE SESSION变量KEY
+  public static final String USER_COOKIE = "user_token_v2";
+  public static final String USER_SESSION = "user";
+  public static final String BEFORE_URL = "before_url";
+  public static final String ADMIN_BEFORE_URL = "admin_before_url";
+  public static final String COOKIE_ADMIN_TOKEN = "admin_user_token";
 
   // 接口返回状态码
   public static final String CODE_SUCCESS = "200";

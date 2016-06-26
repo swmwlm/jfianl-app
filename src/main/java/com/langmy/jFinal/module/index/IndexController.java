@@ -4,9 +4,9 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.ehcache.CacheInterceptor;
 import com.jfinal.plugin.ehcache.CacheName;
-import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import com.langmy.jFinal.common.AppConstants;
 import com.langmy.jFinal.common.model.User;
+import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -26,14 +26,7 @@ public class IndexController extends Controller{
 		setAttr("users", users);
 		render("front/index.html");
 	}
-	
-	public void showText(){
-		renderText("Show Text");
-	}
 
-	public void testActionKey(){
-		renderText("Test ActionKey");
-	}
 
 	/**
 	 * 加入缓存;
@@ -62,13 +55,13 @@ public class IndexController extends Controller{
 	/**
 	 * 后台管理登录
 	 * 默认账号admin
-	 * 默认密码123123
-	 * 对应表 admin_user
+	 * 默认密码123456
+	 * 对应表 sec_user
 	 */
-	public void adminlogin() {
+	public void adminLogin() {
 		String method = getRequest().getMethod();
 		if (method.equalsIgnoreCase(AppConstants.GET)) {
-			render("admin/login.html");
+			render("front/adminLogin.html");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
 			String username = getPara("username");
 			String password = getPara("password");
@@ -81,8 +74,12 @@ public class IndexController extends Controller{
 			} catch (AuthenticationException e) {
 				e.printStackTrace();
 				setAttr("error", "用户名或密码错误");
-				render("admin/login.html");
+				render("front/adminLogin.html");
 			}
 		}
+	}
+
+	public void login() {
+		renderText("asdfasdf");
 	}
 }

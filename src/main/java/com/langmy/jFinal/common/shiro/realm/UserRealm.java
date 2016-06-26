@@ -1,8 +1,8 @@
 package com.langmy.jFinal.common.shiro.realm;
 
-import com.langmy.jFinal.model.Permission;
-import com.langmy.jFinal.model.Role;
-import com.langmy.jFinal.model.User;
+import com.langmy.jFinal.common.model.Permission;
+import com.langmy.jFinal.common.model.Role;
+import com.langmy.jFinal.common.model.User;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
