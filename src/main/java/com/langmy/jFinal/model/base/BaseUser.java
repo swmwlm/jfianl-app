@@ -1,6 +1,6 @@
 package com.langmy.jFinal.model.base;
 
-import com.jfinal.plugin.activerecord.Model;
+import cn.dreampie.web.model.Model;
 import com.jfinal.plugin.activerecord.IBean;
 
 /**
@@ -9,7 +9,7 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implements IBean {
 
-	public void setId(java.math.BigInteger id) {
+	public void setId(long id) {
 		set("id", id);
 	}
 

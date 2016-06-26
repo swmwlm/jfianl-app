@@ -36,6 +36,11 @@ public class IndexController extends Controller{
 //		List<User> users=User.dao.find("select * from sec_user");
 //		List<User> users=User.dao.find("select * from sec_user");
 //		List<Record> users= Db.find("select * from sec_user");
+
+
+//触发调用quartz
+//		QuartzKey quartzKey = new QuartzKey(1, "test", "test");
+//		new QuartzCronJob(quartzKey, "*/1 * * * * ?", DemoJob.class).addParam("name", "quartz").start();
 		List<User> users= User.dao.find("select * from sec_user");
 		setAttr("users", users);
 		render("front/index.html");

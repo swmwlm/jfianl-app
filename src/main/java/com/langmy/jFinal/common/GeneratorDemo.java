@@ -10,7 +10,7 @@ import com.jfinal.plugin.c3p0.C3p0Plugin;
 import javax.sql.DataSource;
 
 /**
- * GeneratorDemo
+ * MyGeneratorDemo
  */
 public class GeneratorDemo {
 	
@@ -47,7 +47,7 @@ public class GeneratorDemo {
 		// 设置是否生成字典文件
 		gernerator.setGenerateDataDictionary(true);
 		// 设置需要被移除的表名前缀用于生成modelName。例如表名 "osc_user"，移除前缀 "osc_"后生成的model名为 "User"而非 OscUser
-		gernerator.setRemovedTableNamePrefixes("sec_");
+		gernerator.setRemovedTableNamePrefixes("sec_","com_");
 		// 生成
 		gernerator.generate();
 	}

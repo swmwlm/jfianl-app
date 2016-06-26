@@ -18,8 +18,9 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("blog", "id", Blog.class);
 		arp.addMapping("blog_reply", "id", BlogReply.class);
-		arp.addMapping("com_area", "id", ComArea.class);
-		arp.addMapping("com_state", "id", ComState.class);
+		arp.addMapping("com_area", "id", Area.class);
+		arp.addMapping("com_state", "id", State.class);
+		arp.addMapping("com_sys_config", "id", SysConfig.class);
 		arp.addMapping("department", "id", Department.class);
 		arp.addMapping("follower", "id", Follower.class);
 		arp.addMapping("project", "id", Project.class);

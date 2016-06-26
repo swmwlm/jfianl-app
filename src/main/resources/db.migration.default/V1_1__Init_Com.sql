@@ -3501,3 +3501,39 @@ VALUES (1,'北京市','',0,NULL,NULL,1,42,current_timestamp),
 
 -- create state--
 -- INSERT INTO com_state(id,name,value,intro,type,created_at)VALUES();
+
+
+-- Dump of table com_sys_config
+
+DROP TABLE IF EXISTS `com_sys_config`;
+
+CREATE TABLE `com_sys_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(45) NOT NULL DEFAULT '',
+  `value` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+INSERT INTO `com_sys_config` (`id`, `key`, `value`,`description`)
+VALUES
+  (2,'emailPassword','',''),
+  (3,'emailSender','JFinalbbs',''),
+  (4,'emailSmtp','',''),
+  (5,'emailUsername','',''),
+  (6,'pageSize','20',''),
+  (7,'qq_appId','',''),
+  (8,'qq_appKey','',''),
+  (9,'qq_redirect_URI','',''),
+  (10,'sina_clientId','',''),
+  (11,'sina_clientSercret','',''),
+  (12,'siteTitle','JFinalbbs',''),
+  (14,'qq_meta','',''),
+  (15,'sina_meta','',''),
+  (16,'baidu_site_meta','',''),
+  (17,'google_site_meta','',''),
+  (18,'bing_site_meta','',''),
+  (19,'beian_name','',''),
+  (20,'sina_redirect_URI','',''),
+  (21,'tongji_js','','');

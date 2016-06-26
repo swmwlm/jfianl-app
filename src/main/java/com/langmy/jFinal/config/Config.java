@@ -1,16 +1,23 @@
 package com.langmy.jFinal.config;
 
+import cn.dreampie.log.Slf4jLogFactory;
+import cn.dreampie.mail.MailerPlugin;
+import cn.dreampie.quartz.QuartzPlugin;
+import cn.dreampie.shiro.core.ShiroPlugin;
+import cn.dreampie.sqlinxml.SqlInXmlPlugin;
 import cn.dreampie.web.render.JsonErrorRenderFactory;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.*;
 import com.jfinal.ext.handler.ContextPathHandler;
+import com.jfinal.log.Logger;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.ViewType;
 import com.langmy.jFinal.beetl.MyBeetlRenderFactory;
+import com.langmy.jFinal.common.handler.HtmlHandler;
 import com.langmy.jFinal.controller.HtmlController;
 import com.langmy.jFinal.controller.db.AutoGenController;
 import com.langmy.jFinal.model._MappingKit;
@@ -54,31 +61,32 @@ public class Config extends JFinalConfig {
         me.setViewType(ViewType.JSP);
         me.setEncoding("UTF-8");
         //set log to slf4j
-//        Logger.setLoggerFactory(new Slf4jLogFactory());
+        Logger.setLoggerFactory(new Slf4jLogFactory());
         me.setErrorRenderFactory(new JsonErrorRenderFactory());
     }
 
     @Override
     public void configHandler(Handlers me) {
-        me.add(new ContextPathHandler("ctx"));
+        me.add(new ContextPathHandler("path"));
         DruidStatViewHandler dvh = new DruidStatViewHandler("/druid");
         me.add(dvh);
-        //me.add(new HtmlHandler());
+
+        me.add(new HtmlHandler());
     }
 
     @Override
     public void configInterceptor(Interceptors me) {
-//        //shiro权限拦截器配置
-//        me.add(new ShiroInterceptor());
-//        //让freemarker可以使用session
-//        me.add(new SessionInViewInterceptor());
+        //shiro权限拦截器配置
+        //me.add(new ShiroInterceptor());
+        //开发时不用开启  避免不能实时看到数据效果
+//    me.add(new CacheRemoveInterceptor());
+//    me.add(new CacheInterceptor());
+        //让freemarker可以使用session
+        //me.add(new SessionInViewInterceptor());
     }
 
     @Override
     public void configPlugin(Plugins me) {
-        //启用本地缓存
-        EhCachePlugin ecp = new EhCachePlugin();
-        me.add(ecp);
 
         //C3p0数据源插件
 //		C3p0Plugin c3p0 = new C3p0Plugin(getProperty("jdbcUrl"), getProperty("user"), getProperty("password").trim());
@@ -110,21 +118,45 @@ public class Config extends JFinalConfig {
         // 每次sql表有变动,可以使用GeneratorDemo搞定
         _MappingKit.mapping(arp);
 
+        //sql语句plugin
+        me.add(new SqlInXmlPlugin());
+
+        //启用本地缓存
+        EhCachePlugin ecp = new EhCachePlugin();
+        me.add(ecp);
+
+        //shiro权限框架
+        //me.add(new ShiroPlugin(routes, new MyJdbcAuthzService()));
+        ShiroPlugin shiroPlugin = new ShiroPlugin(routes);
+        me.add(shiroPlugin);
+
+        //quartz 任务
+        me.add(new QuartzPlugin());
+
+        //emailer插件
+        me.add(new MailerPlugin());
+
     }
 
     @Override
     public void configRoute(Routes me) {
         this.routes = me;
-        //// 第三个参数为该Controller的视图存放路径
-        //// 第三个参数省略时默认与第一个参数值相同，在此即为 "/gencode"
+        // 第三个参数为该Controller的视图存放路径
+        // 第三个参数省略时默认与第一个参数值相同，在此即为 "/gencode"
         me.add("/jhtml", HtmlController.class);
         //  /gencode?db_list=table
         me.add("/gencode", AutoGenController.class, "/gencode");
         me.add(new FrontRoutes());
         me.add(new AdminRoutes());
-//        暂不使用自动绑定功能
+
+//        暂不使用自动绑定功能 ,jfinal2.2开发了generator插件
 //        RouteBind routeBind = new RouteBind();
 //        routes.add(routeBind);
+    }
+
+    @Override
+    public void afterJFinalStart() {
+        super.afterJFinalStart();
     }
 
 /**

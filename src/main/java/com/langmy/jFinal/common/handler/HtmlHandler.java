@@ -14,7 +14,7 @@ public class HtmlHandler extends Handler {
 			 request.setAttribute("html",target);
 			 target = "/jhtml";
 		 }
-		nextHandler.handle(target, request, response, isHandled);
+		next.handle(target, request, response, isHandled);
 	}
 
 }

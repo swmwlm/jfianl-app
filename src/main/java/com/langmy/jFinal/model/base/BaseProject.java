@@ -1,6 +1,6 @@
 package com.langmy.jFinal.model.base;
 
-import com.jfinal.plugin.activerecord.Model;
+import cn.dreampie.web.model.Model;
 import com.jfinal.plugin.activerecord.IBean;
 
 /**

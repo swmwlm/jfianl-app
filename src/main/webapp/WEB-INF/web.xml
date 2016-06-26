@@ -3,10 +3,11 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>Archetype Created Web Application</display-name>
-	<!--<context-param>
+	<context-param>
 		<param-name>shiroConfigLocations</param-name>
-		<param-value>classpath:shiro_common.ini</param-value>
+		<param-value>classpath:shiro.ini</param-value>
 	</context-param>
+	<!--权限过滤器 start-->
 	<listener>
 		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
 	</listener>
@@ -17,7 +18,9 @@
 	<filter-mapping>
 		<filter-name>shiro</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>-->
+	</filter-mapping>
+	<!--权限过滤器 end-->
+
 	<!--jfinal start-->
 	<filter>
 		<filter-name>jfinal</filter-name>
