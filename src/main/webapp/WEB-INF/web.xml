@@ -11,6 +11,37 @@
 	<listener>
 		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
 	</listener>
+
+	<!--本地过滤器  用于request本地化并判断前台需求的返回数据类型 start-->
+	<filter>
+	<filter-name>ThreadLocalFilter</filter-name>
+	<filter-class>com.langmy.jFinal.filter.ThreadLocalFilter</filter-class>
+	<init-param>
+	<param-name>autoJson</param-name>
+	<param-value>false</param-value>
+	</init-param>
+	</filter>
+	<filter-mapping>
+	<filter-name>ThreadLocalFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--本地过滤器 end-->
+
+	<!--gzip compress filter-->
+	<filter>
+	<filter-name>gzipFilter</filter-name>
+	<filter-class>com.langmy.jFinal.filter.gzip.GZIPFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	<filter-name>gzipFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	<dispatcher>REQUEST</dispatcher>
+	<dispatcher>FORWARD</dispatcher>
+	<dispatcher>INCLUDE</dispatcher>
+	<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+	<!--gzip compress filter-->
+
 	<filter>
 		<filter-name>shiro</filter-name>
 		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>

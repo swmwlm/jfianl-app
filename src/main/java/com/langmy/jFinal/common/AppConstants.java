@@ -3,9 +3,6 @@ package com.langmy.jFinal.common;
 import com.jfinal.kit.PathKit;
 import com.langmy.jFinal.common.model.SysConfig;
 
-/**
- * Created by wangrenhui on 13-12-31.
- */
 public class AppConstants {
   //默认字符编码
   public static final String DEFAULT_ENCODING = "UTF-8";
