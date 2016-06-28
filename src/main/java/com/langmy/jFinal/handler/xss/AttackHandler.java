@@ -3,7 +3,6 @@ package com.langmy.jFinal.handler.xss;
 import com.jfinal.handler.Handler;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 public class AttackHandler extends Handler {

@@ -12,6 +12,7 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
   private HttpServletRequest originRequest;
   public HttpServletRequestWrapper(HttpServletRequest request) {
     super(request);
+    originRequest=request;
   }
 
   /**
@@ -154,4 +155,22 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
 //    return value;
 //  }
 
+  /**
+   * 获取原始的request
+   * @return
+     */
+  public HttpServletRequest getOriginRequest() {
+    return originRequest;
+  }
+  /**
+   * 获取最原始的request的静态方法
+   *
+   * @return
+   */
+  public static HttpServletRequest getOrgRequest(HttpServletRequest req) {
+    if (req instanceof HttpServletRequestWrapper) {
+      return ((HttpServletRequestWrapper) req).getOriginRequest();
+    }
+    return req;
+  }
 }

@@ -1,4 +1,3 @@
-
 <#macro layout page_tab="">
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -56,11 +55,11 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
-    <#include "/pages/admin/common/header.ftl">
+    <#include "/WEB-INF/pages/admin/common/header.ftl">
     <@header/>
 
     <!-- Left side column. contains the logo and sidebar -->
-    <#include "/pages/admin/common/left.ftl"/>
+    <#include "/WEB-INF/pages/admin/common/left.ftl"/>
     <@pageLeft page_tab=page_tab/>
 
     <!-- Content Wrapper. Contains page content -->
@@ -71,7 +70,7 @@
     <footer class="main-footer">
         <strong>后台模板 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong>
     </footer>
-    <#include "/pages/admin/common/controlAside.ftl">
+    <#include "/WEB-INF/pages/admin/common/controlAside.ftl">
     <@controlAside/>
     <div class="control-sidebar-bg"></div>
 </div>

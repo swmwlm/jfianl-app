@@ -23,6 +23,7 @@ import com.langmy.jFinal.common.utils.ext.route.AutoBindRoutes;
 import com.langmy.jFinal.handler.FakeStaticHandler;
 import com.langmy.jFinal.handler.ResourceHandler;
 import com.langmy.jFinal.handler.SkipHandler;
+import com.langmy.jFinal.handler.xss.AttackHandler;
 import com.langmy.jFinal.interceptor.CommonInterceptor;
 
 import java.util.Properties;
@@ -81,6 +82,9 @@ public class Config extends JFinalConfig {
         me.add(new ResourceHandler("/static/**"));
         me.add(new FakeStaticHandler());
         me.add(new SkipHandler("/im/**"));
+        //防xss攻击
+        me.add(new AttackHandler());
+
         DruidStatViewHandler dvh = new DruidStatViewHandler("/druid");
         me.add(dvh);
     }
