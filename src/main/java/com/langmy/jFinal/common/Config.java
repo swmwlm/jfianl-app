@@ -1,5 +1,7 @@
 package com.langmy.jFinal.common;
 
+import cn.dreampie.mail.MailerPlugin;
+import cn.dreampie.quartz.QuartzPlugin;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jagregory.shiro.freemarker.ShiroTags;
@@ -43,7 +45,7 @@ public class Config extends JFinalConfig {
     @Override
     public void configConstant(Constants me) {
         // 如果生产环境配置文件存在，则优先加载该配置，否则加载开发环境配置文件
-        loadProp("a_little_config_pro.txt", "a_little_config.txt");
+        loadProp("application_pro.txt", "application.properties");
         //loadPropertyFile("a_little_config.txt");
         me.setDevMode(getPropertyToBoolean("devMode"));
 
@@ -139,6 +141,12 @@ public class Config extends JFinalConfig {
         //shiro权限框架
         ShiroPlugin shiroPlugin = new ShiroPlugin(routes);
         me.add(shiroPlugin);
+
+        //emailer插件
+        me.add(new MailerPlugin());
+
+        //quartz 任务
+        me.add(new QuartzPlugin());
     }
 
     @Override

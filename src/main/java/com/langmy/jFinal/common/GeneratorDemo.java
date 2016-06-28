@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 public class GeneratorDemo {
 	
 	public static DataSource getDataSource() {
-		Prop p = PropKit.use("a_little_config.txt");
+		Prop p = PropKit.use("application.properties");
 		C3p0Plugin c3p0Plugin = new C3p0Plugin(p.get("jdbc.url"), p.get("jdbc.username"), p.get("jdbc.password"));
 //		DruidPlugin druidPlugin = new DruidPlugin(p.get("jdbc.url"),
 //				p.get("jdbc.username"),

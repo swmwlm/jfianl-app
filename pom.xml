@@ -16,6 +16,8 @@
 		<jfinal.version>2.2</jfinal.version>
 		<jfinal-dreampie.version>1.2.2</jfinal-dreampie.version>
 		<servlet.version>3.1.0</servlet.version>
+		<jfinal-mailer.version>0.2</jfinal-mailer.version>
+		<jfinal-quartz.version>0.2</jfinal-quartz.version>
 	</properties>
 
 
@@ -35,6 +37,16 @@
 			<groupId>com.jfinal</groupId>
 			<artifactId>cos</artifactId>
 			<version>26Dec2008</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.dreampie</groupId>
+			<artifactId>jfinal-mailer</artifactId>
+			<version>${jfinal-mailer.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.dreampie</groupId>
+			<artifactId>jfinal-quartz</artifactId>
+			<version>${jfinal-quartz.version}</version>
 		</dependency>
 		<!--<dependency>-->
 			<!--<groupId>cn.dreampie</groupId>-->

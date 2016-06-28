@@ -1,5 +1,7 @@
 package com.langmy.jFinal.module.index;
 
+import cn.dreampie.mail.Mailer;
+import cn.dreampie.template.freemarker.FreemarkerLoader;
 import com.jfinal.kit.HashKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
@@ -7,9 +9,9 @@ import com.langmy.jFinal.common.AppConstants;
 import com.langmy.jFinal.common.BaseController;
 import com.langmy.jFinal.common.model.*;
 import com.langmy.jFinal.common.utils.DateUtil;
-import com.langmy.jFinal.common.utils.EmailSender;
 import com.langmy.jFinal.common.utils.StrUtil;
 import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
+import org.apache.commons.mail.EmailException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -209,6 +211,7 @@ public class IndexController extends BaseController {
 	}
 
 	public void sendValiCode() {
+		int minute=30;
 		String email = getPara("email");
 		if (StrUtil.isBlank(email)) {
 			error("邮箱不能为空");
@@ -227,16 +230,16 @@ public class IndexController extends BaseController {
 							.set("type", type)
 							.set("in_time", new Date())
 							.set("status", 0)
-							.set("expire_time", DateUtil.getMinuteAfter(new Date(), 30))
+							.set("expire_time", DateUtil.getMinuteAfter(new Date(), minute))
 							.set("target", email)
 							.save();
-					StringBuffer mailBody = new StringBuffer();
-					mailBody.append("You retrieve the password verification code is: ")
-							.append(valicode)
-							.append("<br/>The code can only be used once, and only valid for 30 minutes.");
-					EmailSender.sendMail("JFinalbbs－Forgot password codes",
-							new String[]{email}, mailBody.toString());
-					success();
+					String sendHtml = new FreemarkerLoader("/template/mails/retrieve_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
+					try {
+						Mailer.sendHtml("shoukeApp-找回密码", sendHtml, email);
+						success();
+					} catch (EmailException e) {
+						e.printStackTrace();
+					}
 				}
 			} else if (type.equalsIgnoreCase(AppConstants.REG)) {
 				User user = User.dao.findByEmail(email);
@@ -248,15 +251,16 @@ public class IndexController extends BaseController {
 							.set("type", type)
 							.set("in_time", new Date())
 							.set("status", 0)
-							.set("expire_time", DateUtil.getMinuteAfter(new Date(), 30))
+							.set("expire_time", DateUtil.getMinuteAfter(new Date(), minute))
 							.set("target", email)
 							.save();
-					StringBuffer mailBody = new StringBuffer();
-					mailBody.append("Register your account verification code is: ")
-							.append(valicode)
-							.append("<br/>The code can only be used once, and only valid for 30 minutes.");
-					EmailSender.sendMail("JFinalbbs－Registered Account codes", new String[]{email}, mailBody.toString());
-					success();
+					String sendHtml = new FreemarkerLoader("/template/mails/signup_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
+					try {
+						Mailer.sendHtml("shoukeApp-账号注册", sendHtml, email);
+						success();
+					} catch (EmailException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
