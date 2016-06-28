@@ -1,2 +1,2 @@
 # JFinalLearn
-JFinal框架的学习记录
+JFinal框架搭建

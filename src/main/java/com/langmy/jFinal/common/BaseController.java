@@ -2,9 +2,9 @@ package com.langmy.jFinal.common;
 
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.ehcache.CacheKit;
+import com.langmy.jFinal.common.model.AdminUser;
 import com.langmy.jFinal.common.utils.Result;
 import com.langmy.jFinal.common.utils.StrUtil;
-import com.langmy.jFinal.common.model.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
@@ -61,9 +61,9 @@ public class BaseController extends Controller {
      *
      * @return
      */
-    public User getAdminUser() {
+    public AdminUser getAdminUser() {
         Subject subject = SecurityUtils.getSubject();
         String username = subject.getPrincipal().toString();
-        return User.dao.findByUsername(username);
+        return AdminUser.dao.findByUsername(username);
     }
 }

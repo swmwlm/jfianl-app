@@ -4,13 +4,16 @@ import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.langmy.jFinal.common.AppConstants;
+import com.langmy.jFinal.common.model.Link;
+import com.langmy.jFinal.common.model.Section;
+import com.langmy.jFinal.common.model.User;
 import com.langmy.jFinal.common.utils.DateUtil;
 import com.langmy.jFinal.common.utils.StrUtil;
-import com.langmy.jFinal.common.model.User;
 
 import java.util.Date;
 
 public class CommonInterceptor implements Interceptor {
+
 
     public void intercept(Invocation ai) {
         // session cookie 互换
@@ -25,7 +28,10 @@ public class CommonInterceptor implements Interceptor {
         Controller controller = ai.getController();
         // 获取今天时间，放到session里
         controller.setSessionAttr("today", DateUtil.formatDate(new Date()));
-
+        // 查询板块
+        controller.setAttr("sections", Section.dao.findShow());
+        // 查询友链
+        controller.setAttr("links", Link.dao.findAll());
         controller.setAttr("siteTitle", AppConstants.getValue("siteTitle"));
         controller.setAttr("qq_meta", AppConstants.getValue("qq_meta"));
         controller.setAttr("sina_meta", AppConstants.getValue("sina_meta"));

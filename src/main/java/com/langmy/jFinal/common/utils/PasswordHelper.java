@@ -1,6 +1,6 @@
 package com.langmy.jFinal.common.utils;
 
-import com.langmy.jFinal.common.model.User;
+import com.langmy.jFinal.common.model.AdminUser;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -25,23 +25,21 @@ public class PasswordHelper {
         this.hashIterations = hashIterations;
     }
 
-    public static void encryptPassword(User user) {
-        user.setSalt(randomNumberGenerator.nextBytes().toHex());
+    public static void encryptPassword(AdminUser adminUser) {
+        adminUser.setSalt(randomNumberGenerator.nextBytes().toHex());
         String newPassword = new SimpleHash(
                 algorithmName,
-                user.getPassword(),
-                ByteSource.Util.bytes(user.getUsername() + user.getSalt()),
+                adminUser.getPassword(),
+                ByteSource.Util.bytes(adminUser.getUsername() + adminUser.getSalt()),
                 hashIterations).toHex();
-        user.setPassword(newPassword);
+        adminUser.setPassword(newPassword);
     }
 
     public static void main(String[] strings){
-        User user=new User();
-        user.setId(1L);
-        user.setUsername("admin");
-        user.setPassword("123456");
-        user.setSalt("123456");
-        encryptPassword(user);
-        System.out.println(user.toString());
+        AdminUser adminUser=new AdminUser();
+        adminUser.set("username", "admin")
+                .set("password", "123123");
+        encryptPassword(adminUser);
+        System.out.println(adminUser.toJson());
     }
 }

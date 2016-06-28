@@ -1,8 +1,8 @@
 package com.langmy.jFinal.common.shiro.realm;
 
+import com.langmy.jFinal.common.model.AdminUser;
 import com.langmy.jFinal.common.model.Permission;
 import com.langmy.jFinal.common.model.Role;
-import com.langmy.jFinal.common.model.User;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -33,8 +33,8 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();
 
-        User user = User.dao.findByUsername(username);
-        if (user == null) {
+        AdminUser adminUser = AdminUser.dao.findByUsername(username);
+        if (adminUser == null) {
             throw new UnknownAccountException();//没找到帐号
         }
 //
@@ -44,9 +44,9 @@ public class UserRealm extends AuthorizingRealm {
 
         //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getStr("username"), //用户名
-                user.getStr("password"), //密码
-                ByteSource.Util.bytes(user.getStr("username") + user.getStr("salt")),
+                adminUser.getStr("username"), //用户名
+                adminUser.getStr("password"), //密码
+                ByteSource.Util.bytes(adminUser.getStr("username") + adminUser.getStr("salt")),
                 getName()  //realm name
         );
         return authenticationInfo;

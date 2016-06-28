@@ -1,5 +1,6 @@
 jdbc.driverClassName=com.mysql.jdbc.Driver
-jdbc.url = jdbc:mysql://localhost:3306/jfinallearn?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#jdbc.url = jdbc:mysql://localhost:3306/jfinallearn?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+jdbc.url = jdbc:mysql://localhost:3306/shoukeJFinal?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
 jdbc.username = root
 jdbc.password = Shouke2015
 jdbc.dbType= mysql

@@ -2,6 +2,7 @@ package com.langmy.jFinal.common;
 
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
+import com.jagregory.shiro.freemarker.ShiroTags;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.ContextPathHandler;
@@ -11,14 +12,16 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
+import com.jfinal.render.FreeMarkerRender;
 import com.jfinal.render.ViewType;
-import com.langmy.jFinal.beetl.MyBeetlRenderFactory;
-import com.langmy.jFinal.common.handler.HtmlHandler;
 import com.langmy.jFinal.common.model._MappingKit;
 import com.langmy.jFinal.common.utils.ext.plugin.shiro.ShiroInterceptor;
 import com.langmy.jFinal.common.utils.ext.plugin.shiro.ShiroPlugin;
 import com.langmy.jFinal.common.utils.ext.route.AutoBindRoutes;
-import org.beetl.core.GroupTemplate;
+import com.langmy.jFinal.handler.FakeStaticHandler;
+import com.langmy.jFinal.handler.ResourceHandler;
+import com.langmy.jFinal.handler.SkipHandler;
+import com.langmy.jFinal.interceptor.CommonInterceptor;
 
 import java.util.Properties;
 
@@ -44,27 +47,40 @@ public class Config extends JFinalConfig {
         //loadPropertyFile("a_little_config.txt");
         me.setDevMode(getPropertyToBoolean("devMode"));
 
-        //		视图模板使用Freemarker
-//		me.setViewType(ViewType.FREE_MARKER);
-        me.setError401View("/html/401.html");//没登录
-        me.setError403View("/html/403.html");//没权限
-        me.setError404View("/html/404.html");
-        me.setError500View("/html/500.html");
         //配置模板
-        me.setMainRenderFactory(new MyBeetlRenderFactory());
+        //me.setMainRenderFactory(new MyBeetlRenderFactory());
         //获取GroupTemplate模板，可以设置共享变量操作
-        GroupTemplate groupTemplate = MyBeetlRenderFactory.groupTemplate;
+        //GroupTemplate groupTemplate = MyBeetlRenderFactory.groupTemplate;
+        //使用beetl Format 防御xss
+        //groupTemplate.registerFormat("xss", new XSSDefenseFormat());
 
-        me.setViewType(ViewType.JSP);
+        me.setViewType(ViewType.FREE_MARKER);
         me.setEncoding("UTF-8");
+        me.setFreeMarkerViewExtension("ftl");
+        me.setBaseUploadPath(AppConstants.UPLOAD_DIR);
+        me.setMaxPostSize(2048000);
+        me.setFreeMarkerTemplateUpdateDelay(0);
+
+        me.setError401View("/pages/html/401.html");//没登录
+        me.setError403View("/pages/html/403.html");//没权限
+        me.setError404View("/pages/html/404.html");
+        me.setError500View("/pages/html/500.html");
+
+        //shiro 对 freemarker 的支持
+        FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
     }
 
     @Override
     public void configHandler(Handlers me) {
         me.add(new ContextPathHandler("path"));
+
+        //me.add(new AccessDeniedHandler("/**/*.ftl"));
+        //me.add(new ResourceHandler("/static/**", "/images/**", "/css/**", "/lib/**", "/**/*.html"));
+        me.add(new ResourceHandler("/static/**"));
+        me.add(new FakeStaticHandler());
+        me.add(new SkipHandler("/im/**"));
         DruidStatViewHandler dvh = new DruidStatViewHandler("/druid");
         me.add(dvh);
-        me.add(new HtmlHandler());
     }
 
     @Override
@@ -73,7 +89,8 @@ public class Config extends JFinalConfig {
         me.add(new SessionInViewInterceptor());
         //shiro权限拦截器配置
         me.add(new ShiroInterceptor());
-        //me.add(new CommonInterceptor());
+        me.add(new CommonInterceptor());
+        //me.add(new UserInterceptor());
 
         //开发时不用开启  避免不能实时看到数据效果
 //    me.add(new CacheRemoveInterceptor());
@@ -159,10 +176,10 @@ public class Config extends JFinalConfig {
 //        }
 //    }
 
-/**
- * 建议使用 JFinal 手册推荐的方式启动项目
- * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
- */
+    /**
+     * 建议使用 JFinal 手册推荐的方式启动项目
+     * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
+     */
     public static void main(String[] args) {
         System.out.println(HashKit.md5("123456"));
         JFinal.start("src/main/webapp", 80, "/", 5);

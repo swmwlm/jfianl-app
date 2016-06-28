@@ -47,11 +47,12 @@ public class ShiroInterceptor implements Interceptor {
                 // RequiresRoles，RequiresPermissions授权异常
                 // 如果没有权限访问对应的资源，返回HTTP状态码403，或者调转到为授权页面
                 if (StrKit.notBlank(ShiroKit.getUnauthorizedUrl())) {
-//					ai.getController().redirect(ShiroKit.getUnauthorizedUrl());
-                    ai.getController().renderError(401);
+					//ai.getController().redirect(ShiroKit.getUnauthorizedUrl());
+                    ai.getController().render(ShiroKit.getUnauthorizedUrl());
                 } else {
                     ai.getController().renderError(403);
                 }
+                //ai.getController().renderError(403);
                 return;
             }
         }

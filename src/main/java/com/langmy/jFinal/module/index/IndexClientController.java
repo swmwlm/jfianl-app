@@ -2,8 +2,8 @@ package com.langmy.jFinal.module.index;
 
 import com.jfinal.plugin.activerecord.Page;
 import com.langmy.jFinal.common.BaseController;
-import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import com.langmy.jFinal.common.model.User;
+import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 
 @ControllerBind(controllerKey = "/api/index")
 public class IndexClientController extends BaseController {

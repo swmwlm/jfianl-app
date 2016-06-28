@@ -1,5 +1,6 @@
 package com.langmy.jFinal.common;
 
+import com.jfinal.kit.PathKit;
 import com.langmy.jFinal.common.model.SysConfig;
 
 /**
@@ -18,6 +19,16 @@ public class AppConstants {
   public static final String TEMP_USER = "tempUser";
 
   public static final String CURRENT_USER = "currentUser";
+
+
+  // 系统变量KEY
+//    public static final String UPLOAD_DIR = "/home/www/jfinalbbs/static/upload";
+  public static final String UPLOAD_DIR = PathKit.getWebRootPath() + "/static/upload";
+  public static final String UPLOAD_DIR_AVATAR = "avatar";
+  public static final String UPLOAD_DIR_LABEL = "label";
+  public static final String NOTIFICATION_MESSAGE = "有人@你";
+  public static final String NOTIFICATION_MESSAGE1 = "回复了你的话题";
+  public static final String NOTIFICATION_PRIVATE_MESSAGE = "给你发了一条私信";
 
 
   // COOKIE SESSION变量KEY
@@ -46,8 +57,12 @@ public class AppConstants {
   public static final String DEFAULT_CACHENAME = "defaultCache";
 
   public static final String SESSION_ADMIN_USERNAME = "admin_username";
+  //link
+  public static final String LINKLISTKEY = "linklistkey";
   //sysconfig
   public static final String SYSCONFIGCACHEKEY = "sysconfigcachekey";
+  //topic
+  public static final String TOPICCACHEKEY = "topiccachekey";
 
 
 
@@ -67,6 +82,14 @@ public class AppConstants {
   //role
   public static final String ROLECACHEKEY = "rolecachekey";
   public static final String PERMISSIONCACHEKEY = "permissioncachekey";
+
+  // 第三方
+  public static final String QQ = "qq";
+  public static final String SINA = "sina";
+
+  // 验证码类型
+  public static final String FORGET_PWD = "forgetpwd";
+  public static final String REG = "reg";
 
   public static String getValue(String key) {
     return SysConfig.dao.findByKey(key);

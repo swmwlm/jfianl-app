@@ -45,15 +45,16 @@ public class ShiroPlugin implements IPlugin {
     private String successUrl = "/admin/index";
 
     /**
-     * 登录成功时所用的页面。
+     * 登录页面。
      */
     private String loginUrl = "/adminlogin";
 
 
     /**
-     * 登录成功时所用的页面。
+     * 登录成功,未授权 所用的页面。
      */
-    private String unauthorizedUrl = "/401";
+    //private String unauthorizedUrl = "/403";
+    private String unauthorizedUrl = "/html/error_page.html";
 
 
     private final String SLASH = "/";
