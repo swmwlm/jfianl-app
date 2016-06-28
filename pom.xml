@@ -39,11 +39,11 @@
 			<version>26Dec2008</version>
 		</dependency>
 		<!--来自https://github.com/b1412/jfinal-ext-->
-		<dependency>
-			<groupId>com.jfinal</groupId>
-			<artifactId>jfinal-ext</artifactId>
-			<version>3.1.2</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.jfinal</groupId>-->
+			<!--<artifactId>jfinal-ext</artifactId>-->
+			<!--<version>3.1.2</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>cn.dreampie</groupId>
 			<artifactId>jfinal-mailer</artifactId>

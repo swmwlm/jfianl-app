@@ -11,6 +11,7 @@ import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.kit.HashKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.tx.TxByMethodRegex;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
@@ -91,6 +92,7 @@ public class Config extends JFinalConfig {
 
     @Override
     public void configInterceptor(Interceptors me) {
+        me.add(new TxByMethodRegex("(.*save.*|.*update.*|.*modify.*|.*insert.*)"));
         //让视图freemarker,beetl可以使用session
         me.add(new SessionInViewInterceptor());
         //shiro权限拦截器配置
