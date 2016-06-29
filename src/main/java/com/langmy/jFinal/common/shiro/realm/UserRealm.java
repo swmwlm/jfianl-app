@@ -10,11 +10,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class UserRealm extends AuthorizingRealm {
 
     @Override

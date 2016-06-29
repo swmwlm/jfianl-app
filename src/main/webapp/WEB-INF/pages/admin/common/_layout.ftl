@@ -68,7 +68,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>后台模板 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong>
+        <strong>后台模板学习地址 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong>
     </footer>
     <#include "/WEB-INF/pages/admin/common/controlAside.ftl">
     <@controlAside/>

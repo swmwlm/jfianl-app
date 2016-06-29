@@ -1,8 +1,4 @@
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 package com.langmy.jFinal.common.utils.ext;
 
 /**

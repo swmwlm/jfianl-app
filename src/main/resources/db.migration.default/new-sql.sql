@@ -304,7 +304,8 @@ VALUES
   (50,'setting:modifypwd','修改密码',18),
   (51,'topic:top','话题置顶',11),
   (53,'topic:good','话题加精',11),
-  (54,'topic:show_status','话题设置显示/不显示',11);
+  (54,'topic:show_status','话题设置显示/不显示',11),
+  (55,'setting:druid','MySQL监控',18);
 
 /*!40000 ALTER TABLE `sk_permission` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -406,6 +407,7 @@ VALUES
   (1,37),
   (1,38),
   (1,39),
+  (1,55),
   (2,1),
   (2,4),
   (2,5),

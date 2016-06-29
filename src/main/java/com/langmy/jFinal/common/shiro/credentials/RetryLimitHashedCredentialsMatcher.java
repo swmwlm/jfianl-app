@@ -10,11 +10,7 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 
     private Ehcache passwordRetryCache;

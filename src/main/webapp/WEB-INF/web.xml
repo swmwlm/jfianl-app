@@ -68,9 +68,9 @@
 	<!--jfinal end-->
 
 
-	<welcome-file-list>
-		<welcome-file>/view/index.html</welcome-file>
-	</welcome-file-list>
+	<!--<welcome-file-list>-->
+		<!--<welcome-file>/view/index.html</welcome-file>-->
+	<!--</welcome-file-list>-->
 	<!--session start-->
 	<session-config>
 		<session-timeout>20</session-timeout>

@@ -14,11 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class ImageUtil {
 
     /*

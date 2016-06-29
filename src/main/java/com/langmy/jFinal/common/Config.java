@@ -65,10 +65,10 @@ public class Config extends JFinalConfig {
         me.setMaxPostSize(2048000);
         me.setFreeMarkerTemplateUpdateDelay(0);
 
-        me.setError401View("/pages/html/401.html");//没登录
-        me.setError403View("/pages/html/403.html");//没权限
-        me.setError404View("/pages/html/404.html");
-        me.setError500View("/pages/html/500.html");
+        me.setError401View("/WEB-INF/pages/html/401.html");//没登录
+        me.setError403View("/WEB-INF/pages/html/403.html");//没权限
+        me.setError404View("/WEB-INF/pages/html/404.html");
+        me.setError500View("/WEB-INF/pages/html/500.html");
 
         //shiro 对 freemarker 的支持
         FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
@@ -86,7 +86,7 @@ public class Config extends JFinalConfig {
         //防xss攻击
         me.add(new AttackHandler());
 
-        DruidStatViewHandler dvh = new DruidStatViewHandler("/druid");
+        DruidStatViewHandler dvh = new DruidStatViewHandler("/admin/druid");
         me.add(dvh);
     }
 

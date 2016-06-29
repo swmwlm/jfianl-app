@@ -9,11 +9,7 @@ import javax.script.ScriptException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class MarkdownUtil {
 
     public static String marked(String content) {

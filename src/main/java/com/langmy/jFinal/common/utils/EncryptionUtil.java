@@ -2,11 +2,7 @@ package com.langmy.jFinal.common.utils;
 
 import com.jfinal.kit.HashKit;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class EncryptionUtil extends HashKit {
 
     /**

@@ -72,12 +72,16 @@
                 </li>
             </@shiro.hasPermission>
             <@shiro.hasPermission name="menu:setting">
-                <li class="treeview <#if page_tab="sysconfig" || page_tab="adminuser" || page_tab="role" || page_tab="permission" || page_tab="modifypwd">active</#if>">
+                <li class="treeview <#if page_tab="druid" || page_tab="sysconfig" || page_tab="adminuser" || page_tab="role" || page_tab="permission" || page_tab="modifypwd">active</#if>">
                     <a href="javascript:;">
                         <i class="fa fa-cogs"></i> <span>设置</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
+                        <@shiro.hasPermission name="setting:druid">
+                            <li <#if page_tab="druid"> class="active" </#if>><a
+                                    href="${path!}/admin/sysconfig/druid"><i class="fa fa-circle-o"></i> MySql监控</a></li>
+                        </@shiro.hasPermission>
                         <@shiro.hasPermission name="setting:sysconfig">
                             <li <#if page_tab="sysconfig"> class="active" </#if>><a
                                     href="${path!}/admin/sysconfig"><i class="fa fa-circle-o"></i> 系统设置</a></li>

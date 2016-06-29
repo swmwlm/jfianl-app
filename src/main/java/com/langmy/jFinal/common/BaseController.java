@@ -3,18 +3,13 @@ package com.langmy.jFinal.common;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.langmy.jFinal.common.model.AdminUser;
+import com.langmy.jFinal.common.model.User;
 import com.langmy.jFinal.common.utils.Result;
 import com.langmy.jFinal.common.utils.StrUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
 public class BaseController extends Controller {
-
     public Integer defaultPageSize() {
         return StrUtil.str2int(AppConstants.getValue("pageSize"));
     }
@@ -52,9 +47,9 @@ public class BaseController extends Controller {
      * @param token
      * @return
      */
-//    public User getUser(String token) {
-//        return User.dao.findByToken(token);
-//    }
+    public User getUser(String token) {
+        return User.dao.findByToken(token);
+    }
 
     /**
      * 根据用户名查询后台用户

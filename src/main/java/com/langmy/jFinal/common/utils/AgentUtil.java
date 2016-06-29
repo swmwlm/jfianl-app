@@ -2,11 +2,7 @@ package com.langmy.jFinal.common.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class AgentUtil {
 
     public static String IPAD = "ipad";

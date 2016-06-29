@@ -1,10 +1,6 @@
 package com.langmy.jFinal.common.utils;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class Result {
 
     private String code;

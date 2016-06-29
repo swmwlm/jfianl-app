@@ -6,11 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-/**
- * Created by Tomoya.
- * Copyright (c) 2016, All Rights Reserved.
- * http://jfinalbbs.com
- */
+
 public class DateUtil {
 
     public static final String FORMAT_DATETIME = "yyyy-MM-dd HH:mm:ss";
