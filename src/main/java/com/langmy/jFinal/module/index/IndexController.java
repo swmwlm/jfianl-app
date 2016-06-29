@@ -233,7 +233,7 @@ public class IndexController extends BaseController {
 							.set("expire_time", DateUtil.getMinuteAfter(new Date(), minute))
 							.set("target", email)
 							.save();
-					String sendHtml = new FreemarkerLoader("/template/mails/retrieve_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
+					String sendHtml = new FreemarkerLoader("template/mails/retrieve_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
 					try {
 						Mailer.sendHtml("shoukeApp-找回密码", sendHtml, email);
 						success();
@@ -254,7 +254,7 @@ public class IndexController extends BaseController {
 							.set("expire_time", DateUtil.getMinuteAfter(new Date(), minute))
 							.set("target", email)
 							.save();
-					String sendHtml = new FreemarkerLoader("/template/mails/signup_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
+					String sendHtml = new FreemarkerLoader("template/mails/signup_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
 					try {
 						Mailer.sendHtml("shoukeApp-账号注册", sendHtml, email);
 						success();

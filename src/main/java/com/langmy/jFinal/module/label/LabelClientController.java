@@ -1,17 +1,20 @@
 package com.langmy.jFinal.module.label;
 
+import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Page;
 import com.langmy.jFinal.common.BaseController;
 import com.langmy.jFinal.common.model.Label;
 import com.langmy.jFinal.common.model.Topic;
 import com.langmy.jFinal.common.utils.StrUtil;
 import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
+import com.langmy.jFinal.interceptor.ClientInterceptor;
 
 import java.util.List;
 
 @ControllerBind(controllerKey = "/api/label")
 public class LabelClientController extends BaseController {
-
+    //需要使用令牌验证通过
+    @Before(ClientInterceptor.class)
     public void index() {
         String name = getPara("name");
         if (StrUtil.isBlank(name)) {

@@ -7,6 +7,11 @@ import com.langmy.jFinal.common.model.User;
 import com.langmy.jFinal.common.utils.Result;
 import com.langmy.jFinal.common.utils.StrUtil;
 
+/**
+ * 验证令牌合法性,通过才可以执行相应的controller,
+ * 使用方式:例如,LabelClientController.index()
+ * 方法上加注解@Before(ClientInterceptor.class)
+ */
 public class ClientInterceptor implements Interceptor {
 
     public void intercept(Invocation inv) {

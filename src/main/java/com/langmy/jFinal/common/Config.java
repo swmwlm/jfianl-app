@@ -98,12 +98,8 @@ public class Config extends JFinalConfig {
         //shiro权限拦截器配置
         me.add(new ShiroInterceptor());
         me.add(new CommonInterceptor());
+        //有缺陷
         //me.add(new UserInterceptor());
-
-        //开发时不用开启  避免不能实时看到数据效果
-//    me.add(new CacheRemoveInterceptor());
-//    me.add(new CacheInterceptor());
-
     }
 
     @Override
@@ -133,13 +129,14 @@ public class Config extends JFinalConfig {
 
         // 配置ActiveRecord插件
         ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
+        // 所有配置在 MappingKit 中搞定
+        // 每次sql表有变动,可以使用GeneratorDemo搞定
+        _MappingKit.mapping(arp);
         me.add(arp);
         //单独映射表和实体关系
         //arp.addMapping("zc_user",ZcUser.class);
 
-        // 所有配置在 MappingKit 中搞定
-        // 每次sql表有变动,可以使用GeneratorDemo搞定
-        _MappingKit.mapping(arp);
+
 
         //启用本地缓存
         me.add(new EhCachePlugin());
