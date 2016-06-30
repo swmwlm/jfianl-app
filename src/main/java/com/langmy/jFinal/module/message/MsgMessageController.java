@@ -15,7 +15,7 @@ import com.langmy.jFinal.interceptor.UserInterceptor;
 import java.util.Date;
 import java.util.List;
 
-@ControllerBind(controllerKey = "/message", viewPath = "page")
+@ControllerBind(controllerKey = "/message", viewPath = "/WEB-INF/pages")
 @Before(UserInterceptor.class)
 public class MsgMessageController extends BaseController {
 

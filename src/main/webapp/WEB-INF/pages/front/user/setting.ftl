@@ -55,7 +55,7 @@
         <form action="${path!}/user/uploadAvatar" id="uploadAvatar" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="avatar">选择图片</label>
-                <input type="file" name="avatar" id="avatar">
+                <input type="file" class="form-control" name="avatar" id="avatar">
                 <p class="help-block">请选择正方形图片，否则会出现变形，支持格式：.gif.jpg.png.jpeg</p>
             </div>
             <button type="submit" class="btn btn-raised btn-info ">上传</button>

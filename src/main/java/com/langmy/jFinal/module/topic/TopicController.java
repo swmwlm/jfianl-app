@@ -12,7 +12,7 @@ import com.langmy.jFinal.interceptor.UserInterceptor;
 import java.util.Date;
 import java.util.List;
 
-@ControllerBind(controllerKey = "/topic", viewPath = "page")
+@ControllerBind(controllerKey = "/topic", viewPath = "/WEB-INF/pages")
 public class TopicController extends BaseController {
 
     public void index() {

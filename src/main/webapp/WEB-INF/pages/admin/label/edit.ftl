@@ -16,7 +16,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">编辑友链</h3>
         </div>
-        <form class="form-horizontal" action="edit" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="${path!}/admin/label/edit" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="${label.id!}">
             <div class="box-body">
                 <div class="form-group">

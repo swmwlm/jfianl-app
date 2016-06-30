@@ -14,7 +14,7 @@ import com.langmy.jFinal.interceptor.UserInterceptor;
 import java.util.Date;
 import java.util.List;
 
-@ControllerBind(controllerKey = "/reply", viewPath = "page")
+@ControllerBind(controllerKey = "/reply", viewPath = "/WEB-INF/pages")
 public class ReplyController extends BaseController {
 
     @Before(UserInterceptor.class)

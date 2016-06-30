@@ -20,12 +20,12 @@
         <div style="font-size: 12px;color: #838383; padding-top: 5px;">
             <span><a href="${path!}/user/${topic.author_id!}">${topic.nickname!}</a></span>
             <span>
-                &nbsp;•&nbsp;${topic.formatDate(topic.in_time)!}
+                &nbsp;•&nbsp;${topic.in_time!}
             </span>
             <span>&nbsp;•&nbsp;${topic.view!} 次浏览</span>
             <#if topic.modify_time??>
                 <span>&nbsp;•&nbsp;更新
-                    ${topic.formatDate(topic.modify_time)!}
+                    ${topic.modify_time!}
                 </span>
             </#if>
             <span>
@@ -80,14 +80,14 @@
             <div class="media" id="${reply.id!}">
                 <div class="media-left">
                     <a href="${path!}/user/${reply.author_id}">
-                        <img src="${reply.avatar!}" alt="avatar" class="media-object avatar">
+                        <img src="${imgPath!}/${reply.avatar!}" alt="avatar" class="media-object avatar">
                     </a>
                 </div>
                 <div class="media-body">
                     <div class="media-heading">
                         <p class="small-fade">
                             <a href="${path!}/user/${reply.author_id!}" data_class="atwho" data_id="${reply.author_id!}">${reply.nickname!}</a>
-                            <span>${reply.formatDate(reply.in_time)!}</span>
+                            <span>${reply.in_time!}</span>
                             <span class="pull-right">${reply_index + 1}楼</span>
                         </p>
                     </div>
@@ -158,7 +158,7 @@
             '|',
             'fullscreen'
         ];
-        editor.config.uploadImgUrl = '${path!}/upload';
+        editor.config.uploadImgUrl = '${path!}/upload/editor';
         editor.create();
 
         //==========wangEditor End============

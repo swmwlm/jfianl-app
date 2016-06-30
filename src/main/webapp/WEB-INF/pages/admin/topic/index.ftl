@@ -38,7 +38,7 @@
                                         <span class="label label-primary">精</span>
                                     </#if>
                                 </span>
-                                <a href="/topic/${topic.id!}.html" target="_blank">${topic.title!}</a>
+                                <a href="${path!}/topic/${topic.id!}.html" target="_blank">${topic.title!}</a>
                             </td>
                             <td>${topic.nickname!}</td>
                             <td>${topic.sectionName!}</td>

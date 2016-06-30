@@ -11,7 +11,7 @@ import com.langmy.jFinal.interceptor.UserInterceptor;
 import java.util.Date;
 
 
-@ControllerBind(controllerKey = "/collect", viewPath = "page")
+@ControllerBind(controllerKey = "/collect", viewPath = "/WEB-INF/pages")
 public class CollectController extends BaseController {
 
     @Before(UserInterceptor.class)

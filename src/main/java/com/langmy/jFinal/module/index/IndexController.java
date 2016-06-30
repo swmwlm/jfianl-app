@@ -14,6 +14,7 @@ import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -97,19 +98,18 @@ public class IndexController extends BaseController {
 				subject.login(usernamePasswordToken);
 				setSessionAttr(AppConstants.SESSION_ADMIN_USERNAME, username);
 				redirect("/admin/index");
-			}catch (ExcessiveAttemptsException e){
+			} catch (ExcessiveAttemptsException e) {
 				e.printStackTrace();
-				setAttr("error","多次登陆失败,10分钟后重试");
+				setAttr("error", "多次登陆失败,10分钟后重试");
 				render("front/adminlogin.ftl");
-			}
-			catch (AuthenticationException e) {
+			} catch (AuthenticationException e) {
 				e.printStackTrace();
 				CacheManager cacheManager = CacheManager.newInstance(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
 				Ehcache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
 				Element element = passwordRetryCache.get(username);
 				AtomicInteger retryCount = (AtomicInteger) element.getObjectValue();
 
-				setAttr("error", "用户名或密码错误,重试次数:"+retryCount.intValue());
+				setAttr("error", "用户名或密码错误,重试次数:" + retryCount.intValue());
 				render("front/adminlogin.ftl");
 			}
 		}
@@ -226,7 +226,7 @@ public class IndexController extends BaseController {
 	}
 
 	public void sendValiCode() {
-		int minute=30;
+		int minute = 30;
 		String email = getPara("email");
 		if (StrUtil.isBlank(email)) {
 			error("邮箱不能为空");
@@ -310,17 +310,47 @@ public class IndexController extends BaseController {
 	}
 
 	public void upload() {
-		List<UploadFile> uploadFiles = getFiles("imgs");
+		String paramPath = getPara(0).trim();
+		if (StringUtils.isBlank(paramPath)) {
+			error("上传的相对路径未指定");
+		}
+		//过滤未在配置中的上传路径
+		boolean flag=false;
+		switch (paramPath){
+			case AppConstants.UPLOAD_DIR_AVATAR:
+				flag=true;
+			case AppConstants.UPLOAD_DIR_EDITOR:
+				flag=true;
+			case AppConstants.UPLOAD_DIR_LABEL:
+				flag=true;
+			default: flag=false;
+		}
+		if(!flag)
+			error("上传的相对路径参数是未知的");
+
+		List<UploadFile> uploadFiles = getFiles(paramPath);
 //        System.out.println(uploadFile.getOriginalFileName());//图片原来的名字
 //        System.out.println(uploadFile.getFileName());//图片保存到服务器的名字
+
+		//按天来创建文件夹
+		String dateFolder="/"+ DateUtil.formatDate(DateUtil.getCurrentDateTime())+"/";
+		String relativePath= "/"+paramPath+dateFolder;
+		String destFolder= AppConstants.UPLOAD_DIR+relativePath;
+
+		File destFile=new File(destFolder);
+		if(!destFile.exists()){
+			destFile.mkdirs();
+		}
+
+
 		List<String> imgFiles = new ArrayList<String>();
 		for (UploadFile uf : uploadFiles) {
 			String contentType = uf.getContentType();
 			String suffix = "." + contentType.split("/")[1];
-			String newName = StrUtil.randomString(16);
-			File file = new File(uf.getUploadPath() + "/" + uf.getFileName());
-			file.renameTo(new File(uf.getUploadPath() + "/" + newName + suffix));
-			imgFiles.add("/static/upload/imgs/" + newName + suffix);
+			String newName = StrUtil.getUUID().concat(suffix);
+
+			uf.getFile().renameTo(new File(destFolder+newName));
+			imgFiles.add(AppConstants.IMG_HOSTURL+relativePath+newName);
 		}
 		if (imgFiles.size() == 1) {
 			renderText(imgFiles.get(0));

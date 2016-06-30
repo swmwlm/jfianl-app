@@ -42,7 +42,7 @@
                     <li <#if page_tab == 'message'> class="active" </#if>><a href="${path!}/user/message/${session.user.id!}">通知 <span class="badge" id="badge"></span></a></li>
                     <li class="dropdown">
                         <a href="${path!}/user/${session.user.id!}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                            <img src="${session.user.avatar!}" width="20" style="border-radius: 20px;"/>
+                            <img src="${imgPath}/${session.user.avatar!}" width="20" style="border-radius: 20px;"/>
                             ${session.user.nickname!}
                             <span class="caret"></span>
                         </a>

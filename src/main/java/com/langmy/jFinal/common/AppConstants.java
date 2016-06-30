@@ -1,13 +1,10 @@
 package com.langmy.jFinal.common;
 
-import com.jfinal.kit.PathKit;
 import com.langmy.jFinal.common.model.SysConfig;
 
 public class AppConstants {
   //默认字符编码
   public static final String DEFAULT_ENCODING = "UTF-8";
-  //数据源
-  public static final String DEFAULT_DATESOURCE = "db/migration/default";
   //验证码
   public static final String CAPTCHA_NAME = "captcha";
   //保存用户信息
@@ -20,9 +17,13 @@ public class AppConstants {
 
   // 系统变量KEY
 //    public static final String UPLOAD_DIR = "/home/www/jfinalbbs/static/upload";
-  public static final String UPLOAD_DIR = PathKit.getWebRootPath() + "/static/upload";
+  //public static final String UPLOAD_DIR = PathKit.getWebRootPath() + "/static/upload";
+  public static final String IMG_HOSTURL="http://localhost:8080/uploads";
+  public static final String UPLOAD_DIR= "/Users/wangguanping/sk/JFinalLearn-new-upload";
   public static final String UPLOAD_DIR_AVATAR = "avatar";
   public static final String UPLOAD_DIR_LABEL = "label";
+  public static final String UPLOAD_DIR_EDITOR = "editor";
+
   public static final String NOTIFICATION_MESSAGE = "有人@你";
   public static final String NOTIFICATION_MESSAGE1 = "回复了你的话题";
   public static final String NOTIFICATION_PRIVATE_MESSAGE = "给你发了一条私信";

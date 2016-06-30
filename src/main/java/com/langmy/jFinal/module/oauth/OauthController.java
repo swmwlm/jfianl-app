@@ -17,7 +17,7 @@ import com.qq.connect.oauth.Oauth;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@ControllerBind(controllerKey = "/oauth", viewPath = "page")
+@ControllerBind(controllerKey = "/oauth", viewPath = "/WEB-INF/pages")
 public class OauthController extends BaseController {
 
     /**

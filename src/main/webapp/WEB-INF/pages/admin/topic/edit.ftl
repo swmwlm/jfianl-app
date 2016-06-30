@@ -129,7 +129,7 @@
             '|',
             'fullscreen'
         ];
-        editor.config.uploadImgUrl = '${path!}/upload';
+        editor.config.uploadImgUrl = '${path!}/upload/editor';
         editor.create();
         //==========wangEditor End============
 

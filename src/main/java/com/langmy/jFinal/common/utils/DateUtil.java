@@ -12,6 +12,10 @@ public class DateUtil {
     public static final String FORMAT_DATETIME = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_DATE = "yyyy-MM-dd";
 
+    public static Date getCurrentDateTime(){
+        return new Date();
+    }
+
     public static String formatDateTime(Date date) {
         if (date == null) return null;
         SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_DATETIME);

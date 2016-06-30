@@ -12,7 +12,7 @@
             <div class="media">
                 <div class="media-left">
                     <a href="${path!}/user/${session.user.id!}" style="text-decoration: none;">
-                        <img src="${session.user.avatar!}" title="${session.user.nickname!}" class="avatar">
+                        <img src="${imgPath!}/${session.user.avatar!}" title="${session.user.nickname!}" class="avatar">
                     </a>
                 </div>
                 <div class="media-body">
@@ -46,7 +46,7 @@
         <div class="media">
             <div class="media-left">
                 <a href="${path!}/user/${topic.author_id!}" style="text-decoration: none;">
-                    <img src="${topic.avatar!}" title="${topic.nickname!}" class="avatar">
+                    <img src="${imgPath!}/${topic.avatar!}" title="${topic.nickname!}" class="avatar">
                 </a>
             </div>
             <div class="media-body">

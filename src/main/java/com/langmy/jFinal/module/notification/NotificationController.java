@@ -8,7 +8,7 @@ import com.langmy.jFinal.common.model.User;
 import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import com.langmy.jFinal.interceptor.UserInterceptor;
 
-@ControllerBind(controllerKey = "/notification", viewPath = "page")
+@ControllerBind(controllerKey = "/notification", viewPath = "/WEB-INF/pages")
 public class NotificationController extends BaseController {
 
     @Before(UserInterceptor.class)

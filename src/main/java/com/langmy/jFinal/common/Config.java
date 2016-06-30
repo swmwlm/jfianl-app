@@ -26,6 +26,7 @@ import com.langmy.jFinal.handler.ResourceHandler;
 import com.langmy.jFinal.handler.SkipHandler;
 import com.langmy.jFinal.handler.xss.AttackHandler;
 import com.langmy.jFinal.interceptor.CommonInterceptor;
+import freemarker.template.TemplateModelException;
 
 import java.util.Properties;
 
@@ -72,6 +73,11 @@ public class Config extends JFinalConfig {
 
         //shiro 对 freemarker 的支持
         FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
+        try {
+            FreeMarkerRender.getConfiguration().setSharedVariable("imgPath", AppConstants.IMG_HOSTURL);
+        } catch (TemplateModelException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -160,7 +166,10 @@ public class Config extends JFinalConfig {
 
     @Override
     public void afterJFinalStart() {
-        super.afterJFinalStart();
+        //设置全局变量
+        //JFinal.me().getServletContext().setAttribute("imgPath",AppConstants.IMG_HOSTURL);
+        //FreeMarkerRender.getConfiguration().setSharedVariable("imgPath",AppConstants.IMG_HOSTURL);
+        //super.afterJFinalStart();
     }
 
     /**

@@ -12,7 +12,7 @@ import com.langmy.jFinal.interceptor.UserInterceptor;
 import java.util.Date;
 import java.util.Random;
 
-@ControllerBind(controllerKey = "/mission", viewPath = "page")
+@ControllerBind(controllerKey = "/mission", viewPath = "/WEB-INF/pages")
 public class MissionController extends BaseController {
 
     // 每日登录后，点击领取积分，可用于发帖，回复等
