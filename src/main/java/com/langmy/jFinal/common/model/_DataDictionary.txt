@@ -32,8 +32,6 @@ Table: sk_area
  pid        | BIGINT(19)          | YES  |     | 0                   | 父级编号    
  area_code  | VARCHAR(6)          | YES  |     |                     |         
  zip_code   | VARCHAR(6)          | YES  |     |                     | 邮编      
- left_code  | BIGINT(19)          | YES  |     | 0                   | 左编码     
- right_code | BIGINT(19)          | YES  |     | 0                   | 右编码     
  created_at | TIMESTAMP(19)       | NO   |     | CURRENT_TIMESTAMP   |         
  updated_at | TIMESTAMP(19)       | NO   |     | 0000-00-00 00:00:00 |         
  deleted_at | TIMESTAMP(19)       | NO   |     | 0000-00-00 00:00:00 |         

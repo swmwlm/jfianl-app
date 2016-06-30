@@ -57,22 +57,6 @@ public abstract class BaseArea<M extends BaseArea<M>> extends Model<M> implement
 		return get("zip_code");
 	}
 
-	public void setLeftCode(java.lang.Long leftCode) {
-		set("left_code", leftCode);
-	}
-
-	public java.lang.Long getLeftCode() {
-		return get("left_code");
-	}
-
-	public void setRightCode(java.lang.Long rightCode) {
-		set("right_code", rightCode);
-	}
-
-	public java.lang.Long getRightCode() {
-		return get("right_code");
-	}
-
 	public void setCreatedAt(java.util.Date createdAt) {
 		set("created_at", createdAt);
 	}
