@@ -11,9 +11,13 @@ import com.langmy.jFinal.common.model.*;
 import com.langmy.jFinal.common.utils.DateUtil;
 import com.langmy.jFinal.common.utils.StrUtil;
 import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
 import org.apache.commons.mail.EmailException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
@@ -21,6 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @ControllerBind(controllerKey = "/", viewPath = "/WEB-INF/pages")
 public class IndexController extends BaseController {
@@ -92,9 +97,19 @@ public class IndexController extends BaseController {
 				subject.login(usernamePasswordToken);
 				setSessionAttr(AppConstants.SESSION_ADMIN_USERNAME, username);
 				redirect("/admin/index");
-			} catch (AuthenticationException e) {
+			}catch (ExcessiveAttemptsException e){
 				e.printStackTrace();
-				setAttr("error", "用户名或密码错误");
+				setAttr("error","多次登陆失败,10分钟后重试");
+				render("front/adminlogin.ftl");
+			}
+			catch (AuthenticationException e) {
+				e.printStackTrace();
+				CacheManager cacheManager = CacheManager.newInstance(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
+				Ehcache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
+				Element element = passwordRetryCache.get(username);
+				AtomicInteger retryCount = (AtomicInteger) element.getObjectValue();
+
+				setAttr("error", "用户名或密码错误,重试次数:"+retryCount.intValue());
 				render("front/adminlogin.ftl");
 			}
 		}
