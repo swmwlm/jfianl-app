@@ -24,7 +24,7 @@
                     <td style="vertical-align: middle;padding:4px;">${user_index + 1}</td>
                     <td style="vertical-align: middle;padding:4px; max-width: 150px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
                         <a href="${path!}/user/${user.id!}">
-                            <img src="${user.avatar!}" width="30">
+                            <img src="${imgPath!}/${user.avatar!}" width="30">
                         </a>
                         &nbsp;${user.nickname!}
                     </td>

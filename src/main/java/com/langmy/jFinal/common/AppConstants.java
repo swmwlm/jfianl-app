@@ -23,6 +23,8 @@ public class AppConstants {
   public static final String UPLOAD_DIR_AVATAR = "avatar";
   public static final String UPLOAD_DIR_LABEL = "label";
   public static final String UPLOAD_DIR_EDITOR = "editor";
+  //上传异常
+  public static final String UPLOAD_ERROR_MESSAGE = "非法路径参数";
 
   public static final String NOTIFICATION_MESSAGE = "有人@你";
   public static final String NOTIFICATION_MESSAGE1 = "回复了你的话题";
@@ -49,7 +51,6 @@ public class AppConstants {
   // http请求方式
   public static final String GET = "get";
   public static final String POST = "post";
-
 
 
   public static final String DEFAULT_CACHENAME = "defaultCache";

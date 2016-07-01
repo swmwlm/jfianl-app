@@ -22,7 +22,7 @@
                 <tr>
                     <td style="vertical-align: middle;padding:4px;">${user_index + 1}</td>
                     <td style="vertical-align: middle;padding:4px; max-width: 150px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
-                        <img src="${user.avatar!}" width="30">
+                        <img src="${imgPath!}/${user.avatar!}" width="30">
                         &nbsp;${user.nickname!}
                     </td>
                     <td style="vertical-align: middle;padding:4px;">${user.day!}</td>

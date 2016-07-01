@@ -4,7 +4,6 @@ import cn.dreampie.mail.Mailer;
 import cn.dreampie.template.freemarker.FreemarkerLoader;
 import com.jfinal.kit.HashKit;
 import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.upload.UploadFile;
 import com.langmy.jFinal.common.AppConstants;
 import com.langmy.jFinal.common.BaseController;
 import com.langmy.jFinal.common.model.*;
@@ -15,7 +14,6 @@ import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,8 +21,6 @@ import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -312,43 +308,10 @@ public class IndexController extends BaseController {
 
 	public void upload() {
 		String paramPath = getPara(0).trim();
-
-		if(!FileUploadUtil.checkSecurityPath(paramPath)){
-			error("非法参数路径");
-		}
-
-		List<UploadFile> uploadFiles = getFiles(paramPath);
-//        System.out.println(uploadFile.getOriginalFileName());//图片原来的名字
-//        System.out.println(uploadFile.getFileName());//图片保存到服务器的名字
-
-		//按天来创建文件夹
-		String dateFolder="/"+ DateUtil.formatDate(DateUtil.getCurrentDateTime())+"/";
-		String relativePath= "/"+paramPath+dateFolder;
-		String destFolder= AppConstants.UPLOAD_DIR+relativePath;
-
-		File destFile=new File(destFolder);
-		if(!destFile.exists()){
-			destFile.mkdirs();
-		}
-
-
-		List<String> imgFiles = new ArrayList<String>();
-		for (UploadFile uf : uploadFiles) {
-			//String contentType = uf.getContentType();
-			//String suffix = "." + contentType.split("/")[1];
-			//String newName = StrUtil.getUUID().concat(suffix);
-
-
-			String newName=FileUploadUtil.randomFileName(FilenameUtils.getExtension(uf.getOriginalFileName()));
-
-			uf.getFile().renameTo(new File(destFolder+newName));
-			imgFiles.add(AppConstants.IMG_HOSTURL+relativePath+newName);
-		}
-		if (imgFiles.size() == 1) {
-			renderText(imgFiles.get(0));
-		} else {
-			renderText(imgFiles.toString());
-		}
+		//获取图片的相对路径
+		String relativePath=FileUploadUtil.upload(paramPath,getFiles(paramPath));
+		//富编辑器里需要加上图片访问路径 ,因为有XSS过滤,只有src的protocol 为http或者https 的才能保存;
+		renderText(AppConstants.IMG_HOSTURL+relativePath);
 	}
 
 	public void api() {

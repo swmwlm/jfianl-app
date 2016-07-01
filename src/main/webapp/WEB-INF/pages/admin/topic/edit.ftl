@@ -1,8 +1,8 @@
 <#include "/WEB-INF/pages/admin/common/_layout.ftl"/>
 <@layout page_tab="topic">
-<link rel="stylesheet" href="${path!}/static/wangEditor/css/wangEditor.css">
+<link rel="stylesheet" href="${path!}/static/component/wangEditor/css/wangEditor.css">
 <link href="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.css" rel="stylesheet">
-<script src="${path!}/static/wangEditor/js/wangEditor.js"></script>
+<script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
 <script src="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <section class="content-header">
     <h1>

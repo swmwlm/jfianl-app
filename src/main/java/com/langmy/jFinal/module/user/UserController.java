@@ -2,20 +2,18 @@ package com.langmy.jFinal.module.user;
 
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.upload.UploadFile;
 import com.langmy.jFinal.common.AppConstants;
 import com.langmy.jFinal.common.BaseController;
 import com.langmy.jFinal.common.model.Collect;
 import com.langmy.jFinal.common.model.Notification;
 import com.langmy.jFinal.common.model.Topic;
 import com.langmy.jFinal.common.model.User;
-import com.langmy.jFinal.common.utils.DateUtil;
+import com.langmy.jFinal.common.utils.FileUploadUtil;
 import com.langmy.jFinal.common.utils.ImageUtil;
 import com.langmy.jFinal.common.utils.StrUtil;
 import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import com.langmy.jFinal.interceptor.UserInterceptor;
 
-import java.io.File;
 import java.util.List;
 
 
@@ -163,30 +161,13 @@ public class UserController extends BaseController {
 
     @Before(UserInterceptor.class)
     public void uploadAvatar() throws Exception {
-        //UploadFile uploadFile = getFile("avatar", AppConstants.UPLOAD_DIR_AVATAR);
-        UploadFile uploadFile = getFile(AppConstants.UPLOAD_DIR_AVATAR);
 
-        //按天来创建文件夹
-        String dateFolder="/"+ DateUtil.formatDate(DateUtil.getCurrentDateTime())+"/";
-        String relativePath= "/"+AppConstants.UPLOAD_DIR_AVATAR+dateFolder;
-        String destFolder= AppConstants.UPLOAD_DIR+relativePath;
-
-        File destFile=new File(destFolder);
-        if(!destFile.exists()){
-            destFile.mkdirs();
-        }
-
-        String contentType = uploadFile.getContentType();
-        String suffix = "." + contentType.split("/")[1];
-        String newName = StrUtil.getUUID().concat(suffix);
-
-        String realPath=destFolder+newName;
-        uploadFile.getFile().renameTo(new File(realPath));
-        String path=relativePath+newName;
+        String relativePath=FileUploadUtil.upload(AppConstants.UPLOAD_DIR_AVATAR,getFiles(AppConstants.UPLOAD_DIR_AVATAR));
 
         User user = (User) getSession().getAttribute(AppConstants.USER_SESSION);
-        user.set("avatar", path).update();
+        user.set("avatar", relativePath).update();
         //裁剪图片
+        String realPath=AppConstants.UPLOAD_DIR+relativePath;
         ImageUtil.zoomImage(realPath, realPath, 100, 100);
         redirect("/user/setting");
     }

@@ -1,9 +1,9 @@
 <#include "/WEB-INF/pages/front/common/_layout.ftl"/>
 <@html title="编辑话题 - ${siteTitle!}" description="编辑话题" sidebar_create_info="show" page_tab="topic">
 <link href="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${path!}/static/wangEditor/css/wangEditor.css">
+<link rel="stylesheet" href="${path!}/static/component/wangEditor/css/wangEditor.css">
 <script src="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="${path!}/static/wangEditor/js/wangEditor.js"></script>
+<script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
 
 <div class="panel panel-default">
     <div class="panel-heading">

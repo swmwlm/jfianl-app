@@ -1,10 +1,10 @@
 <#include "/WEB-INF/pages/front/common/_layout.ftl"/>
 <@html title="${topic.title!} - ${siteTitle!}" description="${topic.title!}" page_tab="topic" sidebar_topic_user="show"
     sidebar_other_topic="show" sidebar_xgtopic="show">
-<link rel="stylesheet" href="${path!}/static/wangEditor/css/wangEditor.css">
+<link rel="stylesheet" href="${path!}/static/component/wangEditor/css/wangEditor.css">
 <link rel="stylesheet" href="${path!}/static/css/jquery.atwho.min.css">
 <script src="${path!}/static/js/lodash.min.js"></script>
-<script src="${path!}/static/wangEditor/js/wangEditor.js"></script>
+<script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
 <script src="${path!}/static/js/jquery.atwho.min.js"></script>
 
 <div class="panel panel-default">
