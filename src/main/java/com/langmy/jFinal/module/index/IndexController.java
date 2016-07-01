@@ -9,12 +9,13 @@ import com.langmy.jFinal.common.AppConstants;
 import com.langmy.jFinal.common.BaseController;
 import com.langmy.jFinal.common.model.*;
 import com.langmy.jFinal.common.utils.DateUtil;
+import com.langmy.jFinal.common.utils.FileUploadUtil;
 import com.langmy.jFinal.common.utils.StrUtil;
 import com.langmy.jFinal.common.utils.ext.route.ControllerBind;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -311,22 +312,10 @@ public class IndexController extends BaseController {
 
 	public void upload() {
 		String paramPath = getPara(0).trim();
-		if (StringUtils.isBlank(paramPath)) {
-			error("上传的相对路径未指定");
+
+		if(!FileUploadUtil.checkSecurityPath(paramPath)){
+			error("非法参数路径");
 		}
-		//过滤未在配置中的上传路径
-		boolean flag=false;
-		switch (paramPath){
-			case AppConstants.UPLOAD_DIR_AVATAR:
-				flag=true;
-			case AppConstants.UPLOAD_DIR_EDITOR:
-				flag=true;
-			case AppConstants.UPLOAD_DIR_LABEL:
-				flag=true;
-			default: flag=false;
-		}
-		if(!flag)
-			error("上传的相对路径参数是未知的");
 
 		List<UploadFile> uploadFiles = getFiles(paramPath);
 //        System.out.println(uploadFile.getOriginalFileName());//图片原来的名字
@@ -345,9 +334,12 @@ public class IndexController extends BaseController {
 
 		List<String> imgFiles = new ArrayList<String>();
 		for (UploadFile uf : uploadFiles) {
-			String contentType = uf.getContentType();
-			String suffix = "." + contentType.split("/")[1];
-			String newName = StrUtil.getUUID().concat(suffix);
+			//String contentType = uf.getContentType();
+			//String suffix = "." + contentType.split("/")[1];
+			//String newName = StrUtil.getUUID().concat(suffix);
+
+
+			String newName=FileUploadUtil.randomFileName(FilenameUtils.getExtension(uf.getOriginalFileName()));
 
 			uf.getFile().renameTo(new File(destFolder+newName));
 			imgFiles.add(AppConstants.IMG_HOSTURL+relativePath+newName);

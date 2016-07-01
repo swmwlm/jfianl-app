@@ -21,7 +21,7 @@
                         <p><a href="${path!}/message/read/${contact.id!}">${contact.last_msg_content!}...</a></p>
                     </div>
                     <p class="small-fade">
-                        <span>${contact.formatDate(contact.last_msg_time)!}</span>
+                        <span>${contact.last_msg_time!}</span>
                         <a href="${path!}/message/read/${contact.id!}">共${contact.msg_count!}条对话</a>
                         &nbsp;•&nbsp;<a href="javascript:if(confirm('确定要删除这条会话吗？\r\n注意: 这会删除当前会话下的所有信息!!')) location.href='${path!}/message/delete/${contact.id!}'">删除</a>
                     </p>

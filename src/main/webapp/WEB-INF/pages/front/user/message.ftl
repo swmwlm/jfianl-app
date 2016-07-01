@@ -10,7 +10,7 @@
     <#list notifications as notification>
         <div class="panel-body">
             <a href="${path!}/user/${notification.from_author_id!}" target="_blank">${notification.nickname!} </a>
-            ${notification.formatDate(notification.in_time)!}
+            ${notification.in_time!}
             ${notification.action!}
             <#if notification.source == 'topic'>
                 <a href="${path!}/topic/${notification.target_id!}" target="_blank">${notification.message!}</a>

@@ -48,7 +48,7 @@
                             ${message.content!}
                         </p>
                         <p class="small-fade">
-                            ${message.formatDate(message.in_time)!}
+                            ${message.in_time!}
                         </p>
                     </div>
                 </div>

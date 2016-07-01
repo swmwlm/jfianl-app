@@ -50,6 +50,10 @@
     <!-- jQuery UI 1.11.4 -->
     <#--<script src="${path!}/static/bootstrap/js/jquery-ui.js"></script>-->
     <script src="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <script src="${path!}/static/component/plupload-2.1.9/js/plupload.full.min.js"></script>
+    <script src="${path!}/static/component/plupload-2.1.9/js/i18n/zh_CN.js"></script>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

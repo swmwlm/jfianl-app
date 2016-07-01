@@ -88,7 +88,7 @@ public class Config extends JFinalConfig {
         //me.add(new ResourceHandler("/static/**", "/images/**", "/css/**", "/lib/**", "/**/*.html"));
         me.add(new ResourceHandler("/static/**"));
         me.add(new FakeStaticHandler());
-        me.add(new SkipHandler("/im/**"));
+        me.add(new SkipHandler("/static/**"));
         //防xss攻击
         me.add(new AttackHandler());
 

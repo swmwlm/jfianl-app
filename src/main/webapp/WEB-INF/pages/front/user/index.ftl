@@ -27,7 +27,7 @@
                 </p>
                 <p>
                     <span class="glyphicon glyphicon-log-in"></span>
-                    注册时间 ${current_user.formatDate(current_user.in_time)!}&nbsp;&nbsp;
+                    注册时间 ${current_user.in_time!}&nbsp;&nbsp;
                     <#if day??>
                         已连续签到<a href="${path!}/mission/top10" style="font-size: 20px; color: red;"> ${day!} </a>天
                     </#if>
