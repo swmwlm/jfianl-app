@@ -10,7 +10,7 @@
     <div class="panel-body">
         <div class="media">
             <div class="media-left">
-                <img class="big-avatar" src="${current_user.avatar!}" title="${current_user.nickname!}">
+                <img class="big-avatar" src="${imgPath!}/${current_user.avatar!}" title="${current_user.nickname!}">
             </div>
             <div class="media-body">
                 <h3 class="media-heading">

@@ -162,7 +162,7 @@ LOCK TABLES `sk_link` WRITE;
 
 INSERT INTO `sk_link` (`id`, `name`, `url`, `display_index`)
 VALUES
-  (1,'JFinalbbs','http://www.jfinalbbs.com/',1);
+  (1,'GOOGLE','http://google.com/',1);
 
 /*!40000 ALTER TABLE `sk_link` ENABLE KEYS */;
 UNLOCK TABLES;

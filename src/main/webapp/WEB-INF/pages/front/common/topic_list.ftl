@@ -3,7 +3,7 @@
     <div class="media">
         <div class="media-left">
             <a href="${path!}/user/${topic.author_id}">
-                <img src="${topic.avatar!}" alt="avatar" class="media-object avatar">
+                <img src="${imgPath!}/${topic.avatar!}" alt="avatar" class="media-object avatar">
             </a>
         </div>
         <div class="media-body">
@@ -24,7 +24,7 @@
         <#if topic.last_reply_author_avatar??>
             <div class="media-right">
                 <a href="${path!}/user/${topic.last_reply_author_id}" title="最后回复">
-                    <img src="${topic.last_reply_author_avatar}" width="25" style="border-radius: 25px;" />
+                    <img src="${imgPath!}/${topic.last_reply_author_avatar}" width="25" style="border-radius: 25px;" />
                 </a>
             </div>
         </#if>
