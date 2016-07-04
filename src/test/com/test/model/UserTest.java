@@ -1,7 +1,7 @@
 package com.test.model;
 
 import com.jfinal.kit.JsonKit;
-import com.langmy.jFinal.common.model.AdminUser;
+import com.shoukeplus.jFinal.common.model.AdminUser;
 import com.test.common.DBInit;
 import org.junit.Before;
 import org.junit.Test;

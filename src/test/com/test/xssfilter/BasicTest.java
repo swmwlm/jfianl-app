@@ -1,6 +1,6 @@
 package com.test.xssfilter;
 
-import com.langmy.jFinal.handler.xss.xssfilter.XssFilter;
+import com.shoukeplus.jFinal.handler.xss.xssfilter.XssFilter;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.junit.Assert;

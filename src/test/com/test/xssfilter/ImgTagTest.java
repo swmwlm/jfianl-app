@@ -1,6 +1,6 @@
 package com.test.xssfilter;
 
-import com.langmy.jFinal.handler.xss.xssfilter.XssFilter;
+import com.shoukeplus.jFinal.handler.xss.xssfilter.XssFilter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

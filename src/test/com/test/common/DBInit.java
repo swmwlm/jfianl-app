@@ -6,7 +6,7 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
-import com.langmy.jFinal.common.model._MappingKit;
+import com.shoukeplus.jFinal.common.model._MappingKit;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -3,7 +3,7 @@ package com.test.common;
 import cn.dreampie.quartz.QuartzKey;
 import cn.dreampie.quartz.QuartzPlugin;
 import cn.dreampie.quartz.job.QuartzOnceJob;
-import com.langmy.jFinal.jobs.DemoJob;
+import com.shoukeplus.jFinal.jobs.DemoJob;
 import org.junit.Test;
 
 import java.util.Date;

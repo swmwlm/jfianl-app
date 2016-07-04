@@ -27,12 +27,12 @@ public class GeneratorDemo {
 	
 	public static void main(String[] args) {
 		// base model 所使用的包名
-		String baseModelPackageName = "com.langmy.jFinal.common.model.base";
+		String baseModelPackageName = "com.shoukeplus.jFinal.common.model.base";
 		// base model 文件保存路径
-		String baseModelOutputDir = PathKit.getWebRootPath() + "/src/main/java/com/langmy/jFinal/common/model/base";
+		String baseModelOutputDir = PathKit.getWebRootPath() + "/src/main/java/com/shoukeplus/jFinal/common/model/base";
 		
 		// model 所使用的包名 (MappingKit 默认使用的包名)
-		String modelPackageName = "com.langmy.jFinal.common.model";
+		String modelPackageName = "com.shoukeplus.jFinal.common.model";
 		// model 文件保存路径 (MappingKit 与 DataDictionary 文件默认保存路径)
 		String modelOutputDir = baseModelOutputDir + "/..";
 		
