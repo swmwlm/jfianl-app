@@ -611,4 +611,24 @@ CREATE TABLE sk_area (
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP,
   deleted_at TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+# 字典表
+DROP TABLE IF EXISTS sk_dict;
+CREATE TABLE IF NOT EXISTS sk_dict (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) NOT NULL COMMENT '类型',
+  `key` VARCHAR(50) NOT NULL COMMENT 'key',
+  `value` VARCHAR(50) NOT NULL COMMENT 'value',
+  `sort` int(4) NOT NULL COMMENT '排序',
+  `remark` varchar(255) NOT NULL COMMENT '备注信息',
+  `createdTime` TIMESTAMP NOT NULL COMMENT '创建时间',
+  `updatedTime` TIMESTAMP NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `unq_type_key` UNIQUE (`type`,`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+INSERT INTO `sk_dict` (`id`, `type`, `key`, `value`, `sort`, `remark`,`createdTime`,`updatedTime`)
+VALUES
+  (1,'sex','male','男',0,'性别',current_timestamp,null),
+  (2,'sex','remail','女',1,'性别',current_timestamp,null)

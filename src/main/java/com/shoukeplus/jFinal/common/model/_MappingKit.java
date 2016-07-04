@@ -20,6 +20,7 @@ public class _MappingKit {
 		arp.addMapping("sk_admin_user", "id", AdminUser.class);
 		arp.addMapping("sk_area", "areaId", Area.class);
 		arp.addMapping("sk_collect", "id", Collect.class);
+		arp.addMapping("sk_dict", "id", Dict.class);
 		arp.addMapping("sk_donate", "id", Donate.class);
 		arp.addMapping("sk_label", "id", Label.class);
 		arp.addMapping("sk_label_topic_id", "id", LabelTopicId.class);
