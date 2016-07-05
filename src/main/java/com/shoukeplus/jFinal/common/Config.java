@@ -26,6 +26,7 @@ import com.shoukeplus.jFinal.handler.ResourceHandler;
 import com.shoukeplus.jFinal.handler.SkipHandler;
 import com.shoukeplus.jFinal.handler.xss.AttackHandler;
 import com.shoukeplus.jFinal.interceptor.CommonInterceptor;
+import com.shoukeplus.jFinal.interceptor.ExceptionAndLogInterceptor;
 import freemarker.template.TemplateModelException;
 
 import java.util.Properties;
@@ -86,6 +87,7 @@ public class Config extends JFinalConfig {
 
         //me.add(new AccessDeniedHandler("/**/*.ftl"));
         //me.add(new ResourceHandler("/static/**", "/images/**", "/css/**", "/lib/**", "/**/*.html"));
+
         me.add(new ResourceHandler("/static/**"));
         me.add(new FakeStaticHandler());
         me.add(new SkipHandler("/static/**"));
@@ -104,6 +106,9 @@ public class Config extends JFinalConfig {
         //shiro权限拦截器配置
         me.add(new ShiroInterceptor());
         me.add(new CommonInterceptor());
+
+        //异常日志统一处理
+        me.add(new ExceptionAndLogInterceptor());
         //有缺陷
         //me.add(new UserInterceptor());
     }

@@ -75,7 +75,7 @@
 </section>
 <script>
     function deleteDict(id) {
-        if (confirm("确定 删除标签 吗？)")) {
+        if (confirm("确定 删除字典 吗？")) {
             $.ajax({
                 url: "${path!}/admin/dict/delete",
                 async: false,

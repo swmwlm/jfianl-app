@@ -1,27 +1,24 @@
 package com.shoukeplus.jFinal.module.dict;
 
-import com.jfinal.upload.UploadFile;
 import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
 import com.shoukeplus.jFinal.common.model.Dict;
-import com.shoukeplus.jFinal.common.model.Label;
+import com.shoukeplus.jFinal.common.utils.DateUtil;
 import com.shoukeplus.jFinal.common.utils.ext.route.ControllerBind;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
-import java.util.Date;
-
-@ControllerBind(controllerKey = "/admin/dict", viewPath = "/WEB-INF/pages/admin/sysconfig")
+@ControllerBind(controllerKey = "/admin/dict", viewPath = "/WEB-INF/pages/admin/sysconfig/dict")
 public class DictAdminController extends BaseController {
 
-    @RequiresPermissions("menu:setting")
+    @RequiresPermissions("setting:dict")
     public void index() {
         String value = getPara("name");
         setAttr("page", Dict.dao.page(getParaToInt("p", 1), defaultPageSize(), value));
         setAttr("name", value);
-        render("dict/index.ftl");
+        render("index.ftl");
     }
 
-    @RequiresPermissions("menu:setting")
+    @RequiresPermissions("setting:dict")
     public void delete() {
         Integer id = getParaToInt("id");
         if (id != null) {
@@ -35,57 +32,39 @@ public class DictAdminController extends BaseController {
         }
     }
 
-    @RequiresPermissions("menu:setting")
+    @RequiresPermissions("setting:dict")
     public void add() {
         String method = getRequest().getMethod();
         if (method.equalsIgnoreCase(AppConstants.GET)) {
             render("add.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
-            UploadFile uploadFile = getFile("img", AppConstants.UPLOAD_DIR_LABEL);
-            StringBuffer labelImg = new StringBuffer();
-            if (uploadFile != null) {
-                labelImg.append("/")
-                        .append(AppConstants.UPLOAD_DIR)
-                        .append("/")
-                        .append(AppConstants.UPLOAD_DIR_LABEL)
-                        .append("/")
-                        .append(uploadFile.getFileName());
-            }
-            Label label = new Label();
-            label.set("name", getPara("name"))
-                    .set("description", getPara("description"))
-                    .set("in_time", new Date())
-                    .set("topic_count", 0)
-                    .set("img", labelImg.toString())
-                    .save();
-            redirect("/admin/label/index");
+
+            Dict dict = new Dict();
+            dict.setType(getPara("type"));
+            dict.setKey(getPara("key"));
+            dict.setValue(getPara("value"));
+            dict.setSort(getParaToInt("sort"));
+            dict.setRemark(getPara("remark"));
+            dict.setCreatedTime(DateUtil.getCurrentDateTime());
+            dict.save();
+
+            redirect("/admin/dict/index");
         }
     }
 
-    @RequiresPermissions("menu:setting")
+    @RequiresPermissions("setting:dict")
     public void edit() {
         String method = getRequest().getMethod();
         if (method.equalsIgnoreCase(AppConstants.GET)) {
-            Label label = Label.dao.findById(getParaToInt(0));
-            setAttr("label", label);
+            Dict dict = Dict.dao.findById(getParaToInt(0));
+            setAttr("dict", dict);
             render("edit.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
-            UploadFile uploadFile = getFile("img", AppConstants.UPLOAD_DIR_LABEL);
-            StringBuffer labelImg = new StringBuffer();
-            if (uploadFile != null) {
-                labelImg.append("/")
-                        .append(AppConstants.UPLOAD_DIR)
-                        .append("/")
-                        .append(AppConstants.UPLOAD_DIR_LABEL)
-                        .append("/")
-                        .append(uploadFile.getFileName());
-            }
-            Label label = Label.dao.findById(getParaToInt("id"));
-            label.set("name", getPara("name"))
-                    .set("description", getPara("description"))
-                    .set("img", labelImg.toString())
+            Dict dict = Dict.dao.findById(getParaToInt("id"));
+            dict.set("type", getPara("type")).set("key",getPara("key")).set("value",getPara("value")).set("sort",getParaToInt("sort"))
+                    .set("remark", getPara("remark")).set("updatedTime",DateUtil.getCurrentDateTime())
                     .update();
-            redirect("/admin/label/index");
+            redirect("/admin/dict/index");
         }
     }
 

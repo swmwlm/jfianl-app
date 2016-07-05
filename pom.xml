@@ -4,8 +4,8 @@
 	<groupId>com.shoukeplus</groupId>
 	<artifactId>jFinal</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>musicJFinal Maven Webapp</name>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>jfinal-study</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

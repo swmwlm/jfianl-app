@@ -15,7 +15,7 @@ public class Dict extends BaseDict<Dict> {
 	public Page<Dict> page(int pageNumber, int pageSize, String value) {
 		StringBuffer condition = new StringBuffer();
 		if (!StrUtil.isBlank(value)) condition.append(" and d.value like \"%" + value + "%\" ");
-		return super.paginate(pageNumber, pageSize, "select d.* ", "from sk_dict d where 1 = 1 " + condition + " order by d.id desc");
+		return super.paginate(pageNumber, pageSize, "select d.* ", "from sk_dict d where 1 = 1 " + condition + " order by d.type desc,d.sort asc");
 	}
 
 	public List<Dict> findByNameLike(String value) {
