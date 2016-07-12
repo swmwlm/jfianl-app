@@ -36,7 +36,7 @@
         <div class="divide mar-5"></div>
         <span class="pull-left" style="margin: 8px; 0 0;">
             <a href="${path!}/oauth/qqlogin">
-                <img src="${path!}/staticimg/QQ_Logo_wiki.png" width="24" alt="QQ 登录">
+                <img src="${path!}/static/img/QQ_Logo_wiki.png" width="24" alt="QQ 登录">
             </a>&nbsp;&nbsp;
             <a href="${path!}/oauth/weibologin">
                 <img src="http://www.sinaimg.cn/blog/developer/wiki/LOGO_24x24.png" alt="微博登录">
