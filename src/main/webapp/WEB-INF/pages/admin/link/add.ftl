@@ -16,7 +16,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">创建友链</h3>
         </div>
-        <form class="form-horizontal" action="add" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="add" method="post">
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">名称</label>
@@ -32,9 +32,9 @@
                 </div>
                 <div class="form-group">
                     <label for="img" class="col-sm-2 control-label">图片</label>
-                    <div class="col-sm-6">
-                        <input type="file" class="form-control" id="img" name="img" placeholder="标签图片">
-                        <p class="text-red">请上传73x73大小的图片</p>
+                    <div class="col-sm-6" id="pickfiles">
+                        <img src="${path!}/static/img/upload.png" id="imgUpload" />
+                        <input name="link.img" id="img" type="hidden" value=""/>
                     </div>
                 </div>
             </div>
@@ -44,4 +44,39 @@
         </form>
     </div>
 </section>
+<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/i18n/zh_CN.js"></script>
+<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/extractUpload.js"></script>
+<script type="text/javascript">
+    $(function () {
+        uploadImg();
+    });
+    function uploadImg() {
+        extractUpload({
+            browseElementId: 'pickfiles',
+            url: '${path!}/uploadPl/link',
+            filters: {
+                max_file_size: '5mb',
+                multi_selection: false,
+                mime_types: [
+                    {title: "图片文件", extensions: "jpg,png,jpeg,JPG,PNG,JPEG"},
+                ]
+            },
+            error: function (up, error) {
+                if (error.message.indexOf("File size error") > -1)
+                    layer.open({content:'文件大小不允许超过5MB!', time: 1});
+                else if (error.message.indexOf("File extension error") > -1)
+                    layer.open({content:'请上传jpg、png、jpeg文件!', time: 1});
+                else
+                    layer.open({content:'上传出错,请重试...', time: 1});
+            },
+            success: function (up, file, info) {
+                if (info.status) {
+                    $('#img').val(info.response);
+                    $('#imgUpload').attr("src","${imgPath!}"+info.response);
+                }
+            }
+        });
+    }
+</script>
 </@layout>
