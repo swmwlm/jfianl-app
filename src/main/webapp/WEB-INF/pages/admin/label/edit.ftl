@@ -14,7 +14,7 @@
 <section class="content">
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">编辑友链</h3>
+            <h3 class="box-title">编辑标签</h3>
         </div>
         <form class="form-horizontal" action="${path!}/admin/label/edit" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="${label.id!}">
@@ -37,7 +37,7 @@
                         <input type="file" class="form-control" id="img" name="img" placeholder="标签图片">
                         <p class="text-red">请上传73x73大小的图片</p>
                         <#if label.img??>
-                            <img src="${label.img!}">
+                            <img src="${imgPath!}/${label.img!}">
                         </#if>
                     </div>
                 </div>

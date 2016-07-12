@@ -47,8 +47,6 @@ public class LabelAdminController extends BaseController {
             StringBuffer labelImg = new StringBuffer();
             if (uploadFile != null) {
                 labelImg.append("/")
-                        .append(AppConstants.UPLOAD_DIR)
-                        .append("/")
                         .append(AppConstants.UPLOAD_DIR_LABEL)
                         .append("/")
                         .append(uploadFile.getFileName());
@@ -76,8 +74,6 @@ public class LabelAdminController extends BaseController {
             StringBuffer labelImg = new StringBuffer();
             if (uploadFile != null) {
                 labelImg.append("/")
-                        .append(AppConstants.UPLOAD_DIR)
-                        .append("/")
                         .append(AppConstants.UPLOAD_DIR_LABEL)
                         .append("/")
                         .append(uploadFile.getFileName());

@@ -1,5 +1,6 @@
 package com.shoukeplus.jFinal.module.link;
 
+import com.jfinal.upload.UploadFile;
 import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
 import com.shoukeplus.jFinal.common.model.Link;
@@ -21,9 +22,17 @@ public class LinkAdminController extends BaseController {
         if (method.equalsIgnoreCase(AppConstants.GET)) {
             render("add.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
+            UploadFile uploadFile = getFile("img", AppConstants.UPLOAD_DIR_LINK);
+            StringBuffer linkImg = new StringBuffer();
+            if (uploadFile != null) {
+                linkImg.append("/")
+                        .append(AppConstants.UPLOAD_DIR_LINK)
+                        .append("/")
+                        .append(uploadFile.getFileName());
+            }
             Integer maxDisplayIndex = Link.dao.maxDisplayIndex();
             if (maxDisplayIndex == null) maxDisplayIndex = 0;
-            getModel(Link.class).set("display_index", maxDisplayIndex + 1).save();
+            getModel(Link.class).set("display_index", maxDisplayIndex + 1).set("img",linkImg.toString()).save();
             clearCache(AppConstants.LINKCACHE, AppConstants.LINKLISTKEY);
             redirect("/admin/link");
         }
@@ -37,7 +46,17 @@ public class LinkAdminController extends BaseController {
             setAttr("link", Link.dao.findById(id));
             render("edit.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
-            getModel(Link.class).update();
+            UploadFile uploadFile = getFile("img", AppConstants.UPLOAD_DIR_LINK);
+            StringBuffer linkImg = new StringBuffer();
+            if (uploadFile != null) {
+                linkImg.append("/")
+                        .append(AppConstants.UPLOAD_DIR_LINK)
+                        .append("/")
+                        .append(uploadFile.getFileName());
+            }
+            Link link=getModel(Link.class);
+            link.set("img",linkImg.toString());
+            link.update();
             clearCache(AppConstants.LINKCACHE, AppConstants.LINKLISTKEY);
             redirect("/admin/link");
         }

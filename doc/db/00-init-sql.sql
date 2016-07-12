@@ -153,6 +153,7 @@ CREATE TABLE `sk_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT '友链名称',
   `url` varchar(255) NOT NULL COMMENT '友链地址',
+  `img` varchar(255) NOT NULL COMMENT '友链图片',
   `display_index` int(11) NOT NULL COMMENT '友链排序',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
@@ -160,9 +161,9 @@ CREATE TABLE `sk_link` (
 LOCK TABLES `sk_link` WRITE;
 /*!40000 ALTER TABLE `sk_link` DISABLE KEYS */;
 
-INSERT INTO `sk_link` (`id`, `name`, `url`, `display_index`)
+INSERT INTO `sk_link` (`id`, `name`, `url`,`img`, `display_index`)
 VALUES
-  (1,'GOOGLE','http://google.com/',1);
+  (1,'GOOGLE','http://google.com/',NULL,1);
 
 /*!40000 ALTER TABLE `sk_link` ENABLE KEYS */;
 UNLOCK TABLES;

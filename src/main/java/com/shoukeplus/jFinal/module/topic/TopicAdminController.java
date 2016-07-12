@@ -174,8 +174,9 @@ public class TopicAdminController extends BaseController {
 //                            .set("action", "edit")
 //                            .set("message", null)
 //                            .save();
-                    getResponse().setCharacterEncoding("utf-8");
-                    getResponse().getWriter().write("<script>alert('修改成功!');window.close();</script>");
+                    redirect("/admin/topic/index");
+                    //getResponse().setCharacterEncoding("utf-8");
+                    //getResponse().getWriter().write("<script>alert('修改成功!');window.close();</script>");
                 }
             }
         }

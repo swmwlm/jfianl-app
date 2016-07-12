@@ -67,7 +67,7 @@
                                     <span class="glyphicon glyphicon-eye-open" title="查看详情"></span>
                                 </a>
                                 <@shiro.hasPermission name="topic:edit">
-                                    <a href="${path!}/admin/topic/edit/${topic.id!}" target="_blank"><span
+                                    <a href="${path!}/admin/topic/edit/${topic.id!}"><span
                                             class="glyphicon glyphicon-edit" title="编辑"></span></a>
                                 </@shiro.hasPermission>
                                 <@shiro.hasPermission name="topic:delete">

@@ -16,7 +16,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">编辑友链</h3>
         </div>
-        <form class="form-horizontal" action="edit" method="post">
+        <form class="form-horizontal" action="edit" method="post" enctype="multipart/form-data">
             <input type="hidden" name="link.id" value="${link.id!}">
             <div class="box-body">
                 <div class="form-group">
@@ -29,6 +29,16 @@
                     <label for="url" class="col-sm-2 control-label">访问地址</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="url" name="link.url" value="${link.url!}" placeholder="访问地址">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="img" class="col-sm-2 control-label">图片</label>
+                    <div class="col-sm-6">
+                        <input type="file" class="form-control" id="img" name="img" placeholder="标签图片">
+                        <p class="text-red">请上传73x73大小的图片</p>
+                        <#if link.img??>
+                            <img src="${imgPath!}/${link.img!}">
+                        </#if>
                     </div>
                 </div>
             </div>

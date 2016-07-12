@@ -1,4 +1,4 @@
-<#include "/pages/admin/common/_layout.ftl"/>
+<#include "/WEB-INF/pages/admin/common/_layout.ftl"/>
 <@layout page_tab="link">
 <section class="content-header">
     <h1>
@@ -16,7 +16,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">创建友链</h3>
         </div>
-        <form class="form-horizontal" action="add" method="post">
+        <form class="form-horizontal" action="add" method="post" enctype="multipart/form-data">
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">名称</label>
@@ -28,6 +28,13 @@
                     <label for="url" class="col-sm-2 control-label">访问地址</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="url" name="link.url" placeholder="访问地址">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="img" class="col-sm-2 control-label">图片</label>
+                    <div class="col-sm-6">
+                        <input type="file" class="form-control" id="img" name="img" placeholder="标签图片">
+                        <p class="text-red">请上传73x73大小的图片</p>
                     </div>
                 </div>
             </div>

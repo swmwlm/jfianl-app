@@ -100,6 +100,7 @@ Table: sk_link
  name          | VARCHAR(45)  | NO   |     |         | 友链名称    
  url           | VARCHAR(255) | NO   |     |         | 友链地址    
  display_index | INT(10)      | NO   |     |         | 友链排序    
+ img           | VARCHAR(255) | NO   |     |         |         
 ---------------+--------------+------+-----+---------+---------
 
 Table: sk_message
