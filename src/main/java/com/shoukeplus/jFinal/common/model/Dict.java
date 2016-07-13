@@ -35,7 +35,7 @@ public class Dict extends BaseDict<Dict> {
 	}
 
 	public Map<String,Object> getMap4Type(String type) {
-		List<Dict> dicts = super.find("select * from sk_dict where type= ?", type);
+		List<Dict> dicts = super.find("select * from sk_dict where type= ? order by sort asc", type);
 		if (CollectionUtils.isEmpty(dicts)) {
 			return null;
 		}
