@@ -112,6 +112,7 @@
 <script src="${path!}/static/AdminLTE/plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="${path!}/static/AdminLTE/dist/js/app.min.js"></script>
+<script src="${path!}/static/component/layer/web/layer.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <#--<script src="${path!}/static/AdminLTE/dist/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
