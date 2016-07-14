@@ -49,9 +49,6 @@
         </form>
     </div>
 </section>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/plupload.full.min.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/i18n/zh_CN.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/extractUpload.js"></script>
 <script type="text/javascript">
     $(function () {
         uploadImg();

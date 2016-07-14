@@ -49,7 +49,7 @@ public class Config extends JFinalConfig {
     @Override
     public void configConstant(Constants me) {
         // 如果生产环境配置文件存在，则优先加载该配置，否则加载开发环境配置文件
-        loadProp("application_pro.txt", "application.properties");
+        loadProp("application_pro.properties", "application.properties");
         //loadPropertyFile("a_little_config.txt");
         me.setDevMode(getPropertyToBoolean("devMode"));
 
