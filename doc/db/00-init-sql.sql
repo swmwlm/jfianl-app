@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `sk_admin_user`;
 CREATE TABLE `sk_admin_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL COMMENT '后台用户名',
-  `password` varchar(45) NOT NULL COMMENT '后台密码（明文）',
+  `password` varchar(45) NOT NULL COMMENT '后台密码',
   `salt` varchar(45) NOT NULL DEFAULT '',
   `in_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -54,10 +54,10 @@ CREATE TABLE `sk_admin_user` (
 
 LOCK TABLES `sk_admin_user` WRITE;
 /*!40000 ALTER TABLE `sk_admin_user` DISABLE KEYS */;
-
+# 用户名admin 密码123456 参考PasswordHelper.java
 INSERT INTO `sk_admin_user` (`id`, `username`, `password`, `salt`, `in_time`)
 VALUES
-  (1,'admin','5992105b8c73df33ea69780688d54106','4ab2f2d2cea2ac05b36faa2582d5ecf6','2016-03-24 18:05:01');
+  (1,'admin','d3a82fe83d25d202097a92517acd2c0e','418524e8294721fc742560ac485e3932','2016-03-24 18:05:01');
 
 /*!40000 ALTER TABLE `sk_admin_user` ENABLE KEYS */;
 UNLOCK TABLES;

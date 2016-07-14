@@ -38,7 +38,7 @@ public class PasswordHelper {
     public static void main(String[] strings){
         AdminUser adminUser=new AdminUser();
         adminUser.set("username", "admin")
-                .set("password", "123123");
+                .set("password", "123456");
         encryptPassword(adminUser);
         System.out.println(adminUser.toJson());
     }
