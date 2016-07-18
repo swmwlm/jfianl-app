@@ -633,4 +633,5 @@ INSERT INTO `sk_dict` (`id`, `type`, `key`, `value`, `sort`, `remark`,`createdTi
 VALUES
   (1,'sex','male','男',0,'性别',current_timestamp,null),
   (2,'sex','remail','女',1,'性别',current_timestamp,null),
-  (3,'public','key1','test1',1,'单一的键值对，统一使用public类型',current_timestamp,null)
+  (3,'public','key1','test1',1,'单一的键值对，统一使用public类型',current_timestamp,null),
+  (4,'slider','index','首页轮播图',1,'首页轮播图',current_timestamp,null)
