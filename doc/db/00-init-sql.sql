@@ -634,4 +634,6 @@ VALUES
   (1,'sex','male','男',0,'性别',current_timestamp,null),
   (2,'sex','remale','女',1,'性别',current_timestamp,null),
   (3,'public','key1','test1',1,'单一的键值对，统一使用public类型',current_timestamp,null),
-  (4,'slider','index','首页轮播图',1,'首页轮播图',current_timestamp,null)
+  (4,'slider','index','首页轮播图',1,'首页轮播图',current_timestamp,null),
+  (10,'news','ventureNews','创业资讯',1,'创业资讯',current_timestamp,null),
+  (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,null)
