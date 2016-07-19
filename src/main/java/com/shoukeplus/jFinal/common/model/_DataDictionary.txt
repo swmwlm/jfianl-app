@@ -139,6 +139,27 @@ Table: sk_msg_contact
  is_delete        | INT(10)       | NO   |     | 0       | 是否删除会话，0默认1删除
 ------------------+---------------+------+-----+---------+---------
 
+Table: sk_news
+----------------+----------------------+------+-----+---------------------+---------
+ Field          | Type                 | Null | Key | Default             | Remarks 
+----------------+----------------------+------+-----+---------------------+---------
+ id             | INT(10)              | NO   | PRI |                     |         
+ dictId         | INT(10)              | NO   |     |                     | 新闻类型    
+ target         | VARCHAR(20)          | NO   |     | _blank              | 打开方式:_blank,_self,_top等
+ isExternalHref | INT(10)              | NO   |     | 0                   | 1是外部链接;0 内部链接
+ externalHref   | VARCHAR(255)         | YES  |     |                     | 外部链接url 
+ title          | VARCHAR(255)         | NO   |     |                     | 标题      
+ introduction   | VARCHAR(255)         | NO   |     |                     | 一句话描述   
+ content        | LONGTEXT(2147483647) | NO   |     |                     | 内容      
+ view           | INT(10)              | NO   |     |                     | 浏览量     
+ author         | VARCHAR(50)          | YES  |     |                     | 作者      
+ source         | VARCHAR(50)          | YES  |     |                     | 文章来源    
+ sort           | INT(10)              | NO   |     |                     | 排序      
+ isdelete       | INT(10)              | NO   |     | 0                   | 1删除;0默认 
+ createdTime    | TIMESTAMP(19)        | NO   |     | CURRENT_TIMESTAMP   | 创建时间    
+ updatedTime    | TIMESTAMP(19)        | NO   |     | 0000-00-00 00:00:00 | 更新时间    
+----------------+----------------------+------+-----+---------------------+---------
+
 Table: sk_notification
 ----------------+--------------+------+-----+---------+---------
  Field          | Type         | Null | Key | Default | Remarks 
