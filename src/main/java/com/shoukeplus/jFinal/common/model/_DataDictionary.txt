@@ -149,7 +149,8 @@ Table: sk_news
  isExternalHref | INT(10)              | NO   |     | 0                   | 1是外部链接;0 内部链接
  externalHref   | VARCHAR(255)         | YES  |     |                     | 外部链接url 
  title          | VARCHAR(255)         | NO   |     |                     | 标题      
- introduction   | VARCHAR(255)         | NO   |     |                     | 一句话描述   
+ introduction   | VARCHAR(255)         | NO   |     |                     | 一句话描述,简介,摘要
+ img            | VARCHAR(255)         | YES  |     |                     | 缩略图路径   
  content        | LONGTEXT(2147483647) | NO   |     |                     | 内容      
  view           | INT(10)              | NO   |     |                     | 浏览量     
  author         | VARCHAR(50)          | YES  |     |                     | 作者      

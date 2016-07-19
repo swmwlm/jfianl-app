@@ -650,6 +650,7 @@ CREATE TABLE IF NOT EXISTS sk_news (
   `externalHref` VARCHAR(255) DEFAULT NULL COMMENT '外部链接url',
   `title` varchar(255) NOT NULL COMMENT '标题',
   `introduction` VARCHAR(255) NOT NULL COMMENT '一句话描述,简介,摘要',
+  `img` VARCHAR(255) DEFAULT NULL COMMENT '缩略图路径',
   `content` longtext NOT NULL COMMENT '内容',
   `view` int(11) NOT NULL COMMENT '浏览量',
   `author` VARCHAR(50) DEFAULT NULL COMMENT '作者',

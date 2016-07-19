@@ -65,6 +65,14 @@ public abstract class BaseNews<M extends BaseNews<M>> extends Model<M> implement
 		return get("introduction");
 	}
 
+	public void setImg(java.lang.String img) {
+		set("img", img);
+	}
+
+	public java.lang.String getImg() {
+		return get("img");
+	}
+
 	public void setContent(java.lang.String content) {
 		set("content", content);
 	}
