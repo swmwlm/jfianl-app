@@ -637,3 +637,26 @@ VALUES
   (4,'slider','index','首页轮播图',1,'首页轮播图',current_timestamp,null),
   (10,'news','ventureNews','创业资讯',1,'创业资讯',current_timestamp,null),
   (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,null)
+
+
+
+# 新闻表
+DROP TABLE IF EXISTS sk_news;
+CREATE TABLE IF NOT EXISTS sk_news (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dictId` int(11) NOT  NULL COMMENT '新闻类型',
+  `target` VARCHAR(20) NOT NULL DEFAULT '_blank' COMMENT '打开方式:_blank,_self,_top等',
+  `isExternalHref` int(1) NOT NULL DEFAULT 0 COMMENT '1是外部链接;0 内部链接',
+  `externalHref` VARCHAR(255) DEFAULT NULL COMMENT '外部链接url',
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `introduction` VARCHAR(255) NOT NULL COMMENT '一句话描述',
+  `content` longtext NOT NULL COMMENT '内容',
+  `view` int(11) NOT NULL COMMENT '浏览量',
+  `author` VARCHAR(50) DEFAULT NULL COMMENT '作者',
+  `source` VARCHAR(50) DEFAULT NULL COMMENT '文章来源',
+  `sort` int(4) NOT NULL COMMENT '排序',
+  `isdelete` int(1) NOT NULL DEFAULT 0 COMMENT '1删除;0默认',
+  `createdTime` TIMESTAMP NOT NULL COMMENT '创建时间',
+  `updatedTime` TIMESTAMP NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
