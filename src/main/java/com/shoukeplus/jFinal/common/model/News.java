@@ -1,5 +1,6 @@
 package com.shoukeplus.jFinal.common.model;
 
+import com.jfinal.plugin.activerecord.Page;
 import com.shoukeplus.jFinal.common.model.base.BaseNews;
 
 /**
@@ -8,4 +9,10 @@ import com.shoukeplus.jFinal.common.model.base.BaseNews;
 @SuppressWarnings("serial")
 public class News extends BaseNews<News> {
 	public static final News dao = new News();
+	public Page<News> page(int pageNumber, int pageSize) {
+		return super.paginate(pageNumber, pageSize,
+				"select n.*, d.value as categoryName ",
+				"from sk_news n left join sk_dict d on n.dictId = d.id " +
+						"where n.isDeleted = 0 order by n.sort desc, n.id desc");
+	}
 }

@@ -105,12 +105,12 @@ public abstract class BaseNews<M extends BaseNews<M>> extends Model<M> implement
 		return get("sort");
 	}
 
-	public void setIsdelete(java.lang.Integer isdelete) {
-		set("isdelete", isdelete);
+	public void setIsDeleted(java.lang.Integer isDeleted) {
+		set("isDeleted", isDeleted);
 	}
 
-	public java.lang.Integer getIsdelete() {
-		return get("isdelete");
+	public java.lang.Integer getIsDeleted() {
+		return get("isDeleted");
 	}
 
 	public void setCreatedTime(java.util.Date createdTime) {

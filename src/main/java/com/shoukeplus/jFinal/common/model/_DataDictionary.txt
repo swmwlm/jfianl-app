@@ -155,7 +155,7 @@ Table: sk_news
  author         | VARCHAR(50)          | YES  |     |                     | 作者      
  source         | VARCHAR(50)          | YES  |     |                     | 文章来源    
  sort           | INT(10)              | NO   |     |                     | 排序      
- isdelete       | INT(10)              | NO   |     | 0                   | 1删除;0默认 
+ isDeleted      | INT(10)              | NO   |     | 0                   | 1删除;0默认 
  createdTime    | TIMESTAMP(19)        | NO   |     | CURRENT_TIMESTAMP   | 创建时间    
  updatedTime    | TIMESTAMP(19)        | NO   |     | 0000-00-00 00:00:00 | 更新时间    
 ----------------+----------------------+------+-----+---------------------+---------

@@ -50,6 +50,13 @@
                     </a>
                 </li>
             </@shiro.hasPermission>
+            <@shiro.hasPermission name="menu:news">
+                <li <#if page_tab="news"> class="active" </#if>>
+                    <a href="${path!}/admin/news">
+                        <i class="fa fa-newspaper-o"></i> <span>资讯</span>
+                    </a>
+                </li>
+            </@shiro.hasPermission>
             <@shiro.hasPermission name="menu:user">
                 <li <#if page_tab="user"> class="active" </#if>>
                     <a href="${path!}/admin/user">
