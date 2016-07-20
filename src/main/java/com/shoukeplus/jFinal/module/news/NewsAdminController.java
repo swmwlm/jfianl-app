@@ -5,8 +5,10 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
 import com.shoukeplus.jFinal.common.model.*;
+import com.shoukeplus.jFinal.common.utils.DateUtil;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.common.utils.ext.route.ControllerBind;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 import java.io.IOException;
@@ -18,7 +20,9 @@ public class NewsAdminController extends BaseController {
 
     @RequiresPermissions("menu:news")
     public void index() {
-        setAttr("page", News.dao.page(getParaToInt("p", 1), defaultPageSize()));
+        String value = getPara("name");
+        setAttr("page", News.dao.page(getParaToInt("p", 1), defaultPageSize(),value));
+        setAttr("name", value);
         render("index.ftl");
     }
 
@@ -30,11 +34,18 @@ public class NewsAdminController extends BaseController {
             setAttr("targetCategory", Dict.dao.getList4Type("target"));
             render("add.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
-            Integer maxDisplayIndex = Link.dao.maxDisplayIndex();
-            if (maxDisplayIndex == null) maxDisplayIndex = 0;
-            Link link=getModel(Link.class);
-            link.set("display_index", maxDisplayIndex + 1).save();
-            clearCache(AppConstants.LINKCACHE, AppConstants.LINKLISTKEY);
+            News news=getModel(News.class);
+            news.setCreatedTime(DateUtil.getCurrentDateTime());
+            news.save();
+            Integer newsId=news.getId();
+            List<NewsImages> newsImagesList=getModels(NewsImages.class,"newsImages");
+            if(CollectionUtils.isNotEmpty(newsImagesList)){
+                for(NewsImages img:newsImagesList){
+                    img.setNewsId(newsId);
+                    img.setCreatedTime(DateUtil.getCurrentDateTime());
+                    img.save();
+                }
+            }
             redirect("/admin/news");
         }
     }
@@ -43,112 +54,22 @@ public class NewsAdminController extends BaseController {
     @Before(Tx.class)
     public void delete() {
         String id = getPara("id");
-        Topic topic = Topic.dao.findById(id);
-        String author_id = topic.get("author_id");
-        //删除话题（非物理删除）
-        topic.set("isdelete", 1).update();
-        //删除关联的标签
-        LabelTopicId.dao.deleteByTid(id);
-        //删除回复
-        Reply.dao.deleteByTid(id);
-        //删除收藏
-        Collect.dao.deleteByTid(id);
-        //扣除积分
-        User user = User.dao.findById(author_id);
-        if (user.getInt("score") <= 5) {
-            user.set("score", 0).update();
-        } else {
-            user.set("score", user.getInt("score") - 5).update();
-        }
+        News news = News.dao.findById(id);
+        //删除资讯（非物理删除）
+        news.setIsDeleted(1);
+        news.update();
+        
         //记录日志
         AdminUser adminUser = getAdminUser();
         AdminLog adminLog = new AdminLog();
         adminLog.set("uid", adminUser.getInt("id"))
                 .set("target_id", id)
-                .set("source", "topic")
+                .set("source", "news")
                 .set("in_time", new Date())
                 .set("action", "delete")
                 .set("message", null)
                 .save();
         success();
-    }
-
-    @RequiresPermissions("news:top")
-    public void top() {
-        String id = getPara("id");
-        if (StrUtil.isBlank(id)) {
-            error(AppConstants.OP_ERROR_MESSAGE);
-        } else {
-            Topic topic = Topic.dao.findById(id);
-            if (topic == null) {
-                error(AppConstants.OP_ERROR_MESSAGE);
-            } else {
-                topic.set("top", topic.getInt("top") == 1 ? 0 : 1).update();
-                //记录日志
-                AdminUser adminUser = getAdminUser();
-                AdminLog adminLog = new AdminLog();
-                adminLog.set("uid", adminUser.getInt("id"))
-                        .set("target_id", id)
-                        .set("source", "topic")
-                        .set("in_time", new Date())
-                        .set("action", "top")
-                        .set("message", null)
-                        .save();
-                success(topic);
-            }
-        }
-    }
-
-    @RequiresPermissions("news:good")
-    public void good() {
-        String id = getPara("id");
-        if (StrUtil.isBlank(id)) {
-            error(AppConstants.OP_ERROR_MESSAGE);
-        } else {
-            Topic topic = Topic.dao.findById(id);
-            if (topic == null) {
-                error(AppConstants.OP_ERROR_MESSAGE);
-            } else {
-                topic.set("good", topic.getInt("good") == 1 ? 0 : 1).update();
-                //记录日志
-                AdminUser adminUser = getAdminUser();
-                AdminLog adminLog = new AdminLog();
-                adminLog.set("uid", adminUser.getInt("id"))
-                        .set("target_id", id)
-                        .set("source", "topic")
-                        .set("in_time", new Date())
-                        .set("action", "good")
-                        .set("message", null)
-                        .save();
-                success(topic);
-            }
-        }
-    }
-
-    @RequiresPermissions("news:show_status")
-    public void show_status() {
-        String id = getPara("id");
-        if (StrUtil.isBlank(id)) {
-            error(AppConstants.OP_ERROR_MESSAGE);
-        } else {
-            Topic topic = Topic.dao.findById(id);
-            if (topic == null) {
-                error(AppConstants.OP_ERROR_MESSAGE);
-            } else {
-                topic.set("show_status", topic.getInt("show_status") == 1 ? 0 : 1).update();
-                //记录日志
-                AdminUser adminUser = getAdminUser();
-                AdminLog adminLog = new AdminLog();
-                adminLog.set("uid", adminUser.getInt("id"))
-                        .set("target_id", id)
-                        .set("source", "topic")
-                        .set("in_time", new Date())
-                        .set("action", "show_status")
-                        .set("message", null)
-                        .save();
-                success(topic);
-            }
-        }
     }
 
     @RequiresPermissions("news:edit")

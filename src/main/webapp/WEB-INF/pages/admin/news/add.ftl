@@ -16,12 +16,12 @@
         <div class="box-header with-border">
             <h3 class="box-title">创建资讯</h3>
         </div>
-        <form class="form-horizontal" action="add" method="post">
+        <form class="form-horizontal" action="add" method="post" onsubmit="return toValid();">
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">资讯分类</label>
                     <div class="col-sm-5">
-                        <select name="news.dictId" id="dictId" class="form-control">
+                        <select name="news.dictId" id="dictId" class="form-control" required="required">
                             <#list newsCategory as category>
                                 <option value="${category.id!}">${category.value!}</option>
                             </#list>
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label for="target" class="col-sm-2 control-label">打开方式</label>
                     <div class="col-sm-5">
-                        <select name="news.target" id="target" class="form-control">
+                        <select name="news.target" id="target" class="form-control" required="required">
                             <#list targetCategory as target>
                                 <option value="${target.key!}">${target.value!}</option>
                             </#list>
@@ -55,7 +55,8 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <span class="input-group-addon">
-                              <input type="checkbox" id="isExternalHref" name="news.isExternalHref" onchange="showExternalHref();">
+                              <input type="checkbox" id="isExternalHrefChk" onchange="showExternalHref();">
+                                <input type="hidden" id="isExternalHref" name="news.isExternalHref" value="0" />
                             </span>
                             <input class="form-control" type="text" readonly="readonly" id="externalHref" name="news.externalHref" placeholder="外链地址,形如:http://abc.com">
                         </div>
@@ -68,7 +69,7 @@
                         <input name="news.img" id="img" type="hidden" value=""/>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="newsImgsDiv">
                     <label for="img" class="col-sm-2 control-label">资讯组图</label>
                     <div class="col-sm-3">
                         <img src="${path!}/static/img/upload.png" id="imgsUpload" style="display: block;clear:both;" />
@@ -78,7 +79,7 @@
                 <div class="form-group" id="contentDiv">
                     <label for="name" class="col-sm-2 control-label">资讯内容</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="content" name="news.content" placeholder="资讯内容" rows="20" required="required"></textarea>
+                        <textarea class="form-control" id="content" name="news.content" placeholder="资讯内容" rows="20"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -96,7 +97,12 @@
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">发布时间</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="releaseTime" readonly="readonly" name="news.releaseTime" placeholder="发布时间" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" required="required">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="form-control pull-right" type="text" id="releaseTime" name="news.releaseTime" placeholder="发布时间" readonly="readonly" />
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -120,7 +126,9 @@
 <script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
 <script src="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript">
+    var index=-1;
     $(function () {
+        initLayDate();
         uploadImg();
         initWangEditor();
         initImagesConfig('triggerFileBrowser');
@@ -148,10 +156,21 @@
         });
         $(document).on('click', 'div.uploadimg_close>img', function () {
             var $imgContainer = $(this).parent().parent().parent();
-            var index = $imgContainer.index();
             $imgContainer.remove();
         });
     });
+    function initLayDate() {
+        laydate({
+            elem: '#releaseTime',
+            format: 'YYYY-MM-DD hh:mm:ss', // 分隔符可以任意定义，该例子表示只显示年月
+            festival: true,
+            istoday: true,
+            start: laydate.now(0, "YYYY-MM-DD hh:mm:ss"),
+            istime: true,
+            min: laydate.now(0,"YYYY-MM-DD hh:mm:ss"),
+            max: laydate.now(365)
+        });
+    }
     function initWangEditor() {
         //==========wangEditor Start============
         var editor = new wangEditor("content");
@@ -240,14 +259,11 @@
             },
             success: function (up, file, info) {
                 if (info.status) {
-                    <#--$('#img').val(info.response);-->
-                    <#--$('#imgUpload').attr("src","${imgPath!}"+info.response);-->
-
+                    index+=1;//上传成功,索引+1
                     $("#imgsUpload").before(template('imagesElementTemplate', {
-//                        index: index,
+                        index:index,
                         value: info.response
                     }));
-
                 }else{
                     layer.msg('上传错误，请重试', {time: 1000})
                 }
@@ -258,13 +274,39 @@
 
 
     function showExternalHref() {
-        if($("#isExternalHref").is(':checked')){
+        if($("#isExternalHrefChk").is(':checked')){
             $("#externalHref").removeAttr("readonly");
             $("#contentDiv").hide();
+            $("#newsImgsDiv").hide();
+            $("#isExternalHref").val("1");
         }else{
             $("#externalHref").attr("readonly","readonly");
             $("#contentDiv").show();
+            $("#newsImgsDiv").show();
+            $("#isExternalHref").val("0");
+
         }
+    }
+    function toValid() {
+        if($("#releaseTime").val()==""){
+            layer.msg('发布时间必须填写', {time: 1000});
+            return false;
+        }
+        if($("#isExternalHrefChk").is(':checked')){
+            if($("#externalHref").val()==""){
+                layer.msg('外链地址必须填写', {time: 1000});
+                return false;
+            }
+        }
+        if(!isURL($("#externalHref").val())){
+            layer.msg('外链地址不合法', {time: 1000});
+            return false;
+        }
+
+    }
+    // url正则匹配
+    function isURL(str){
+        return !!str.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g);
     }
 </script>
 <script type="text/html" id="imagesElementTemplate">
@@ -274,10 +316,10 @@
             <div class="uploadimg_close" style="width:100px;height:50px;margin:0px 0px;display:none;">
                 <img src="${path!}/static/img/uploadClose.png">
             </div>
-            <input type="text" style="display:none;" name="newsImages.img" value="{{value}}"/>
+            <input type="text" style="display:none;" name="newsImages[{{index}}].img" value="{{value}}"/>
         </div>
         <div style="float:left">
-            <input type="text" name="newsImages.title" required="required">
+            <input type="text" name="newsImages[{{index}}].title" required="required">
         </div>
         <div style="clear: both;"></div>
     </div>

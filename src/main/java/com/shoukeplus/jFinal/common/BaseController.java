@@ -9,6 +9,10 @@ import com.shoukeplus.jFinal.common.utils.StrUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class BaseController extends Controller {
     public Integer defaultPageSize() {
         return StrUtil.str2int(AppConstants.getValue("pageSize"));
@@ -60,5 +64,39 @@ public class BaseController extends Controller {
         Subject subject = SecurityUtils.getSubject();
         String username = subject.getPrincipal().toString();
         return AdminUser.dao.findByUsername(username);
+    }
+    public <T> List<T> getModels(Class<T> modelClass, String modelName) {
+        List<String> nos = getModelsNoList(modelName);
+        List<T> list = new ArrayList<T>();
+        for (String no : nos) {
+            T m = getModel(modelClass, modelName + "[" + no + "]");
+            if (m != null) {
+                list.add(m);
+            }
+        }
+        return list;
+    }
+
+	/**
+     * 处理前台传递的对象数组 参数
+     * @param modelName
+     * @return
+     */
+    private List<String> getModelsNoList(String modelName) {
+        // 提取标号
+        List<String> list = new ArrayList<>();
+        String modelNameAndLeft = modelName + "[";
+        Map<String, String[]> parasMap = getRequest().getParameterMap();
+        for (Map.Entry<String, String[]> e : parasMap.entrySet()) {
+            String paraKey = e.getKey();
+            if (paraKey.startsWith(modelNameAndLeft)) {
+                String no = paraKey.substring(paraKey.indexOf("[") + 1,
+                        paraKey.indexOf("]"));
+                if (!list.contains(no)) {
+                    list.add(no);
+                }
+            }
+        }
+        return list;
     }
 }

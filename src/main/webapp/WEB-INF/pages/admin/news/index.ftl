@@ -28,64 +28,49 @@
             <div class="dataTables_wrapper form-inline dt-bootstrap">
                 <table class="table table-hover table-bordered table-responsive">
                     <thead>
+                    <th width="80">摘要图</th>
                     <th>标题</th>
-                    <th>作者</th>
-                    <th width="45">分类</th>
-                    <th width="80">是否显示</th>
-                    <th>时间</th>
+                    <th width="60">作者</th>
+                    <th width="80">分类</th>
+                    <th width="80">浏览量</th>
+                    <th>发布时间</th>
                     <th>操作</th>
                     </thead>
                     <tbody>
                         <#list page.getList() as new>
-                        <tr id="topic_${new.id!}">
+                        <tr id="news_${new.id!}">
                             <td>
-                                <span id="topic_top_${new.id!}">
-                                    <#if new.top == 1>
-                                        <span class="label label-success">顶</span>
-                                    </#if>
-                                </span>
-                                <span id="topic_good_${new.id!}">
-                                    <#if new.good == 1>
-                                        <span class="label label-primary">精</span>
-                                    </#if>
-                                </span>
-                                <a href="${path!}/topic/${new.id!}.html" target="_blank">${new.title!}</a>
+                                <#if new.img ??>
+                                    <img src="${imgPath!}${new.img!}" style="width:50px;height: 25px;" />
+                                </#if>
                             </td>
-                            <td>${new.nickname!}</td>
-                            <td>${new.sectionName!}</td>
                             <td>
-                                <@shiro.hasPermission name="topic:show_status">
-                                    <#if new.show_status == 1>
-                                        <input type="button" value="显示" id="topic_show_btn_${new.id!}"
-                                               onclick="setShowStatus('${new.id!}')" class="btn btn-raised btn-default "/>
-                                    <#elseif new.show_status == 0>
-                                        <input type="button" value="不显示" id="topic_show_btn_${new.id!}"
-                                               onclick="setShowStatus('${new.id!}')" class="btn btn-raised btn-warning "/>
-                                    </#if>
-                                </@shiro.hasPermission>
+                                <#if new.isExternalHref == 1>
+                                    <span class="label label-success">外</span>
+                                </#if>
+                                <a href="${path!}/news/${new.id!}.html" target="_blank">
+                                    ${new.title!}
+                                </a>
                             </td>
-                            <td>${new.in_time!}</td>
+                            <td>${new.author!}</td>
+                            <td>${new.categoryName!}</td>
                             <td>
-                                <@shiro.hasPermission name="topic:top">
-                                    <a href="javascript:setTop('${new.id!}')"><span
-                                            class="glyphicon glyphicon-arrow-up" title="置顶"></span></a>
-                                </@shiro.hasPermission>
-                                <@shiro.hasPermission name="topic:good">
-                                    <a href="javascript:setGood('${new.id!}')"><span
-                                            class="glyphicon glyphicon-bookmark" title="精华"></span></a>
-                                </@shiro.hasPermission>
-                                <a href="javascript:;" data-toggle="modal" data-target="#topic_detail_${new.id!}">
+                                ${new.view!}
+                            </td>
+                            <td>${new.releaseTime!}</td>
+                            <td>
+                                <a href="javascript:;" data-toggle="modal" data-target="#news_detail_${new.id!}">
                                     <span class="glyphicon glyphicon-eye-open" title="查看详情"></span>
                                 </a>
-                                <@shiro.hasPermission name="topic:edit">
+                                <@shiro.hasPermission name="news:edit">
                                     <a href="${path!}/admin/topic/edit/${new.id!}"><span
                                             class="glyphicon glyphicon-edit" title="编辑"></span></a>
                                 </@shiro.hasPermission>
-                                <@shiro.hasPermission name="topic:delete">
-                                    <a href="javascript:deleteTopic('${new.id}')"><span
+                                <@shiro.hasPermission name="news:delete">
+                                    <a href="javascript:deleteNews('${new.id}')"><span
                                             class="glyphicon glyphicon-trash" title="删除"></span></a>
                                 </@shiro.hasPermission>
-                                <div class="modal fade" id="topic_detail_${new.id!}" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="news_detail_${new.id!}" tabindex="-1" role="dialog"
                                      aria-labelledby="myModalLabel">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
@@ -93,10 +78,19 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close"><span aria-hidden="true">&times;</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">${new.title!}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    <#if new.isExternalHref == 1>
+                                                        <span class="label label-success">外</span>
+                                                    </#if>
+                                                    ${new.title!}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
-                                            ${new.content!}
+                                                <#if new.isExternalHref == 1>
+                                                    <a href="${new.externalHref}" target="_blank">${new.externalHref}</a>
+                                                <#else>
+                                                    ${new.content!}
+                                                </#if>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-raised btn-default"
@@ -119,7 +113,7 @@
                     <div class="col-sm-7">
                         <div class="dataTables_paginate paging_simple_numbers">
                             <#include "/WEB-INF/pages/admin/common/_paginate.ftl"/>
-                            <@paginate currentPage=page.pageNumber totalPage=page.totalPage actionUrl="${path!}/admin/topic/index" urlParas="" />
+                            <@paginate currentPage=page.pageNumber totalPage=page.totalPage actionUrl="${path!}/admin/news/index" urlParas="" />
                         </div>
                     </div>
                 </div>
@@ -129,10 +123,10 @@
 </section>
 </@layout>
 <script type="text/javascript">
-    function deleteTopic(id) {
-        if (confirm("确定 删除话题 吗？\n(注：这会删除话题下的所有回复以及被别人收藏的记录！)")) {
+    function deleteNews(id) {
+        if (confirm("确定 删除该资讯 吗？\n(注：这会删除该资讯下的所有相关内容！)")) {
             $.ajax({
-                url: "${path!}/admin/topic/delete",
+                url: "${path!}/admin/news/delete",
                 async: false,
                 cache: false,
                 type: 'post',
@@ -142,84 +136,9 @@
                 },
                 success: function (data) {
                     if (data.code == '200') {
-                        $("#topic_" + id).remove();
+                        $("#news_" + id).remove();
                     } else {
-                        alert(data.description);
-                    }
-                }
-            });
-        }
-    }
-    function setTop(id) {
-        if (confirm("确定 置顶/取消置顶 吗？")) {
-            $.ajax({
-                url: "${path!}/admin/topic/top",
-                async: false,
-                cache: false,
-                type: 'post',
-                dataType: "json",
-                data: {
-                    id: id
-                },
-                success: function (data) {
-                    if (data.code == '200') {
-                        if (data.detail.top == 1) {
-                            $("#topic_top_" + id).html('<span class="label label-success">顶</span>');
-                        } else if (data.detail.top == 0) {
-                            $("#topic_top_" + id).html("");
-                        }
-                    } else {
-                        alert(data.description);
-                    }
-                }
-            });
-        }
-    }
-    function setGood(id) {
-        if (confirm("确定 加精/取消加精 吗？")) {
-            $.ajax({
-                url: "${path!}/admin/topic/good",
-                async: false,
-                cache: false,
-                type: 'post',
-                dataType: "json",
-                data: {
-                    id: id
-                },
-                success: function (data) {
-                    if (data.code == '200') {
-                        if (data.detail.good == 1) {
-                            $("#topic_good_" + id).html('<span class="label label-primary">精</span>');
-                        } else if (data.detail.good == 0) {
-                            $("#topic_good_" + id).html("");
-                        }
-                    } else {
-                        alert(data.description);
-                    }
-                }
-            });
-        }
-    }
-    function setShowStatus(id) {
-        if (confirm("确定 更改显示状态 吗？")) {
-            $.ajax({
-                url: "${path!}/admin/topic/show_status",
-                async: false,
-                cache: false,
-                type: 'post',
-                dataType: "json",
-                data: {
-                    id: id
-                },
-                success: function (data) {
-                    if (data.code == '200') {
-                        if (data.detail.show_status == 1) {
-                            $("#topic_show_btn_" + id).removeClass("btn-warning").addClass("btn-default").val("显示");
-                        } else if (data.detail.show_status == 0) {
-                            $("#topic_show_btn_" + id).removeClass("btn-default").addClass("btn-warning").val("不显示");
-                        }
-                    } else {
-                        alert(data.description);
+                        layer.msg(data.description, {time: 1000});
                     }
                 }
             });
