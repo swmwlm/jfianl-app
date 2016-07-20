@@ -16,11 +16,12 @@
         <div class="box-header with-border">
             <h3 class="box-title">编辑资讯</h3>
         </div>
-        <form class="form-horizontal" action="edit" method="post" onsubmit="return toValid();">
+        <form class="form-horizontal" action="${path!}/admin/news/edit/${news.id!}" method="post" onsubmit="return toValid();">
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">资讯分类</label>
                     <div class="col-sm-5">
+                        <input type="hidden" name="news.id" value="${news.id}" />
                         <select name="news.dictId" id="dictId" class="form-control" required="required">
                             <#list newsCategory as category>
                                 <option value="${category.id!}" <#if '${category.id}'=='${news.dictId!}'>selected="selected"</#if>>
@@ -74,35 +75,37 @@
                         <#else>
                             <img src="${path!}/static/img/upload.png" id="imgUpload" />
                         </#if>
-                        <input name="news.img" id="img" type="hidden" value="${news.img}"/>
+                        <input name="news.img" id="img" type="hidden" value="${news.img!}"/>
                     </div>
                 </div>
-                <div class="form-group" id="newsImgsDiv">
+                <#if news.isExternalHref==0>
+                    <div class="form-group" id="newsImgsDiv">
                     <label for="img" class="col-sm-2 control-label">资讯组图</label>
                     <div class="col-sm-3">
                         <#if newsImages ??>
-                        <#list newsImages as image>
-                        <div style="display: block;">
-                            <div class="newsimgs_upload">
-                                <img src="${imgPath!}${image.img}" style="width:100px;height:50px;margin:0px 0px;">
-                                <div class="uploadimg_close" style="width:100px;height:50px;margin:0px 0px;display:none;">
-                                    <img src="${path!}/static/img/uploadClose.png">
+                            <#list newsImages as image>
+                            <div style="display: block;">
+                                <div class="newsimgs_upload">
+                                    <img src="${imgPath!}${image.img}" style="width:100px;height:50px;margin:0px 0px;">
+                                    <div class="uploadimg_close" style="width:100px;height:50px;margin:0px 0px;display:none;">
+                                        <img src="${path!}/static/img/uploadClose.png">
+                                    </div>
+                                    <input type="text" style="display:none;" name="newsImages[${image_index}].img" value="${image.img}"/>
+                                    <input type="text" style="display:none;" name="newsImages[${image_index}].id" value="${image.id}"/>
+                                    <input type="text" style="display:none;" name="newsImages[${image_index}].newsId" value="${image.newsId}"/>
                                 </div>
-                                <input type="text" style="display:none;" name="newsImages[${image.id}].img" value="${image.img}"/>
-                                <input type="text" style="display:none;" name="newsImages[${image.id}].id" value="${image.id}"/>
-                                <input type="text" style="display:none;" name="newsImages[${image.id}].newsId" value="${image.newsId}"/>
+                                <div style="float:left">
+                                    <input type="text" name="newsImages[${image_index}].title" required="required" value="${image.title}">
+                                </div>
+                                <div style="clear: both;"></div>
                             </div>
-                            <div style="float:left">
-                                <input type="text" name="newsImages[${image.id}].title" required="required" value="${image.title}">
-                            </div>
-                            <div style="clear: both;"></div>
-                        </div>
-                        </#list>
+                            </#list>
                         </#if>
                         <img src="${path!}/static/img/upload.png" id="imgsUpload" style="display: block;clear:both;" />
                     </div>
                     <a href="javascript:void(0);" id="triggerFileBrowser"></a>
                 </div>
+                </#if>
                 <div class="form-group" id="contentDiv">
                     <label for="name" class="col-sm-2 control-label">资讯内容</label>
                     <div class="col-sm-8">
@@ -157,9 +160,8 @@
     $(function () {
         var imageSize=${newsImages?size};
         if(imageSize>0){
-            index=imageSize;
+            index=imageSize-1;
         }
-        console.log(index);
         initLayDate();
         uploadImg();
         initWangEditor();
@@ -270,7 +272,10 @@
      * @param elementId
      */
     function initImagesConfig(elementId) {
-
+        var $element = $("#" + elementId);
+        if (!$element) {
+            return false;
+        }
         extractUpload({
             browseElementId: elementId,
             url: '${path!}/uploadPl/news',

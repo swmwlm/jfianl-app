@@ -10,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,11 @@ public class BaseController extends Controller {
         String username = subject.getPrincipal().toString();
         return AdminUser.dao.findByUsername(username);
     }
+    /**
+     * 处理前台传递的对象数组 参数
+     * @param modelName
+     * @return
+     */
     public <T> List<T> getModels(Class<T> modelClass, String modelName) {
         List<String> nos = getModelsNoList(modelName);
         List<T> list = new ArrayList<T>();
@@ -77,11 +83,6 @@ public class BaseController extends Controller {
         return list;
     }
 
-	/**
-     * 处理前台传递的对象数组 参数
-     * @param modelName
-     * @return
-     */
     private List<String> getModelsNoList(String modelName) {
         // 提取标号
         List<String> list = new ArrayList<>();
@@ -97,6 +98,7 @@ public class BaseController extends Controller {
                 }
             }
         }
+        Collections.sort(list);
         return list;
     }
 }
