@@ -115,6 +115,8 @@
 <script src="${path!}/static/AdminLTE/dist/js/app.min.js"></script>
 <script src="${path!}/static/component/layer/web/layer.js"></script>
 <script type="text/javascript" src="${path!}/static/component/laydate/laydate.js"></script>
+<script type="text/javascript" src="${path!}/static/component/artTemplate/template.js"></script>
+<script type="text/javascript" src="${path!}/static/component/artTemplate/template.plugin.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <#--<script src="${path!}/static/AdminLTE/dist/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->

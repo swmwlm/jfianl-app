@@ -18,7 +18,8 @@ public class AppConstants {
   // 系统变量KEY
 //    public static final String UPLOAD_DIR = "/home/www/jfinalbbs/static/upload";
   //public static final String UPLOAD_DIR = PathKit.getWebRootPath() + "/static/upload";
-  public static final String IMG_HOSTURL="http://localhost:8080/uploads";
+  //public static final String IMG_HOSTURL="http://localhost:8080/uploads";
+  public static final String IMG_HOSTURL="http://swmwlm.tunnel.2bdata.com/uploads";
   public static final String UPLOAD_DIR= "/Users/wangguanping/sk/JFinalLearn-new-upload";
   public static final String UPLOAD_DIR_AVATAR = "avatar";
   public static final String UPLOAD_DIR_LABEL = "label";
