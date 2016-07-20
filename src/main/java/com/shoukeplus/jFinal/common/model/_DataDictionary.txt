@@ -140,26 +140,26 @@ Table: sk_msg_contact
 ------------------+---------------+------+-----+---------+---------
 
 Table: sk_news
-----------------+----------------------+------+-----+---------------------+---------
- Field          | Type                 | Null | Key | Default             | Remarks 
-----------------+----------------------+------+-----+---------------------+---------
- id             | INT(10)              | NO   | PRI |                     |         
- dictId         | INT(10)              | NO   |     |                     | 新闻类型    
- target         | VARCHAR(20)          | NO   |     | _blank              | 打开方式:_blank,_self,_top等
- isExternalHref | INT(10)              | NO   |     | 0                   | 1是外部链接;0 内部链接
- externalHref   | VARCHAR(255)         | YES  |     |                     | 外部链接url 
- title          | VARCHAR(255)         | NO   |     |                     | 标题      
- introduction   | VARCHAR(255)         | NO   |     |                     | 一句话描述,简介,摘要
- img            | VARCHAR(255)         | YES  |     |                     | 缩略图路径   
- content        | LONGTEXT(2147483647) | NO   |     |                     | 内容      
- view           | INT(10)              | NO   |     |                     | 浏览量     
- author         | VARCHAR(50)          | YES  |     |                     | 作者      
- source         | VARCHAR(50)          | YES  |     |                     | 文章来源    
- sort           | INT(10)              | NO   |     |                     | 排序      
- isDeleted      | INT(10)              | NO   |     | 0                   | 1删除;0默认 
- createdTime    | TIMESTAMP(19)        | NO   |     | CURRENT_TIMESTAMP   | 创建时间    
- updatedTime    | TIMESTAMP(19)        | NO   |     | 0000-00-00 00:00:00 | 更新时间    
-----------------+----------------------+------+-----+---------------------+---------
+----------------+----------------------+------+-----+---------+---------
+ Field          | Type                 | Null | Key | Default | Remarks 
+----------------+----------------------+------+-----+---------+---------
+ id             | INT(10)              | NO   | PRI |         |         
+ dictId         | INT(10)              | NO   |     |         | 新闻类型    
+ target         | VARCHAR(20)          | NO   |     | _blank  | 打开方式:_blank,_self,_top等
+ isExternalHref | INT(10)              | NO   |     | 0       | 1是外部链接;0 内部链接
+ externalHref   | VARCHAR(255)         | YES  |     |         | 外部链接url 
+ title          | VARCHAR(255)         | NO   |     |         | 标题      
+ introduction   | VARCHAR(255)         | YES  |     |         | 一句话描述,简介,摘要
+ img            | VARCHAR(255)         | YES  |     |         | 缩略图路径   
+ content        | LONGTEXT(2147483647) | YES  |     |         | 内容      
+ view           | INT(10)              | YES  |     | 0       | 浏览量     
+ author         | VARCHAR(50)          | YES  |     |         | 作者      
+ source         | VARCHAR(50)          | YES  |     |         | 文章来源    
+ isDeleted      | INT(10)              | NO   |     | 0       | 1删除;0默认 
+ createdTime    | DATETIME(19)         | YES  |     |         | 创建时间    
+ updatedTime    | DATETIME(19)         | YES  |     |         | 更新时间    
+ releaseTime    | DATETIME(19)         | NO   |     |         | 发布时间    
+----------------+----------------------+------+-----+---------+---------
 
 Table: sk_notification
 ----------------+--------------+------+-----+---------+---------

@@ -23,6 +23,7 @@ public class AppConstants {
   public static final String UPLOAD_DIR_AVATAR = "avatar";
   public static final String UPLOAD_DIR_LABEL = "label";
   public static final String UPLOAD_DIR_LINK = "link";
+  public static final String UPLOAD_DIR_NEWS = "news";
   public static final String UPLOAD_DIR_EDITOR = "editor";
   //上传异常
   public static final String UPLOAD_ERROR_MESSAGE = "非法路径参数";

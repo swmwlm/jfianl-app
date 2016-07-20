@@ -636,7 +636,9 @@ VALUES
   (3,'public','key1','test1',1,'单一的键值对，统一使用public类型',current_timestamp,null),
   (4,'slider','index','首页轮播图',1,'首页轮播图',current_timestamp,null),
   (10,'news','ventureNews','创业资讯',1,'创业资讯',current_timestamp,null),
-  (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,null)
+  (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,null),
+  (12,'target','_self','默认',2,'浏览器打开链接的方式',current_timestamp,null),
+  (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,null)
 
 
 
@@ -649,15 +651,15 @@ CREATE TABLE IF NOT EXISTS sk_news (
   `isExternalHref` int(1) NOT NULL DEFAULT 0 COMMENT '1是外部链接;0 内部链接',
   `externalHref` VARCHAR(255) DEFAULT NULL COMMENT '外部链接url',
   `title` varchar(255) NOT NULL COMMENT '标题',
-  `introduction` VARCHAR(255) NOT NULL COMMENT '一句话描述,简介,摘要',
+  `introduction` VARCHAR(255) DEFAULT NULL COMMENT '一句话描述,简介,摘要',
   `img` VARCHAR(255) DEFAULT NULL COMMENT '缩略图路径',
-  `content` longtext NOT NULL COMMENT '内容',
-  `view` int(11) NOT NULL COMMENT '浏览量',
+  `content` longtext DEFAULT NULL COMMENT '内容',
+  `view` int(11) DEFAULT 0 COMMENT '浏览量',
   `author` VARCHAR(50) DEFAULT NULL COMMENT '作者',
   `source` VARCHAR(50) DEFAULT NULL COMMENT '文章来源',
-  `sort` int(4) NOT NULL COMMENT '排序',
   `isDeleted` int(1) NOT NULL DEFAULT 0 COMMENT '1删除;0默认',
-  `createdTime` TIMESTAMP NOT NULL COMMENT '创建时间',
-  `updatedTime` TIMESTAMP NOT NULL COMMENT '更新时间',
+  `createdTime` DATETIME COMMENT '创建时间',
+  `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `releaseTime` DATETIME NOT NULL COMMENT '发布时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;

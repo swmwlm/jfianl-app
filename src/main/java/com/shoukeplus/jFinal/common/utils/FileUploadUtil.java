@@ -29,6 +29,7 @@ public class FileUploadUtil {
 			case AppConstants.UPLOAD_DIR_EDITOR:
 			case AppConstants.UPLOAD_DIR_LABEL:
 			case AppConstants.UPLOAD_DIR_LINK:
+			case AppConstants.UPLOAD_DIR_NEWS:
 				return true;
 			default:
 				return false;

@@ -105,14 +105,6 @@ public abstract class BaseNews<M extends BaseNews<M>> extends Model<M> implement
 		return get("source");
 	}
 
-	public void setSort(java.lang.Integer sort) {
-		set("sort", sort);
-	}
-
-	public java.lang.Integer getSort() {
-		return get("sort");
-	}
-
 	public void setIsDeleted(java.lang.Integer isDeleted) {
 		set("isDeleted", isDeleted);
 	}
@@ -135,6 +127,14 @@ public abstract class BaseNews<M extends BaseNews<M>> extends Model<M> implement
 
 	public java.util.Date getUpdatedTime() {
 		return get("updatedTime");
+	}
+
+	public void setReleaseTime(java.util.Date releaseTime) {
+		set("releaseTime", releaseTime);
+	}
+
+	public java.util.Date getReleaseTime() {
+		return get("releaseTime");
 	}
 
 }

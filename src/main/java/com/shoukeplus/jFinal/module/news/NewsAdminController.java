@@ -27,6 +27,7 @@ public class NewsAdminController extends BaseController {
         String method = getRequest().getMethod();
         if (method.equalsIgnoreCase(AppConstants.GET)) {
             setAttr("newsCategory", Dict.dao.getList4Type("news"));
+            setAttr("targetCategory", Dict.dao.getList4Type("target"));
             render("add.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
             Integer maxDisplayIndex = Link.dao.maxDisplayIndex();
