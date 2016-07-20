@@ -10,9 +10,11 @@ import com.shoukeplus.jFinal.common.utils.StrUtil;
 @SuppressWarnings("serial")
 public class News extends BaseNews<News> {
 	public static final News dao = new News();
-	public Page<News> page(int pageNumber, int pageSize,String value) {
+	public Page<News> page(int pageNumber, int pageSize,String value,String dictId) {
 		StringBuffer condition = new StringBuffer();
 		if (!StrUtil.isBlank(value)) condition.append(" and n.title like \"%" + value + "%\" ");
+		if (!StrUtil.isBlank(dictId)) condition.append(" and n.dictId = " + dictId);
+
 		return super.paginate(pageNumber, pageSize,
 				"select n.*, d.value as categoryName ",
 				"from sk_news n left join sk_dict d on n.dictId = d.id " +

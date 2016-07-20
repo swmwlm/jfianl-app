@@ -3,27 +3,29 @@
 <section class="content-header">
     <h1>
         资讯
-        <small>添加</small>
+        <small>编辑</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="${path!}/admin/index"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li><a href="${path!}/admin/news"><i class="fa fa-tag"></i> 资讯</a></li>
-        <li class="active">添加</li>
+        <li class="active">编辑</li>
     </ol>
 </section>
 <section class="content">
     <div class="box box-info">
         <div class="box-header with-border">
-            <h3 class="box-title">创建资讯</h3>
+            <h3 class="box-title">编辑资讯</h3>
         </div>
-        <form class="form-horizontal" action="add" method="post" onsubmit="return toValid();">
+        <form class="form-horizontal" action="edit" method="post" onsubmit="return toValid();">
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">资讯分类</label>
                     <div class="col-sm-5">
                         <select name="news.dictId" id="dictId" class="form-control" required="required">
                             <#list newsCategory as category>
-                                <option value="${category.id!}">${category.value!}</option>
+                                <option value="${category.id!}" <#if '${category.id}'=='${news.dictId!}'>selected="selected"</#if>>
+                                    ${category.value!}
+                                </option>
                             </#list>
                         </select>
                     </div>
@@ -33,7 +35,9 @@
                     <div class="col-sm-5">
                         <select name="news.target" id="target" class="form-control" required="required">
                             <#list targetCategory as target>
-                                <option value="${target.key!}">${target.value!}</option>
+                                <option value="${target.key!}" <#if '${target.key}'=='${news.target!}'>selected="selected"</#if>>
+                                    ${target.value!}
+                                </option>
                             </#list>
                         </select>
                     </div>
@@ -41,13 +45,13 @@
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">标题</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="title" name="news.title" placeholder="标题" required="required">
+                        <input type="text" class="form-control" id="title" name="news.title" placeholder="标题" value="${news.title!}" required="required">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">摘要</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="introduction" name="news.introduction" placeholder="摘要" required="required">
+                        <input type="text" class="form-control" id="introduction" name="news.introduction" placeholder="摘要" value="${news.introduction}" required="required">
                     </div>
                 </div>
                 <div class="form-group">
@@ -55,23 +59,46 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <span class="input-group-addon">
-                              <input type="checkbox" id="isExternalHrefChk" onchange="showExternalHref();">
-                                <input type="hidden" id="isExternalHref" name="news.isExternalHref" value="0" />
+                                <input type="checkbox" id="isExternalHrefChk" <#if news.isExternalHref==1 >checked="checked"</#if> onchange="showExternalHref();">
+                                <input type="hidden" id="isExternalHref" name="news.isExternalHref" value="${news.isExternalHref}" />
                             </span>
-                            <input class="form-control" type="text" readonly="readonly" id="externalHref" name="news.externalHref" placeholder="外链地址,形如:http://abc.com">
+                            <input class="form-control" type="text" <#if news.isExternalHref==0 >readonly="readonly"</#if> id="externalHref" name="news.externalHref" placeholder="外链地址,形如:http://abc.com" value="${news.externalHref!}">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="img" class="col-sm-2 control-label">资讯摘要图</label>
                     <div class="col-sm-6" id="pickfiles">
-                        <img src="${path!}/static/img/upload.png" id="imgUpload" />
-                        <input name="news.img" id="img" type="hidden" value=""/>
+                        <#if news.img ??>
+                            <img src="${imgPath!}${news.img}" id="imgUpload" />
+                        <#else>
+                            <img src="${path!}/static/img/upload.png" id="imgUpload" />
+                        </#if>
+                        <input name="news.img" id="img" type="hidden" value="${news.img}"/>
                     </div>
                 </div>
                 <div class="form-group" id="newsImgsDiv">
                     <label for="img" class="col-sm-2 control-label">资讯组图</label>
                     <div class="col-sm-3">
+                        <#if newsImages ??>
+                        <#list newsImages as image>
+                        <div style="display: block;">
+                            <div class="newsimgs_upload">
+                                <img src="${imgPath!}${image.img}" style="width:100px;height:50px;margin:0px 0px;">
+                                <div class="uploadimg_close" style="width:100px;height:50px;margin:0px 0px;display:none;">
+                                    <img src="${path!}/static/img/uploadClose.png">
+                                </div>
+                                <input type="text" style="display:none;" name="newsImages[${image.id}].img" value="${image.img}"/>
+                                <input type="text" style="display:none;" name="newsImages[${image.id}].id" value="${image.id}"/>
+                                <input type="text" style="display:none;" name="newsImages[${image.id}].newsId" value="${image.newsId}"/>
+                            </div>
+                            <div style="float:left">
+                                <input type="text" name="newsImages[${image.id}].title" required="required" value="${image.title}">
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                        </#list>
+                        </#if>
                         <img src="${path!}/static/img/upload.png" id="imgsUpload" style="display: block;clear:both;" />
                     </div>
                     <a href="javascript:void(0);" id="triggerFileBrowser"></a>
@@ -79,19 +106,19 @@
                 <div class="form-group" id="contentDiv">
                     <label for="name" class="col-sm-2 control-label">资讯内容</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="content" name="news.content" placeholder="资讯内容" rows="20"></textarea>
+                        <textarea class="form-control" id="content" name="news.content" placeholder="资讯内容" rows="20">${news.content!}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">作者</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="author" name="news.author" placeholder="作者">
+                        <input type="text" class="form-control" id="author" name="news.author" placeholder="作者" value="${news.author!}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">文章来源</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="source" name="news.source" placeholder="文章来源">
+                        <input type="text" class="form-control" id="source" name="news.source" placeholder="文章来源" value="${news.source!}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -101,14 +128,14 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input class="form-control pull-right" type="text" id="releaseTime" name="news.releaseTime" placeholder="发布时间" readonly="readonly" />
+                            <input class="form-control pull-right" type="text" id="releaseTime" name="news.releaseTime" placeholder="发布时间" readonly="readonly" value="${news.releaseTime}" />
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">浏览量</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="view" name="news.view" placeholder="初始浏览量,例如:222" required="required">
+                        <input type="text" class="form-control" id="view" name="news.view" placeholder="初始浏览量,例如:222" required="required" value="${news.view!'0'}">
                     </div>
                 </div>
             </div>
@@ -128,6 +155,11 @@
 <script type="text/javascript">
     var index=-1;
     $(function () {
+        var imageSize=${newsImages?size};
+        if(imageSize>0){
+            index=imageSize;
+        }
+        console.log(index);
         initLayDate();
         uploadImg();
         initWangEditor();

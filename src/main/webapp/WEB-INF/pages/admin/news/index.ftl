@@ -16,6 +16,16 @@
         <div class="box-header">
             <form class="form-inline" method="get" action="${path!}/admin/news">
                 <div class="form-group">
+                    <select name="dictId" class="form-control">
+                        <option value="">请选择分类</option>
+                        <#list newsCategory as category>
+                            <option value="${category.id!}" <#if '${category.id}'=='${dictId!}'>selected="selected"</#if>>
+                                ${category.value!}
+                            </option>
+                        </#list>
+                    </select>
+                </div>
+                <div class="form-group">
                     <input type="text" class="form-control" name="name" value="${name!}" placeholder="标题"/>
                 </div>
                 <button type="submit" class="btn btn-raised btn-default ">搜索</button>
@@ -63,7 +73,7 @@
                                     <span class="glyphicon glyphicon-eye-open" title="查看详情"></span>
                                 </a>
                                 <@shiro.hasPermission name="news:edit">
-                                    <a href="${path!}/admin/topic/edit/${new.id!}"><span
+                                    <a href="${path!}/admin/news/edit/${new.id!}"><span
                                             class="glyphicon glyphicon-edit" title="编辑"></span></a>
                                 </@shiro.hasPermission>
                                 <@shiro.hasPermission name="news:delete">
