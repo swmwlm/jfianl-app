@@ -161,6 +161,17 @@ Table: sk_news
  releaseTime    | DATETIME(19)         | NO   |     |         | 发布时间    
 ----------------+----------------------+------+-----+---------+---------
 
+Table: sk_news_images
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ newsId      | INT(10)      | NO   |     |         | 新闻ID    
+ title       | VARCHAR(255) | NO   |     |         | 标题      
+ img         | VARCHAR(255) | YES  |     |         | 缩略图路径   
+ createdTime | DATETIME(19) | YES  |     |         | 创建时间    
+-------------+--------------+------+-----+---------+---------
+
 Table: sk_notification
 ----------------+--------------+------+-----+---------+---------
  Field          | Type         | Null | Key | Default | Remarks 

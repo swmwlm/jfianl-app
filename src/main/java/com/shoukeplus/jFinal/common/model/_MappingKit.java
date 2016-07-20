@@ -29,6 +29,7 @@ public class _MappingKit {
 		arp.addMapping("sk_mission", "id", Mission.class);
 		arp.addMapping("sk_msg_contact", "id", MsgContact.class);
 		arp.addMapping("sk_news", "id", News.class);
+		arp.addMapping("sk_news_images", "id", NewsImages.class);
 		arp.addMapping("sk_notification", "id", Notification.class);
 		arp.addMapping("sk_permission", "id", Permission.class);
 		arp.addMapping("sk_reply", "id", Reply.class);
