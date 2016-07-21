@@ -69,16 +69,16 @@
                 </div>
                 <div class="form-group">
                     <label for="img" class="col-sm-2 control-label">资讯摘要图</label>
-                    <div class="col-sm-6" id="pickfiles">
+                    <div class="col-sm-6">
                         <#if news.img ??>
-                            <img src="${imgPath!}${news.img}" id="imgUpload" />
+                            <img src="${imgPath!}${news.img}" id="imgUpload" style="width:100px;height: 100px;" />
                         <#else>
                             <img src="${path!}/static/img/upload.png" id="imgUpload" />
                         </#if>
                         <input name="news.img" id="img" type="hidden" value="${news.img!}"/>
                     </div>
                 </div>
-                <#if news.isExternalHref==0>
+                <#--<#if news.isExternalHref==0>-->
                     <div class="form-group" id="newsImgsDiv">
                     <label for="img" class="col-sm-2 control-label">资讯组图</label>
                     <div class="col-sm-3">
@@ -89,10 +89,10 @@
                                     <img src="${imgPath!}${image.img}" style="width:100px;height:50px;margin:0px 0px;">
                                     <div class="uploadimg_close" style="width:100px;height:50px;margin:0px 0px;display:none;">
                                         <img src="${path!}/static/img/uploadClose.png">
+                                        <input type="text" style="display:none;" flag="newsImagesId" name="newsImages[${image_index}].id" value="${image.id}"/>
+                                        <input type="text" style="display:none;" name="newsImages[${image_index}].img" value="${image.img}"/>
+                                        <input type="text" style="display:none;" name="newsImages[${image_index}].newsId" value="${image.newsId}"/>
                                     </div>
-                                    <input type="text" style="display:none;" name="newsImages[${image_index}].img" value="${image.img}"/>
-                                    <input type="text" style="display:none;" name="newsImages[${image_index}].id" value="${image.id}"/>
-                                    <input type="text" style="display:none;" name="newsImages[${image_index}].newsId" value="${image.newsId}"/>
                                 </div>
                                 <div style="float:left">
                                     <input type="text" name="newsImages[${image_index}].title" required="required" value="${image.title}">
@@ -101,17 +101,18 @@
                             </div>
                             </#list>
                         </#if>
+                        <input type="text" style="display:none;" id="newsImagesIDS" name="newsImagesIDS" value=""/>
                         <img src="${path!}/static/img/upload.png" id="imgsUpload" style="display: block;clear:both;" />
                     </div>
                     <a href="javascript:void(0);" id="triggerFileBrowser"></a>
                 </div>
-                </#if>
                 <div class="form-group" id="contentDiv">
                     <label for="name" class="col-sm-2 control-label">资讯内容</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="content" name="news.content" placeholder="资讯内容" rows="20">${news.content!}</textarea>
                     </div>
                 </div>
+                <#--</#if>-->
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">作者</label>
                     <div class="col-sm-5">
@@ -166,6 +167,10 @@
         uploadImg();
         initWangEditor();
         initImagesConfig('triggerFileBrowser');
+
+        if(${news.isExternalHref}==1){
+            $("#isExternalHrefChk").change();
+        }
         $(document).on('click', '#imgsUpload', function () {
             if ($('div.newsimgs_upload').length == 10) {
                 layer.msg('最多允许上传10张图片!', {time: 1000});
@@ -181,7 +186,6 @@
             $deleteImg.show();
         });
         $(document).on('mouseleave', 'div.newsimgs_upload', function () {
-
             var $deleteImg = $(this).find('.uploadimg_close');
             if ($deleteImg == null) {
                 return false;
@@ -189,6 +193,11 @@
             $deleteImg.hide();
         });
         $(document).on('click', 'div.uploadimg_close>img', function () {
+            var newsImagesId=$(this).next("input[flag='newsImagesId']");
+            var newsImagesIDSObj=$("#newsImagesIDS");
+            if(newsImagesId.length>0){
+                newsImagesIDSObj.val(newsImagesIDSObj.val()+','+newsImagesId.val());
+            }
             var $imgContainer = $(this).parent().parent().parent();
             $imgContainer.remove();
         });
@@ -240,7 +249,7 @@
      */
     function uploadImg() {
         extractUpload({
-            browseElementId: 'pickfiles',
+            browseElementId: 'imgUpload',
             url: '${path!}/uploadPl/news',
             filters: {
                 max_file_size: '2mb',
@@ -272,10 +281,6 @@
      * @param elementId
      */
     function initImagesConfig(elementId) {
-        var $element = $("#" + elementId);
-        if (!$element) {
-            return false;
-        }
         extractUpload({
             browseElementId: elementId,
             url: '${path!}/uploadPl/news',
@@ -352,8 +357,8 @@
             <img src="${imgPath!}{{value}}" style="width:100px;height:50px;margin:0px 0px;">
             <div class="uploadimg_close" style="width:100px;height:50px;margin:0px 0px;display:none;">
                 <img src="${path!}/static/img/uploadClose.png">
+                <input type="text" style="display:none;" name="newsImages[{{index}}].img" value="{{value}}"/>
             </div>
-            <input type="text" style="display:none;" name="newsImages[{{index}}].img" value="{{value}}"/>
         </div>
         <div style="float:left">
             <input type="text" name="newsImages[{{index}}].title" required="required">

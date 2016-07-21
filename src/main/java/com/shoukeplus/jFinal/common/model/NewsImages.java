@@ -10,8 +10,10 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class NewsImages extends BaseNewsImages<NewsImages> {
 	public static final NewsImages dao = new NewsImages();
-	public List<NewsImages> findByDictId(String newsId) {
+	public List<NewsImages> findByNewsId(String newsId) {
 		return super.find("select * from sk_news_images where newsId=? order by id",newsId);
 	}
-
+	public List<NewsImages> findIdsByNewsId(String newsId) {
+		return super.find("select id from sk_news_images where newsId=? order by id",newsId);
+	}
 }

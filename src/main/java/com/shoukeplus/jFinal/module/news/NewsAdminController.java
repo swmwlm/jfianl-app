@@ -1,5 +1,7 @@
 package com.shoukeplus.jFinal.module.news;
 
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.shoukeplus.jFinal.common.AppConstants;
@@ -77,26 +79,43 @@ public class NewsAdminController extends BaseController {
 
 	@RequiresPermissions("news:edit")
 	public void edit() {
-		String id = getPara(0);
-		if (StrUtil.isBlank(id)) {
+		String newsId = getPara(0);
+		if (StrUtil.isBlank(newsId)) {
 			renderText(AppConstants.OP_ERROR_MESSAGE);
 		}
 		String method = getRequest().getMethod();
 		if (method.equalsIgnoreCase(AppConstants.GET)) {
-			News news = News.dao.findById(id);
+			News news = News.dao.findById(newsId);
 			if (news == null) {
 				renderText("资讯不存在");
 			}
 			setAttr("newsCategory", Dict.dao.getList4Type("news"));
 			setAttr("targetCategory", Dict.dao.getList4Type("target"));
 			setAttr("news", news);
-			setAttr("newsImages", NewsImages.dao.findByDictId(id));
+			setAttr("newsImages", NewsImages.dao.findByNewsId(newsId));
 			render("edit.ftl");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
 			News newsEdit = getModel(News.class);
 			newsEdit.setUpdatedTime(DateUtil.getCurrentDateTime());
 			newsEdit.update();
-			Integer newsId = newsEdit.getId();
+			String newsImagesIDS=getRequest().getParameter("newsImagesIDS");
+
+			if(!Strings.isNullOrEmpty(newsImagesIDS)){
+				List<String> imageIDList= Splitter.onPattern("[,，]{1,}").trimResults().omitEmptyStrings().splitToList(newsImagesIDS);
+				//1.根据传入待删除的图片ids; 来 删除 对应的资讯组图;
+				if(CollectionUtils.isNotEmpty(imageIDList)){
+					List<NewsImages> newsImagesList=NewsImages.dao.findIdsByNewsId(newsId);
+					for(String imageId:imageIDList){
+						for(NewsImages img:newsImagesList){
+							//2.删除前校验该id是否真实存在当前的资讯组图中,以防止非法删除;
+							if(imageId.equals(img.getId().toString())){
+								NewsImages.dao.deleteById(img.getId());
+							}
+						}
+					}
+				}
+			}
+
 			List<NewsImages> newsImagesList = getModels(NewsImages.class, "newsImages");
 			if (CollectionUtils.isNotEmpty(newsImagesList)) {
 				for (NewsImages img : newsImagesList) {
@@ -104,7 +123,7 @@ public class NewsAdminController extends BaseController {
 					if(ObjectUtils.notEqual(img.getId(),null)){
 						img.update();
 					}else {
-						img.setNewsId(newsId);
+						img.setNewsId(Integer.parseInt(newsId));
 						img.save();
 					}
 				}
@@ -121,7 +140,6 @@ public class NewsAdminController extends BaseController {
 					.set("message", null)
 					.save();
 			redirect("/admin/news");
-
 		}
 	}
 }

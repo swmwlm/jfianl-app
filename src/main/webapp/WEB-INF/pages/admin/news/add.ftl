@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     <label for="img" class="col-sm-2 control-label">资讯摘要图</label>
-                    <div class="col-sm-6" id="pickfiles">
+                    <div class="col-sm-6">
                         <img src="${path!}/static/img/upload.png" id="imgUpload" />
                         <input name="news.img" id="img" type="hidden" value=""/>
                     </div>
@@ -206,7 +206,7 @@
      */
     function uploadImg() {
         extractUpload({
-            browseElementId: 'pickfiles',
+            browseElementId: 'imgUpload',
             url: '${path!}/uploadPl/news',
             filters: {
                 max_file_size: '2mb',
@@ -228,6 +228,7 @@
                 if (info.status) {
                     $('#img').val(info.response);
                     $('#imgUpload').attr("src","${imgPath!}"+info.response);
+                    $('#imgUpload').attr("style","width:100px;height: 100px;");
                 }
             }
         });
