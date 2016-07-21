@@ -14,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -102,6 +103,7 @@ public class NewsAdminController extends BaseController {
 
 			if(!Strings.isNullOrEmpty(newsImagesIDS)){
 				List<String> imageIDList= Splitter.onPattern("[,，]{1,}").trimResults().omitEmptyStrings().splitToList(newsImagesIDS);
+				List<String> ids=new ArrayList<>();
 				//1.根据传入待删除的图片ids; 来 删除 对应的资讯组图;
 				if(CollectionUtils.isNotEmpty(imageIDList)){
 					List<NewsImages> newsImagesList=NewsImages.dao.findIdsByNewsId(newsId);
@@ -109,9 +111,14 @@ public class NewsAdminController extends BaseController {
 						for(NewsImages img:newsImagesList){
 							//2.删除前校验该id是否真实存在当前的资讯组图中,以防止非法删除;
 							if(imageId.equals(img.getId().toString())){
-								NewsImages.dao.deleteById(img.getId());
+								//NewsImages.dao.deleteById(img.getId());
+								ids.add(imageId);
 							}
 						}
+					}
+					//3.只有全部通过的,才做统一删除操作
+					if(CollectionUtils.isEqualCollection(imageIDList,ids)){
+						NewsImages.dao.deleteByIds(ids);
 					}
 				}
 			}

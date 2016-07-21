@@ -1,5 +1,7 @@
 package com.shoukeplus.jFinal.common.model;
 
+import com.google.common.base.Joiner;
+import com.jfinal.plugin.activerecord.Db;
 import com.shoukeplus.jFinal.common.model.base.BaseNewsImages;
 
 import java.util.List;
@@ -15,5 +17,9 @@ public class NewsImages extends BaseNewsImages<NewsImages> {
 	}
 	public List<NewsImages> findIdsByNewsId(String newsId) {
 		return super.find("select id from sk_news_images where newsId=? order by id",newsId);
+	}
+	public void deleteByIds(List<String> ids){
+		String idsStr= Joiner.on(",").join(ids);
+		Db.update("delete from sk_news_images where id in ("+idsStr+") ");
 	}
 }
