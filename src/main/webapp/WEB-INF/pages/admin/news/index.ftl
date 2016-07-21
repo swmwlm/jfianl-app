@@ -69,9 +69,10 @@
                             </td>
                             <td>${new.releaseTime!}</td>
                             <td>
-                                <a href="javascript:;" data-toggle="modal" data-target="#news_detail_${new.id!}">
-                                    <span class="glyphicon glyphicon-eye-open" title="查看详情"></span>
-                                </a>
+                                <@shiro.hasPermission name="news:view">
+                                    <a href="${path!}/admin/news/view/${new.id!}"><span
+                                        class="glyphicon glyphicon-eye-open" title="预览"></span></a>
+                                </@shiro.hasPermission>
                                 <@shiro.hasPermission name="news:edit">
                                     <a href="${path!}/admin/news/edit/${new.id!}"><span
                                             class="glyphicon glyphicon-edit" title="编辑"></span></a>
@@ -80,36 +81,6 @@
                                     <a href="javascript:deleteNews('${new.id}')"><span
                                             class="glyphicon glyphicon-trash" title="删除"></span></a>
                                 </@shiro.hasPermission>
-                                <div class="modal fade" id="news_detail_${new.id!}" tabindex="-1" role="dialog"
-                                     aria-labelledby="myModalLabel">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <h4 class="modal-title" id="myModalLabel">
-                                                    <#if new.isExternalHref == 1>
-                                                        <span class="label label-success">外</span>
-                                                    </#if>
-                                                    ${new.title!}
-                                                </h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <#if new.isExternalHref == 1>
-                                                    <a href="${new.externalHref}" target="_blank">${new.externalHref}</a>
-                                                <#else>
-                                                    ${new.content!}
-                                                </#if>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-raised btn-default"
-                                                        data-dismiss="modal">关闭
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                         </#list>

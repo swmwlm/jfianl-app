@@ -149,4 +149,32 @@ public class NewsAdminController extends BaseController {
 			redirect("/admin/news");
 		}
 	}
+
+	@RequiresPermissions("news:view")
+	public void view() {
+		String newsId = getPara(0);
+		if (StrUtil.isBlank(newsId)) {
+			renderText(AppConstants.OP_ERROR_MESSAGE);
+		}
+
+		News news = News.dao.findById(newsId);
+		if (news == null) {
+			renderText("资讯不存在");
+		}
+		List<Dict> dictList=Dict.dao.getList4Type("news");
+		setAttr("newsCategory", dictList);
+		setAttr("targetCategory", Dict.dao.getList4Type("target"));
+
+		String categoryName=null;
+		for(Dict dict:dictList){
+			if(dict.getId()==news.getDictId()){
+				categoryName=dict.getValue();
+			}
+		}
+		setAttr("categoryName",categoryName);
+
+		setAttr("news", news);
+		setAttr("newsImages", NewsImages.dao.findByNewsId(newsId));
+		render("view.ftl");
+	}
 }
