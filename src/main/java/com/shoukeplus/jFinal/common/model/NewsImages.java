@@ -12,14 +12,17 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class NewsImages extends BaseNewsImages<NewsImages> {
 	public static final NewsImages dao = new NewsImages();
+
 	public List<NewsImages> findByNewsId(String newsId) {
-		return super.find("select * from sk_news_images where newsId=? order by id",newsId);
+		return super.find("select * from sk_news_images where newsId=? order by id", newsId);
 	}
+
 	public List<NewsImages> findIdsByNewsId(String newsId) {
-		return super.find("select id from sk_news_images where newsId=? order by id",newsId);
+		return super.find("select id from sk_news_images where newsId=? order by id", newsId);
 	}
-	public void deleteByIds(List<String> ids){
-		String idsStr= Joiner.on(",").join(ids);
-		Db.update("delete from sk_news_images where id in ("+idsStr+") ");
+
+	public void deleteByIds(List<String> ids) {
+		String idsStr = Joiner.on(",").join(ids);
+		Db.update("delete from sk_news_images where id in (" + idsStr + ") ");
 	}
 }

@@ -7,7 +7,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="${path!}/admin/index"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="${path!}/admin/adminuser">用户</a></li>
+        <li><a href="${path!}/admin/adminuser"> 后台用户</a></li>
         <li class="active">列表</li>
     </ol>
 </section>

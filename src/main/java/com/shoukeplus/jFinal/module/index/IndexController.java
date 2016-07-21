@@ -313,9 +313,9 @@ public class IndexController extends BaseController {
 	public void upload() {
 		String paramPath = getPara(0).trim();
 		//获取图片的相对路径
-		String relativePath=FileUploadUtil.upload(paramPath,getFiles(paramPath));
+		String relativePath = FileUploadUtil.upload(paramPath, getFiles(paramPath));
 		//富编辑器里需要加上图片访问路径 ,因为有XSS过滤,只有src的protocol 为http或者https 的才能保存;
-		renderText(AppConstants.IMG_HOSTURL+relativePath);
+		renderText(AppConstants.IMG_HOSTURL + relativePath);
 	}
 
 	/**
@@ -325,7 +325,7 @@ public class IndexController extends BaseController {
 	public void uploadPl() {
 		String paramPath = getPara(0).trim();
 		//获取图片的相对路径
-		String relativePath=FileUploadUtil.upload(paramPath,getFiles(paramPath));
+		String relativePath = FileUploadUtil.upload(paramPath, getFiles(paramPath));
 		//富编辑器里需要加上图片访问路径 ,因为有XSS过滤,只有src的protocol 为http或者https 的才能保存;
 		renderText(relativePath);
 	}

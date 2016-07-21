@@ -99,25 +99,25 @@ public class NewsAdminController extends BaseController {
 			News newsEdit = getModel(News.class);
 			newsEdit.setUpdatedTime(DateUtil.getCurrentDateTime());
 			newsEdit.update();
-			String newsImagesIDS=getRequest().getParameter("newsImagesIDS");
+			String newsImagesIDS = getRequest().getParameter("newsImagesIDS");
 
-			if(!Strings.isNullOrEmpty(newsImagesIDS)){
-				List<String> imageIDList= Splitter.onPattern("[,，]{1,}").trimResults().omitEmptyStrings().splitToList(newsImagesIDS);
-				List<String> ids=new ArrayList<>();
+			if (!Strings.isNullOrEmpty(newsImagesIDS)) {
+				List<String> imageIDList = Splitter.onPattern("[,，]{1,}").trimResults().omitEmptyStrings().splitToList(newsImagesIDS);
+				List<String> ids = new ArrayList<>();
 				//1.根据传入待删除的图片ids; 来 删除 对应的资讯组图;
-				if(CollectionUtils.isNotEmpty(imageIDList)){
-					List<NewsImages> newsImagesList=NewsImages.dao.findIdsByNewsId(newsId);
-					for(String imageId:imageIDList){
-						for(NewsImages img:newsImagesList){
+				if (CollectionUtils.isNotEmpty(imageIDList)) {
+					List<NewsImages> newsImagesList = NewsImages.dao.findIdsByNewsId(newsId);
+					for (String imageId : imageIDList) {
+						for (NewsImages img : newsImagesList) {
 							//2.删除前校验该id是否真实存在当前的资讯组图中,以防止非法删除;
-							if(imageId.equals(img.getId().toString())){
+							if (imageId.equals(img.getId().toString())) {
 								//NewsImages.dao.deleteById(img.getId());
 								ids.add(imageId);
 							}
 						}
 					}
 					//3.只有全部通过的,才做统一删除操作
-					if(CollectionUtils.isEqualCollection(imageIDList,ids)){
+					if (CollectionUtils.isEqualCollection(imageIDList, ids)) {
 						NewsImages.dao.deleteByIds(ids);
 					}
 				}
@@ -127,9 +127,9 @@ public class NewsAdminController extends BaseController {
 			if (CollectionUtils.isNotEmpty(newsImagesList)) {
 				for (NewsImages img : newsImagesList) {
 					img.setCreatedTime(DateUtil.getCurrentDateTime());
-					if(ObjectUtils.notEqual(img.getId(),null)){
+					if (ObjectUtils.notEqual(img.getId(), null)) {
 						img.update();
-					}else {
+					} else {
 						img.setNewsId(Integer.parseInt(newsId));
 						img.save();
 					}
