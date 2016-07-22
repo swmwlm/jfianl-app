@@ -686,3 +686,19 @@ CREATE TABLE IF NOT EXISTS sk_news_images (
   `createdTime` DATETIME COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+# 轮播图表
+DROP TABLE IF EXISTS sk_roll_images;
+CREATE TABLE IF NOT EXISTS sk_roll_images (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dictId` int(11) NOT  NULL COMMENT '轮播图类型',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `introduction` VARCHAR(255) DEFAULT NULL COMMENT '描述,简介,摘要',
+  `imgSrc` VARCHAR(255) NOT NULL COMMENT '图片路径',
+  `linkUrl` VARCHAR(255) DEFAULT NULL COMMENT '链接url',
+  `target` VARCHAR(20)  DEFAULT '_blank' COMMENT '打开方式:_blank,_self,_top等',
+  `sort` int(4) NOT NULL COMMENT '排序',
+  `createdTime` DATETIME COMMENT '创建时间',
+  `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;

@@ -57,6 +57,13 @@
                     </a>
                 </li>
             </@shiro.hasPermission>
+            <@shiro.hasPermission name="menu:rollimages">
+                <li <#if page_tab="rollimages"> class="active" </#if>>
+                    <a href="${path!}/admin/rollimages">
+                        <i class="fa fa-newspaper-o"></i> <span>轮播图</span>
+                    </a>
+                </li>
+            </@shiro.hasPermission>
             <@shiro.hasPermission name="menu:user">
                 <li <#if page_tab="user"> class="active" </#if>>
                     <a href="${path!}/admin/user">

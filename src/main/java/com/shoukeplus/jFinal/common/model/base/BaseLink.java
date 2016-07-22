@@ -33,20 +33,20 @@ public abstract class BaseLink<M extends BaseLink<M>> extends Model<M> implement
 		return get("url");
 	}
 
-	public void setDisplayIndex(java.lang.Integer displayIndex) {
-		set("display_index", displayIndex);
-	}
-
-	public java.lang.Integer getDisplayIndex() {
-		return get("display_index");
-	}
-
 	public void setImg(java.lang.String img) {
 		set("img", img);
 	}
 
 	public java.lang.String getImg() {
 		return get("img");
+	}
+
+	public void setDisplayIndex(java.lang.Integer displayIndex) {
+		set("display_index", displayIndex);
+	}
+
+	public java.lang.Integer getDisplayIndex() {
+		return get("display_index");
 	}
 
 }
