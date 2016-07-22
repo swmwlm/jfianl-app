@@ -99,8 +99,8 @@ Table: sk_link
  id            | INT(10)      | NO   | PRI |         |         
  name          | VARCHAR(45)  | NO   |     |         | 友链名称    
  url           | VARCHAR(255) | NO   |     |         | 友链地址    
+ img           | VARCHAR(255) | NO   |     |         | 友链图片    
  display_index | INT(10)      | NO   |     |         | 友链排序    
- img           | VARCHAR(255) | NO   |     |         |         
 ---------------+--------------+------+-----+---------+---------
 
 Table: sk_message
@@ -227,6 +227,22 @@ Table: sk_role_permission
  rid   | INT(10) | NO   |     |         |         
  pid   | INT(10) | NO   |     |         |         
 -------+---------+------+-----+---------+---------
+
+Table: sk_roll_images
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ dictId       | INT(10)      | NO   |     |         | 轮播图类型   
+ title        | VARCHAR(255) | YES  |     |         | 标题      
+ introduction | VARCHAR(255) | YES  |     |         | 描述,简介,摘要
+ imgSrc       | VARCHAR(255) | NO   |     |         | 图片路径    
+ linkUrl      | VARCHAR(255) | YES  |     |         | 链接url   
+ target       | VARCHAR(20)  | YES  |     | _blank  | 打开方式:_blank,_self,_top等
+ sort         | INT(10)      | NO   |     |         | 排序      
+ createdTime  | DATETIME(19) | YES  |     |         | 创建时间    
+ updatedTime  | DATETIME(19) | YES  |     |         | 更新时间    
+--------------+--------------+------+-----+---------+---------
 
 Table: sk_section
 ---------------+-------------+------+-----+---------+---------

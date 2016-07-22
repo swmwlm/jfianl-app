@@ -35,6 +35,7 @@ public class _MappingKit {
 		arp.addMapping("sk_reply", "id", Reply.class);
 		arp.addMapping("sk_role", "id", Role.class);
 		arp.addMapping("sk_role_permission", "id", RolePermission.class);
+		arp.addMapping("sk_roll_images", "id", RollImages.class);
 		arp.addMapping("sk_section", "id", Section.class);
 		arp.addMapping("sk_sys_config", "id", SysConfig.class);
 		arp.addMapping("sk_topic", "id", Topic.class);
