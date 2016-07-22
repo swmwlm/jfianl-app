@@ -60,7 +60,7 @@
             <@shiro.hasPermission name="menu:rollimages">
                 <li <#if page_tab="rollimages"> class="active" </#if>>
                     <a href="${path!}/admin/rollimages">
-                        <i class="fa fa-newspaper-o"></i> <span>轮播图</span>
+                        <i class="fa fa-file-image-o"></i> <span>轮播图</span>
                     </a>
                 </li>
             </@shiro.hasPermission>

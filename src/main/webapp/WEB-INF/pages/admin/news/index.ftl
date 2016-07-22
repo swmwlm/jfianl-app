@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                            总资讯数：${page.getTotalRow()}</div>
+                            总记录数：${page.getTotalRow()}</div>
                     </div>
                     <div class="col-sm-7">
                         <div class="dataTables_paginate paging_simple_numbers">
