@@ -313,7 +313,12 @@ VALUES
   (59,'news:add','增加资讯',58),
   (60,'news:delete','删除资讯',58),
   (61,'news:edit','编辑资讯',58),
-  (62,'news:view','预览权限',58);
+  (62,'news:view','预览权限',58),
+  (63,'rollimages','轮播图节点',0),
+  (64,'rollimages:edit','编辑轮播图',63),
+  (65,'rollimages:delete','删除轮播图',63),
+  (66,'rollimages:add','新增轮播图',63),
+  (67,'menu:rollimages','菜单，轮播图管理',10);
 
 /*!40000 ALTER TABLE `sk_permission` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -422,6 +427,10 @@ VALUES
   (1,60),
   (1,61),
   (1,62),
+  (1,64),
+  (1,65),
+  (1,66),
+  (1,67),
   (2,1),
   (2,4),
   (2,5),
