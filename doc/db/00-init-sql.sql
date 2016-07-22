@@ -153,7 +153,7 @@ CREATE TABLE `sk_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT '友链名称',
   `url` varchar(255) NOT NULL COMMENT '友链地址',
-  `img` varchar(255) NOT NULL COMMENT '友链图片',
+  `img` varchar(255) DEFAULT NULL COMMENT '友链图片',
   `display_index` int(11) NOT NULL COMMENT '友链排序',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
@@ -309,7 +309,7 @@ VALUES
   (55,'setting:druid','MySQL监控',18),
   (56,'setting:dict','字典表',18),
   (57,'menu:news','菜单，资讯管理',10),
-  (58,'news','资讯节点',0);
+  (58,'news','资讯节点',0),
   (59,'news:add','增加资讯',58),
   (60,'news:delete','删除资讯',58),
   (61,'news:edit','编辑资讯',58),
@@ -645,8 +645,8 @@ CREATE TABLE IF NOT EXISTS sk_dict (
   `value` VARCHAR(50) NOT NULL COMMENT 'value',
   `sort` int(4) NOT NULL COMMENT '排序',
   `remark` varchar(255) NOT NULL COMMENT '备注信息',
-  `createdTime` TIMESTAMP NOT NULL COMMENT '创建时间',
-  `updatedTime` TIMESTAMP NOT NULL COMMENT '更新时间',
+  `createdTime` DATETIME NOT NULL COMMENT '创建时间',
+  `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   CONSTRAINT `unq_type_key` UNIQUE (`type`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
@@ -660,9 +660,7 @@ VALUES
   (10,'news','ventureNews','创业资讯',1,'创业资讯',current_timestamp,null),
   (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,null),
   (12,'target','_self','默认',2,'浏览器打开链接的方式',current_timestamp,null),
-  (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,null)
-
-
+  (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,null);
 
 # 新闻表
 DROP TABLE IF EXISTS sk_news;
@@ -685,6 +683,7 @@ CREATE TABLE IF NOT EXISTS sk_news (
   `releaseTime` DATETIME NOT NULL COMMENT '发布时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
 # 新闻组图表
 DROP TABLE IF EXISTS sk_news_images;
 CREATE TABLE IF NOT EXISTS sk_news_images (
