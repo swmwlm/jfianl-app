@@ -25,6 +25,7 @@ import com.shoukeplus.jFinal.handler.FakeStaticHandler;
 import com.shoukeplus.jFinal.handler.ResourceHandler;
 import com.shoukeplus.jFinal.handler.SkipHandler;
 import com.shoukeplus.jFinal.handler.xss.AttackHandler;
+import com.shoukeplus.jFinal.interceptor.csrf.CSRFInterceptor;
 import com.shoukeplus.jFinal.interceptor.CommonInterceptor;
 import com.shoukeplus.jFinal.interceptor.ExceptionAndLogInterceptor;
 import freemarker.template.TemplateModelException;
@@ -101,6 +102,7 @@ public class Config extends JFinalConfig {
 	@Override
 	public void configInterceptor(Interceptors me) {
 		me.add(new TxByMethodRegex("(.*save.*|.*update.*|.*modify.*|.*insert.*)"));
+		me.add(new CSRFInterceptor());
 		//让视图freemarker,beetl可以使用session
 		me.add(new SessionInViewInterceptor());
 		//shiro权限拦截器配置

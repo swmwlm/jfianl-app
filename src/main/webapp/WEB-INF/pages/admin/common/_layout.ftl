@@ -117,6 +117,9 @@
 <script type="text/javascript" src="${path!}/static/component/laydate/laydate.js"></script>
 <script type="text/javascript" src="${path!}/static/component/artTemplate/template.js"></script>
 <script type="text/javascript" src="${path!}/static/component/artTemplate/template.plugin.js"></script>
+<!-- CSRF -->
+<#include "/WEB-INF/pages/public/common.ftl"/>
+<script type="text/javascript" src="${path!}/static/js/app/csrf/csrf.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <#--<script src="${path!}/static/AdminLTE/dist/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->

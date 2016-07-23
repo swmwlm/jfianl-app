@@ -14,6 +14,8 @@ public class AppConstants {
 
   public static final String CURRENT_USER = "currentUser";
 
+  //CSRF TOKEN
+  public static final String CSRF_TOKEN="token";
 
   // 系统变量KEY
   //public static final String UPLOAD_DIR = PathKit.getWebRootPath() + "/static/upload";

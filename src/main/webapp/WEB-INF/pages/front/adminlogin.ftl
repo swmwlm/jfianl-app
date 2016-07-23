@@ -65,6 +65,9 @@
 <script src="${path!}/static/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="${path!}/static/AdminLTE/plugins/iCheck/icheck.min.js"></script>
+<!-- CSRF -->
+<#include "/WEB-INF/pages/public/common.ftl"/>
+<script src="${path!}/static/js/app/csrf/csrf.js"></script>
 <script>
     $(function () {
         $('input').iCheck({
