@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
  * 3.在做增删改操作时,尽量post请求,来过滤CSRF攻击;
  * 		3.1,当某些action不想进行CSRF拦截时,可以加@Clear(CSRFInterceptor.class)
  * 		3.2,在需要post提交的地方,引入common.ftl和csrf.js两个文件
+ * 4.CSRF 无法完美的解决,只有遇到相应的情景,相应的防御
  */
 public class CSRFInterceptor implements Interceptor {
 
