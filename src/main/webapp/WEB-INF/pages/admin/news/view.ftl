@@ -80,14 +80,14 @@
                     </div>
                 </#if>
                 <br/><br/>
-                <div>${news.content!}</div>
+                <div class="wangEditor-txt" style="width:758px;display: block;">${news.content!}</div>
             </#if>
         </div>
     </div>
     <div class="panel-footer" id="topic_footer">
         <div style="font-size: 12px;color: #838383; padding-top: 5px;">
-            <span>&nbsp;•&nbsp;作者${news.author!}</span><br>
-            <span>&nbsp;•&nbsp;来源${news.source!}</span>
+            <span>&nbsp;•&nbsp;作者:${news.author!}</span><br>
+            <span>&nbsp;•&nbsp;来源:${news.source!}</span>
         </div>
     </div>
 </div>
