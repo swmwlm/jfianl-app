@@ -17,6 +17,7 @@ import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
 import com.jfinal.render.ViewType;
+import com.shoukeplus.jFinal.cache.ActionCacheHandler;
 import com.shoukeplus.jFinal.common.model._MappingKit;
 import com.shoukeplus.jFinal.common.utils.ext.plugin.shiro.ShiroInterceptor;
 import com.shoukeplus.jFinal.common.utils.ext.plugin.shiro.ShiroPlugin;
@@ -87,6 +88,9 @@ public class Config extends JFinalConfig {
 	@Override
 	public void configHandler(Handlers me) {
 		me.add(new ContextPathHandler("path"));
+
+		//增加action缓存处理器
+		me.add(new ActionCacheHandler());
 
 		//me.add(new AccessDeniedHandler("/**/*.ftl"));
 		//me.add(new ResourceHandler("/static/**", "/images/**", "/css/**", "/lib/**", "/**/*.html"));

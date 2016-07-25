@@ -4,6 +4,7 @@ import cn.dreampie.mail.Mailer;
 import cn.dreampie.template.freemarker.FreemarkerLoader;
 import com.jfinal.kit.HashKit;
 import com.jfinal.plugin.activerecord.Page;
+import com.shoukeplus.jFinal.cache.ActionCache;
 import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
 import com.shoukeplus.jFinal.common.model.*;
@@ -31,6 +32,7 @@ public class IndexController extends BaseController {
 	/**
 	 * 首页
 	 */
+	@ActionCache
 	public void index() {
 		String tab = getPara("tab", "all");
 		String q = getPara("q");

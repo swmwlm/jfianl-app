@@ -58,7 +58,7 @@ public class AppConstants {
   public static final String POST = "post";
 
 
-  public static final String DEFAULT_CACHENAME = "defaultCache";
+  public static final String DEFAULT_CACHE_NAME = "defaultCache";
 
   public static final String SESSION_ADMIN_USERNAME = "admin_username";
   //link
@@ -68,7 +68,8 @@ public class AppConstants {
   //topic
   public static final String TOPICCACHEKEY = "topiccachekey";
 
-
+  //action cache
+  public static final String ACTION_CACHE_NAME="actionCache";
 
   // 缓存名称
   public static final String SECTIONCACHE = "sectioncache";

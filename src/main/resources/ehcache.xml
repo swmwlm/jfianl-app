@@ -7,5 +7,15 @@
 		
 	<cache name="userList" maxElementsInMemory="150" eternal="false" timeToLiveSeconds="3600"
 			 timeToIdleSeconds="360" overflowToDisk="true"/>
-    	
+
+	<!-- action缓存 10分钟 ,例如,为IndexController index() 增加注解@ActionCache -->
+	<cache name="actionCache"
+		   maxElementsInMemory="10000"
+		   maxElementsOnDisk="100000000"
+		   eternal="false"
+		   timeToIdleSeconds="600"
+		   timeToLiveSeconds="0"
+		   overflowToDisk="true"
+		   diskPersistent="true"
+	/>
 </ehcache>
