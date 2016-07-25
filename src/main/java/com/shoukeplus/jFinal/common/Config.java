@@ -28,6 +28,7 @@ import com.shoukeplus.jFinal.handler.xss.AttackHandler;
 import com.shoukeplus.jFinal.interceptor.csrf.CSRFInterceptor;
 import com.shoukeplus.jFinal.interceptor.CommonInterceptor;
 import com.shoukeplus.jFinal.interceptor.ExceptionAndLogInterceptor;
+import com.shoukeplus.jFinal.render.MyAppRenderFactory;
 import freemarker.template.TemplateModelException;
 
 import java.util.Properties;
@@ -62,11 +63,12 @@ public class Config extends JFinalConfig {
 		//groupTemplate.registerFormat("xss", new XSSDefenseFormat());
 
 		me.setViewType(ViewType.FREE_MARKER);
-		me.setEncoding("UTF-8");
+		me.setEncoding(AppConstants.DEFAULT_ENCODING);
 		me.setFreeMarkerViewExtension("ftl");
 		me.setBaseUploadPath(AppConstants.UPLOAD_DIR);
-		me.setMaxPostSize(2048000);
+		me.setMaxPostSize(1024 * 1024 * 200);
 		me.setFreeMarkerTemplateUpdateDelay(0);
+		me.setMainRenderFactory(new MyAppRenderFactory());
 
 		me.setError401View("/WEB-INF/pages/html/401.html");//没登录
 		me.setError403View("/WEB-INF/pages/html/403.html");//没权限
