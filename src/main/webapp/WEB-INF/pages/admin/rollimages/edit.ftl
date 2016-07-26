@@ -54,7 +54,7 @@
 
                     <div class="col-sm-5" id="pickfiles">
                         <img src="${imgPath!}${rollimage.imgSrc!}" id="imgUpload"
-                             style="max-width: 500px;cursor: pointer;"/>
+                             style="max-width: 100px;cursor: pointer;"/>
                         <input name="rollImages.imgSrc" id="imgSrc" type="hidden" value="${rollimage.imgSrc!}"/>
                     </div>
                 </div>
@@ -139,6 +139,12 @@
         }
         if ($("#imgSrc").val() == "") {
             layer.msg('请上传图片', {time: 1000});
+            return false;
+        }
+        var $linkUrl=$("#linkUrl");
+        if(!isURL($linkUrl.val())){
+            layer.msg('链接地址不合法', {time: 1000});
+            $linkUrl.focus();
             return false;
         }
         if ($("#sort").val() == "") {
