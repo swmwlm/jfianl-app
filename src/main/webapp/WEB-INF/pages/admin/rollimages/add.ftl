@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label for="tab" class="col-sm-2 control-label">图片</label>
 
-                    <div class="col-sm-5" id="pickfiles">
+                    <div class="col-sm-5">
                         <img src="${path!}/static/img/upload.png" id="imgUpload"
                              style="max-width: 100px;cursor: pointer;"/>
                         <input name="rollImages.imgSrc" id="imgSrc" type="hidden" value=""/>
@@ -102,7 +102,7 @@
      */
     function uploadImg() {
         extractUpload({
-            browseElementId: 'pickfiles',
+            browseElementId: 'imgUpload',
             url: '${path!}/uploadPl/rollimages',
             filters: {
                 max_file_size: '5mb',
