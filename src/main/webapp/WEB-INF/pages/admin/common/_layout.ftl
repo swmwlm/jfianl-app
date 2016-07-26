@@ -52,10 +52,6 @@
     <link href="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.css" rel="stylesheet">
     <script src="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-    <!-- CSRF -->
-    <#include "/WEB-INF/pages/public/common.ftl"/>
-    <script type="text/javascript" src="${path!}/static/js/app/csrf/csrf.js"></script>
-
     <script src="${path!}/static/component/layer/web/layer.js"></script>
     <script type="text/javascript" src="${path!}/static/component/laydate/laydate.js"></script>
     <script type="text/javascript" src="${path!}/static/component/artTemplate/template.js"></script>
@@ -66,10 +62,15 @@
     <script type="text/javascript" src="${path}/static/component/plupload-2.1.9/extractUpload.js"></script>
 
     <link rel="stylesheet" href="${path!}/static/component/wangEditor/css/wangEditor.css">
-    <script src="${path!}/static/component/wangEditor/js/wangEditor.min.js"></script>
+    <#--<script src="${path!}/static/component/wangEditor/js/wangEditor.min.js"></script>-->
+    <script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
     <script src="${path!}/static/component/wangEditor/extractEditor.js"></script>
 
     <script src="${path!}/static/js/app/regExp.js"></script>
+
+    <!-- CSRF -->
+    <#include "/WEB-INF/pages/public/common.ftl"/>
+    <script type="text/javascript" src="${path!}/static/js/app/csrf/csrf.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
