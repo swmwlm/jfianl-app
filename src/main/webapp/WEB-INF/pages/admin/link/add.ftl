@@ -16,25 +16,32 @@
         <div class="box-header with-border">
             <h3 class="box-title">创建友链</h3>
         </div>
-        <form class="form-horizontal" action="add" method="post">
+        <form class="form-horizontal" action="add" method="post" onsubmit="return toValid();">
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="name" name="link.name" placeholder="名称">
+                        <input type="text" class="form-control" id="name" name="link.name" placeholder="名称" required="required">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="url" class="col-sm-2 control-label">访问地址</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="url" name="link.url" placeholder="访问地址">
+                        <input type="text" class="form-control" id="url" name="link.url" placeholder="访问地址,形如:http://abc.com" required="required">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="img" class="col-sm-2 control-label">图片</label>
-                    <div class="col-sm-6" id="pickfiles">
-                        <img src="${path!}/static/img/upload.png" id="imgUpload" />
+                    <div class="col-sm-6">
+                        <img src="${path!}/static/img/upload.png" id="imgUpload" style="max-width: 100px;cursor: pointer;" />
                         <input name="link.img" id="img" type="hidden" value=""/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="url" class="col-sm-2 control-label">描述</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" rows="3" id="description" name="link.description"
+                                  placeholder="描述信息"></textarea>
                     </div>
                 </div>
             </div>
@@ -44,16 +51,13 @@
         </form>
     </div>
 </section>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/plupload.full.min.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/i18n/zh_CN.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/extractUpload.js"></script>
 <script type="text/javascript">
     $(function () {
         uploadImg();
     });
     function uploadImg() {
         extractUpload({
-            browseElementId: 'pickfiles',
+            browseElementId: 'imgUpload',
             url: '${path!}/uploadPl/link',
             filters: {
                 max_file_size: '5mb',
@@ -77,6 +81,14 @@
                 }
             }
         });
+    }
+    function toValid() {
+        var $url=$("#url");
+        if(!isURL($url.val())){
+            layer.msg('链接地址不合法', {time: 1000});
+            $url.focus();
+            return false;
+        }
     }
 </script>
 </@layout>

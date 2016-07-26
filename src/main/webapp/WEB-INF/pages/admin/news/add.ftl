@@ -118,9 +118,6 @@
         </form>
     </div>
 </section>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/plupload.full.min.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/i18n/zh_CN.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/extractUpload.js"></script>
 <link rel="stylesheet" href="${path!}/static/component/wangEditor/css/wangEditor.css">
 <link href="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.css" rel="stylesheet">
 <script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
@@ -303,11 +300,6 @@
                 return false;
             }
         }
-
-    }
-    // url正则匹配
-    function isURL(str){
-        return !!str.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g);
     }
 </script>
 <script type="text/html" id="imagesElementTemplate">

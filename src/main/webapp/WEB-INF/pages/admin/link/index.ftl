@@ -23,8 +23,9 @@
                 <form id="form-sort" action="${path!}/admin/link/sort" method="post">
                     <table class="table table-hover table-bordered">
                         <thead>
-                        <th>名称</th>
-                        <th>访问地址</th>
+                        <th width="200">名称</th>
+                        <th width="280">访问地址</th>
+                        <th>描述</th>
                         <th>操作</th>
                         </thead>
                         <tbody id="sortable">
@@ -35,6 +36,7 @@
                                 ${link.name!}
                                 </td>
                                 <td><a href="${link.url!}" target="_blank">${link.url!}</a></td>
+                                <td>${link.description!}</td>
                                 <td>
                                     <@shiro.hasPermission name="link:edit">
                                         <a href="${path!}/admin/link/edit?id=${link.id!}"><span

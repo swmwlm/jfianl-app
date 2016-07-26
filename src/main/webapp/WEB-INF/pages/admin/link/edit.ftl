@@ -16,30 +16,37 @@
         <div class="box-header with-border">
             <h3 class="box-title">编辑友链</h3>
         </div>
-        <form class="form-horizontal" action="edit" method="post">
+        <form class="form-horizontal" action="edit" method="post" onsubmit="return toValid();">
             <input type="hidden" name="link.id" value="${link.id!}">
             <div class="box-body">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">名称</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="name" name="link.name" value="${link.name!}" placeholder="名称">
+                        <input type="text" class="form-control" id="name" name="link.name" value="${link.name!}" placeholder="名称" required="required">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="url" class="col-sm-2 control-label">访问地址</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="url" name="link.url" value="${link.url!}" placeholder="访问地址">
+                        <input type="text" class="form-control" id="url" name="link.url" value="${link.url!}" placeholder="访问地址,形如:http://abc.com" required="required">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="img" class="col-sm-2 control-label">图片</label>
-                    <div class="col-sm-6" id="pickfiles">
+                    <div class="col-sm-6">
                         <#if link.img??>
-                            <img src="${imgPath!}/${link.img!}" id="imgUpload" />
+                            <img src="${imgPath!}/${link.img!}" id="imgUpload" style="max-width: 100px;cursor: pointer;" />
                         <#else>
-                            <img src="${path!}/static/img/upload.png" id="imgUpload" />
+                            <img src="${path!}/static/img/upload.png" id="imgUpload" style="max-width: 100px;cursor: pointer;" />
                         </#if>
                         <input name="link.img" id="img" type="hidden" value="${link.img!}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="url" class="col-sm-2 control-label">描述</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" rows="3" id="description" name="link.description"
+                                  placeholder="描述信息">${link.description!}</textarea>
                     </div>
                 </div>
             </div>
@@ -55,7 +62,7 @@
     });
     function uploadImg() {
         extractUpload({
-            browseElementId: 'pickfiles',
+            browseElementId: 'imgUpload',
             url: '${path!}/uploadPl/link',
             filters: {
                 max_file_size: '5mb',
@@ -79,6 +86,14 @@
                 }
             }
         });
+    }
+    function toValid() {
+        var $url=$("#url");
+        if(!isURL($url.val())){
+            layer.msg('链接地址不合法', {time: 1000});
+            $url.focus();
+            return false;
+        }
     }
 </script>
 </@layout>

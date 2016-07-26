@@ -71,9 +71,9 @@
                     <label for="img" class="col-sm-2 control-label">资讯摘要图</label>
                     <div class="col-sm-6">
                         <#if news.img ??>
-                            <img src="${imgPath!}${news.img}" id="imgUpload" style="width:100px;height: 100px;" />
+                            <img src="${imgPath!}${news.img}" id="imgUpload" style="max-width: 100px;cursor: pointer;" />
                         <#else>
-                            <img src="${path!}/static/img/upload.png" id="imgUpload" />
+                            <img src="${path!}/static/img/upload.png" id="imgUpload" style="max-width: 100px;cursor: pointer;" />
                         </#if>
                         <input name="news.img" id="img" type="hidden" value="${news.img!}"/>
                     </div>
@@ -149,13 +149,7 @@
         </form>
     </div>
 </section>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/plupload.full.min.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/js/i18n/zh_CN.js"></script>
-<script type="text/javascript" src="${path}/static/component/plupload-2.1.9/extractUpload.js"></script>
-<link rel="stylesheet" href="${path!}/static/component/wangEditor/css/wangEditor.css">
-<link href="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.css" rel="stylesheet">
-<script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
-<script src="http://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
     var index=-1;
     $(function () {
@@ -215,34 +209,7 @@
         });
     }
     function initWangEditor() {
-        //==========wangEditor Start============
-        var editor = new wangEditor("content");
-        // 自定义菜单
-        editor.config.menus = [
-            'source',
-            '|',
-            'bold',
-            'underline',
-            'italic',
-            'strikethrough',
-            'forecolor',
-            'bgcolor',
-            'quote',
-            'fontfamily',
-            'fontsize',
-            'head',
-            'unorderlist',
-            'orderlist',
-            'link',
-            'table',
-            'img',
-            'insertcode',
-            '|',
-            'fullscreen'
-        ];
-        editor.config.uploadImgUrl = '${path!}/upload/editor';
-        editor.create();
-        //==========wangEditor End============
+        extractWangEditor("content");
     }
     /**
      * 上传文章缩略图
@@ -344,11 +311,6 @@
                 return false;
             }
         }
-
-    }
-    // url正则匹配
-    function isURL(str){
-        return !!str.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g);
     }
 </script>
 <script type="text/html" id="imagesElementTemplate">

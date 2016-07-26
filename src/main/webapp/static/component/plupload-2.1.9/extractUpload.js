@@ -30,7 +30,7 @@ function extractUpload(options) {
     var extractUpload = new plupload.Uploader({
         runtimes: 'html5,html4,flash',
         browse_button: options.browseElementId,
-        url: options.url,
+        url: options.url+"?token="+token,
         flash_swf_url: 'js/Moxie.swf',
         silverlight_xap_url: 'js/Moxie.xap',
         filters: options.filters || {},
