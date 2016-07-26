@@ -25,6 +25,7 @@
                         <thead>
                         <th width="200">名称</th>
                         <th width="280">访问地址</th>
+                        <th>图片</th>
                         <th>描述</th>
                         <th>操作</th>
                         </thead>
@@ -36,6 +37,13 @@
                                 ${link.name!}
                                 </td>
                                 <td><a href="${link.url!}" target="_blank">${link.url!}</a></td>
+                                <td>
+                                    <#if link.img ??>
+                                        <a href="${imgPath!}${link.img!}" target="_blank">
+                                            <img src="${imgPath!}${link.img!}" style="width:50px;height: 25px;"/>
+                                        </a>
+                                    </#if>
+                                </td>
                                 <td>${link.description!}</td>
                                 <td>
                                     <@shiro.hasPermission name="link:edit">
