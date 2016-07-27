@@ -62,8 +62,7 @@
     <script type="text/javascript" src="${path}/static/component/plupload-2.1.9/extractUpload.js"></script>
 
     <link rel="stylesheet" href="${path!}/static/component/wangEditor/css/wangEditor.css">
-    <#--<script src="${path!}/static/component/wangEditor/js/wangEditor.min.js"></script>-->
-    <script src="${path!}/static/component/wangEditor/js/wangEditor.js"></script>
+    <script src="${path!}/static/component/wangEditor/js/wangEditor.min.js"></script>
     <script src="${path!}/static/component/wangEditor/extractEditor.js"></script>
 
     <script src="${path!}/static/js/app/regExp.js"></script>
