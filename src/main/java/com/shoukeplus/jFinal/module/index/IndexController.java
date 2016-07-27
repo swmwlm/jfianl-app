@@ -87,10 +87,28 @@ public class IndexController extends BaseController {
 	public void adminlogin() {
 		String method = getRequest().getMethod();
 		if (method.equalsIgnoreCase(AppConstants.GET)) {
+			//setAttr("retryCount",0);
 			render("front/adminlogin.ftl");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
 			String username = getPara("username");
 			String password = getPara("password");
+
+			CacheManager cacheManager = CacheManager.newInstance(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
+			Ehcache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
+			Element element = passwordRetryCache.get(username);
+
+			int retryCount = element == null ? 0 : ((AtomicInteger) element.getObjectValue()).intValue();
+			retryCount++;
+			setAttr("retryCount", retryCount);
+
+			if (retryCount > 3) {
+				if (!validateCaptcha("captcha")) {
+					setAttr("error", "验证码校验失败");
+					render("front/adminlogin.ftl");
+					return;
+				}
+			}
+
 			Subject subject = SecurityUtils.getSubject();
 			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 			try {
@@ -103,12 +121,8 @@ public class IndexController extends BaseController {
 				render("front/adminlogin.ftl");
 			} catch (AuthenticationException e) {
 				e.printStackTrace();
-				CacheManager cacheManager = CacheManager.newInstance(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
-				Ehcache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
-				Element element = passwordRetryCache.get(username);
-				AtomicInteger retryCount = (AtomicInteger) element.getObjectValue();
 
-				setAttr("error", "用户名或密码错误,重试次数:" + retryCount.intValue());
+				setAttr("error", "用户名或密码错误,重试次数:" + retryCount + "/5");
 				render("front/adminlogin.ftl");
 			}
 		}

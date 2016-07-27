@@ -43,6 +43,16 @@
                 <input type="password" name="password" id="password" class="form-control" placeholder="密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
+            <#if retryCount?? && (retryCount gte 3) >
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <input type="text" name="captcha" id="captcha" class="form-control" placeholder="验证码">
+                        <div class="input-group-btn">
+                            <img src="${path!}/captcha" onclick="this.src='${path!}/captcha?t='+Math.random();">
+                        </div>
+                    </div>
+                </div>
+            </#if>
             <#if error??>
                 <div class="form-group">
                     <p class="text-red">

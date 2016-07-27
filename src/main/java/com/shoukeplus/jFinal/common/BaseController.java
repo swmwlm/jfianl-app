@@ -1,11 +1,14 @@
 package com.shoukeplus.jFinal.common;
 
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.ext.interceptor.NotAction;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.shoukeplus.jFinal.common.model.AdminUser;
 import com.shoukeplus.jFinal.common.model.User;
 import com.shoukeplus.jFinal.common.utils.Result;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
+import com.shoukeplus.jFinal.render.JCaptchaRender;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
@@ -100,5 +103,16 @@ public class BaseController extends Controller {
         }
         Collections.sort(list);
         return list;
+    }
+
+    @Override
+    public boolean validateCaptcha(String paraName) {
+        return JCaptchaRender.validate(this,getPara(paraName));
+    }
+
+    @Override
+    @Before(NotAction.class)
+    public void renderCaptcha() {
+        render(new JCaptchaRender(this));
     }
 }
