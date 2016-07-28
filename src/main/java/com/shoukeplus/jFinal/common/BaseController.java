@@ -9,6 +9,7 @@ import com.shoukeplus.jFinal.common.model.User;
 import com.shoukeplus.jFinal.common.utils.Result;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.render.JCaptchaRender;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
@@ -114,5 +115,34 @@ public class BaseController extends Controller {
     @Before(NotAction.class)
     public void renderCaptcha() {
         render(new JCaptchaRender(this));
+    }
+
+    @Before(NotAction.class)
+    public String getIPAddress() {
+        String ip = getRequest().getHeader("X-getRequest()ed-For");
+        if (!StringUtils.isNotBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = getRequest().getHeader("X-Forwarded-For");
+        }
+        if (!StringUtils.isNotBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = getRequest().getHeader("Proxy-Client-IP");
+        }
+        if (!StringUtils.isNotBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = getRequest().getHeader("WL-Proxy-Client-IP");
+        }
+        if (!StringUtils.isNotBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = getRequest().getHeader("HTTP_CLIENT_IP");
+        }
+        if (!StringUtils.isNotBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = getRequest().getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (!StringUtils.isNotBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = getRequest().getRemoteAddr();
+        }
+        return ip;
+    }
+
+    @Before(NotAction.class)
+    public String getUserAgent() {
+        return getRequest().getHeader("User-Agent");
     }
 }
