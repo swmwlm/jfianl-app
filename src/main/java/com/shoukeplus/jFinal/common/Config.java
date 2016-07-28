@@ -29,6 +29,7 @@ import com.shoukeplus.jFinal.handler.xss.AttackHandler;
 import com.shoukeplus.jFinal.interceptor.csrf.CSRFInterceptor;
 import com.shoukeplus.jFinal.interceptor.CommonInterceptor;
 import com.shoukeplus.jFinal.interceptor.ExceptionAndLogInterceptor;
+import com.shoukeplus.jFinal.plugin.message.MessagePlugin;
 import com.shoukeplus.jFinal.render.MyAppRenderFactory;
 import freemarker.template.TemplateModelException;
 
@@ -155,6 +156,8 @@ public class Config extends JFinalConfig {
 		//单独映射表和实体关系
 		//arp.addMapping("zc_user",ZcUser.class);
 
+		//启用消息驱动插件
+		me.add(new MessagePlugin());
 
 		//启用本地缓存
 		me.add(new EhCachePlugin());

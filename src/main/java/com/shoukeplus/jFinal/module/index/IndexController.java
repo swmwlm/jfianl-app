@@ -12,6 +12,8 @@ import com.shoukeplus.jFinal.common.utils.DateUtil;
 import com.shoukeplus.jFinal.common.utils.FileUploadUtil;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.common.utils.ext.route.ControllerBind;
+import com.shoukeplus.jFinal.plugin.message.Actions;
+import com.shoukeplus.jFinal.plugin.message.MessageKit;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -113,6 +115,8 @@ public class IndexController extends BaseController {
 			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 			try {
 				subject.login(usernamePasswordToken);
+				//用户登录成功,发送消息,消息驱动,
+				MessageKit.sendMessage(Actions.USER_LOGINED,AdminUser.dao.findByUsername(username));
 				setSessionAttr(AppConstants.SESSION_ADMIN_USERNAME, username);
 				redirect("/admin/index");
 			} catch (ExcessiveAttemptsException e) {
