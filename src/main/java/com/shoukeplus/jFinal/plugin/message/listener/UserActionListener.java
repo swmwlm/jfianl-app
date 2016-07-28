@@ -27,11 +27,11 @@ public class UserActionListener extends BaseMessageListener {
 
 		if (message.getAction().equals(Actions.USER_LOGINED)) {
 			AdminUser adminUser = message.getData();
-			System.out.println(Actions.USER_LOGINED+":"+adminUser.toString());
+			System.out.println("消息驱动:"+Actions.USER_LOGINED+":"+adminUser.toString());
 		}
 		else if (message.getAction().equals(Actions.USER_CREATED)) {
 			AdminUser adminUser = message.getData();
-			System.out.println(Actions.USER_LOGINED+":"+adminUser.toString());
+			System.out.println("消息驱动:"+Actions.USER_LOGINED+":"+adminUser.toString());
 		}
 
 	}
