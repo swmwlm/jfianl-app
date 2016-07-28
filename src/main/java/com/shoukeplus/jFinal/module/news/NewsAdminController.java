@@ -18,59 +18,59 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@ControllerBind(controllerKey = "/admin/news", viewPath = "/WEB-INF/pages/admin/news")
+@ControllerBind(controllerKey = "/admin/content", viewPath = "/WEB-INF/pages/admin/content")
 public class NewsAdminController extends BaseController {
 
-	@RequiresPermissions("menu:news")
+	@RequiresPermissions("menu:content")
 	public void index() {
 		String value = getPara("name");
 		String dictId = getPara("dictId");
-		setAttr("page", News.dao.page(getParaToInt("p", 1), defaultPageSize(), value, dictId));
+		setAttr("page", Content.dao.page(getParaToInt("p", 1), defaultPageSize(), value, dictId));
 		setAttr("name", value);
 		setAttr("dictId", dictId);
-		setAttr("newsCategory", Dict.dao.getList4Type("news"));
+		setAttr("categories", Dict.dao.getList4Type("news"));
 		render("index.ftl");
 	}
 
-	@RequiresPermissions("news:add")
+	@RequiresPermissions("content:add")
 	public void add() {
 		String method = getRequest().getMethod();
 		if (method.equalsIgnoreCase(AppConstants.GET)) {
-			setAttr("newsCategory", Dict.dao.getList4Type("news"));
+			setAttr("categories", Dict.dao.getList4Type("news"));
 			setAttr("targetCategory", Dict.dao.getList4Type("target"));
 			render("add.ftl");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
-			News news = getModel(News.class);
-			news.setCreatedTime(DateUtil.getCurrentDateTime());
-			news.save();
-			Integer newsId = news.getId();
-			List<NewsImages> newsImagesList = getModels(NewsImages.class, "newsImages");
+			Content content = getModel(Content.class);
+			content.setCreatedTime(DateUtil.getCurrentDateTime());
+			content.save();
+			Integer contentId = content.getId();
+			List<ContentImages> newsImagesList = getModels(ContentImages.class, "contentImages");
 			if (CollectionUtils.isNotEmpty(newsImagesList)) {
-				for (NewsImages img : newsImagesList) {
-					img.setNewsId(newsId);
+				for (ContentImages img : newsImagesList) {
+					img.setContentId(contentId);
 					img.setCreatedTime(DateUtil.getCurrentDateTime());
 					img.save();
 				}
 			}
-			redirect("/admin/news");
+			redirect("/admin/content");
 		}
 	}
 
-	@RequiresPermissions("news:delete")
+	@RequiresPermissions("content:delete")
 	@Before(Tx.class)
 	public void delete() {
 		String id = getPara("id");
-		News news = News.dao.findById(id);
-		//删除资讯（非物理删除）
-		news.setIsDeleted(1);
-		news.update();
+		Content content = Content.dao.findById(id);
+		//删除（非物理删除）
+		content.setIsDeleted(1);
+		content.update();
 
 		//记录日志
 		AdminUser adminUser = getAdminUser();
 		AdminLog adminLog = new AdminLog();
 		adminLog.set("uid", adminUser.getInt("id"))
 				.set("target_id", id)
-				.set("source", "news")
+				.set("source", "content")
 				.set("in_time", new Date())
 				.set("action", "delete")
 				.set("message", null)
@@ -78,27 +78,27 @@ public class NewsAdminController extends BaseController {
 		success();
 	}
 
-	@RequiresPermissions("news:edit")
+	@RequiresPermissions("content:edit")
 	public void edit() {
-		String newsId = getPara(0);
-		if (StrUtil.isBlank(newsId)) {
+		String contentID = getPara(0);
+		if (StrUtil.isBlank(contentID)) {
 			renderText(AppConstants.OP_ERROR_MESSAGE);
 		}
 		String method = getRequest().getMethod();
 		if (method.equalsIgnoreCase(AppConstants.GET)) {
-			News news = News.dao.findById(newsId);
-			if (news == null) {
-				renderText("资讯不存在");
+			Content content = Content.dao.findById(contentID);
+			if (content == null) {
+				renderText("内容不存在");
 			}
-			setAttr("newsCategory", Dict.dao.getList4Type("news"));
+			setAttr("categories", Dict.dao.getList4Type("news"));
 			setAttr("targetCategory", Dict.dao.getList4Type("target"));
-			setAttr("news", news);
-			setAttr("newsImages", NewsImages.dao.findByNewsId(newsId));
+			setAttr("content", content);
+			setAttr("contentImages", ContentImages.dao.findByContentId(contentID));
 			render("edit.ftl");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
-			News newsEdit = getModel(News.class);
-			newsEdit.setUpdatedTime(DateUtil.getCurrentDateTime());
-			newsEdit.update();
+			Content contentEdit = getModel(Content.class);
+			contentEdit.setUpdatedTime(DateUtil.getCurrentDateTime());
+			contentEdit.update();
 			String newsImagesIDS = getRequest().getParameter("newsImagesIDS");
 
 			if (!Strings.isNullOrEmpty(newsImagesIDS)) {
@@ -106,11 +106,11 @@ public class NewsAdminController extends BaseController {
 				List<String> ids = new ArrayList<>();
 				//1.根据传入待删除的图片ids; 来 删除 对应的资讯组图;
 				if (CollectionUtils.isNotEmpty(imageIDList)) {
-					List<NewsImages> newsImagesList = NewsImages.dao.findIdsByNewsId(newsId);
+					List<ContentImages> newsImagesList = ContentImages.dao.findIdsByContentId(contentID);
 					for (String imageId : imageIDList) {
-						for (NewsImages img : newsImagesList) {
+						for (ContentImages contentImages : newsImagesList) {
 							//2.删除前校验该id是否真实存在当前的资讯组图中,以防止非法删除;
-							if (imageId.equals(img.getId().toString())) {
+							if (imageId.equals(contentImages.getId().toString())) {
 								//NewsImages.dao.deleteById(img.getId());
 								ids.add(imageId);
 							}
@@ -118,19 +118,19 @@ public class NewsAdminController extends BaseController {
 					}
 					//3.只有全部通过的,才做统一删除操作
 					if (CollectionUtils.isEqualCollection(imageIDList, ids)) {
-						NewsImages.dao.deleteByIds(ids);
+						ContentImages.dao.deleteByIds(ids);
 					}
 				}
 			}
 
-			List<NewsImages> newsImagesList = getModels(NewsImages.class, "newsImages");
-			if (CollectionUtils.isNotEmpty(newsImagesList)) {
-				for (NewsImages img : newsImagesList) {
+			List<ContentImages> contentImagesList = getModels(ContentImages.class, "contentImages");
+			if (CollectionUtils.isNotEmpty(contentImagesList)) {
+				for (ContentImages img : contentImagesList) {
 					img.setCreatedTime(DateUtil.getCurrentDateTime());
 					if (ObjectUtils.notEqual(img.getId(), null)) {
 						img.update();
 					} else {
-						img.setNewsId(Integer.parseInt(newsId));
+						img.setContentId(Integer.parseInt(contentID));
 						img.save();
 					}
 				}
@@ -140,41 +140,41 @@ public class NewsAdminController extends BaseController {
 			AdminUser adminUser = getAdminUser();
 			AdminLog adminLog = new AdminLog();
 			adminLog.set("uid", adminUser.getInt("id"))
-					.set("target_id", newsEdit.getId())
-					.set("source", "news")
+					.set("target_id", contentEdit.getId())
+					.set("source", "content")
 					.set("in_time", new Date())
 					.set("action", "edit")
 					.set("message", null)
 					.save();
-			redirect("/admin/news");
+			redirect("/admin/content");
 		}
 	}
 
-	@RequiresPermissions("news:view")
+	@RequiresPermissions("content:view")
 	public void view() {
-		String newsId = getPara(0);
-		if (StrUtil.isBlank(newsId)) {
+		String contentId = getPara(0);
+		if (StrUtil.isBlank(contentId)) {
 			renderText(AppConstants.OP_ERROR_MESSAGE);
 		}
 
-		News news = News.dao.findById(newsId);
-		if (news == null) {
-			renderText("资讯不存在");
+		Content content = Content.dao.findById(contentId);
+		if (content == null) {
+			renderText("该内容不存在");
 		}
 		List<Dict> dictList=Dict.dao.getList4Type("news");
-		setAttr("newsCategory", dictList);
+		setAttr("categories", dictList);
 		setAttr("targetCategory", Dict.dao.getList4Type("target"));
 
 		String categoryName=null;
 		for(Dict dict:dictList){
-			if(dict.getId()==news.getDictId()){
+			if(dict.getId()==content.getDictId()){
 				categoryName=dict.getValue();
 			}
 		}
 		setAttr("categoryName",categoryName);
 
-		setAttr("news", news);
-		setAttr("newsImages", NewsImages.dao.findByNewsId(newsId));
+		setAttr("content", content);
+		setAttr("contentImages", ContentImages.dao.findByContentId(contentId));
 		render("view.ftl");
 	}
 }

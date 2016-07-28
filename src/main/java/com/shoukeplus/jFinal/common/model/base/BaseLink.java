@@ -49,4 +49,12 @@ public abstract class BaseLink<M extends BaseLink<M>> extends Model<M> implement
 		return get("display_index");
 	}
 
+	public void setDescription(java.lang.String description) {
+		set("description", description);
+	}
+
+	public java.lang.String getDescription() {
+		return get("description");
+	}
+
 }

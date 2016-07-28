@@ -309,12 +309,12 @@ VALUES
   (54,'topic:show_status','话题设置显示/不显示',11),
   (55,'setting:druid','MySQL监控',18),
   (56,'setting:dict','字典表',18),
-  (57,'menu:news','菜单，资讯管理',10),
-  (58,'news','资讯节点',0),
-  (59,'news:add','增加资讯',58),
-  (60,'news:delete','删除资讯',58),
-  (61,'news:edit','编辑资讯',58),
-  (62,'news:view','预览权限',58),
+  (57,'menu:content','菜单，內容管理',10),
+  (58,'content','內容节点',0),
+  (59,'content:add','增加內容',58),
+  (60,'content:delete','删除內容',58),
+  (61,'content:edit','编辑內容',58),
+  (62,'content:view','內容预览权限',58),
   (63,'rollimages','轮播图节点',0),
   (64,'rollimages:edit','编辑轮播图',63),
   (65,'rollimages:delete','删除轮播图',63),
@@ -663,9 +663,9 @@ VALUES
   (12,'target','_self','默认',2,'浏览器打开链接的方式',current_timestamp,null),
   (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,null);
 
-# 新闻表
-DROP TABLE IF EXISTS sk_news;
-CREATE TABLE IF NOT EXISTS sk_news (
+# 内容表
+DROP TABLE IF EXISTS sk_content;
+CREATE TABLE IF NOT EXISTS sk_content (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dictId` int(11) NOT  NULL COMMENT '新闻类型',
   `target` VARCHAR(20) NOT NULL DEFAULT '_blank' COMMENT '打开方式:_blank,_self,_top等',
@@ -685,15 +685,17 @@ CREATE TABLE IF NOT EXISTS sk_news (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
-# 新闻组图表
-DROP TABLE IF EXISTS sk_news_images;
-CREATE TABLE IF NOT EXISTS sk_news_images (
+# 内容组图表
+DROP TABLE IF EXISTS sk_content_images;
+CREATE TABLE IF NOT EXISTS sk_content_images (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `newsId` int(11) NOT  NULL COMMENT '新闻ID',
+  `contentId` int(11) NOT  NULL COMMENT '新闻ID',
   `title` varchar(255) NOT NULL COMMENT '标题',
   `img` VARCHAR(255) DEFAULT NULL COMMENT '缩略图路径',
   `createdTime` DATETIME COMMENT '创建时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+	CONSTRAINT `fk_content_images` FOREIGN KEY (`contentId`) REFERENCES `sk_content` (`id`),
+	INDEX `contentId` USING BTREE (contentId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 # 轮播图表

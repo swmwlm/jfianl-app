@@ -1,51 +1,51 @@
 <#include "/WEB-INF/pages/admin/common/_layout.ftl"/>
-<@layout page_tab="news">
+<@layout page_tab="content">
 <section class="content-header">
     <h1>
-        资讯
+        内容
         <small>预览</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="${path!}/admin/index"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="${path!}/admin/news"><i class="fa fa-tag"></i> 资讯</a></li>
+        <li><a href="${path!}/admin/content"><i class="fa fa-tag"></i> 内容</a></li>
         <li class="active">预览</li>
     </ol>
 </section>
 <div class="panel panel-default">
     <div class="panel-body">
-        <#if news.isExternalHref == 1>
+        <#if content.isExternalHref == 1>
             <span class="label label-success">外</span>
         </#if>
-        <span>${news.title!}</span>
+        <span>${content.title!}</span>
         <div style="font-size: 12px;color: #838383; padding-top: 5px;">
             <span>
-                &nbsp;•&nbsp;发布${news.releaseTime!}
+                &nbsp;•&nbsp;发布${content.releaseTime!}
             </span>
-            <span>&nbsp;•&nbsp;${news.view!} 次浏览</span>
+            <span>&nbsp;•&nbsp;${content.view!} 次浏览</span>
                 <span>&nbsp;•&nbsp;创建
-                ${news.createdTime!}
+                ${content.createdTime!}
                 </span>
             <span>
-                &nbsp;•&nbsp;<a href="${path!}/?tab=${news.tab!}">${categoryName!}</a>
+                &nbsp;•&nbsp;<a href="${path!}/?tab=${content.tab!}">${categoryName!}</a>
             </span>
         </div>
     </div>
     <div class="panel-body" style="border-top: 1px #E5E5E5 solid; padding-top: 10px">
         <div style="font-size: 12px;color: #838383; padding-top: 5px;">
-            ${news.introduction!}
+            ${content.introduction!}
         </div>
     </div>
     <div class="panel-body" style="border-top: 1px #E5E5E5 solid; padding-top: 10px;padding-left: 50px;padding-right: 50px;">
         <div class="pull-left topic-label">
-            <#if news.isExternalHref == 1>
-                <a href="${news.externalHref!}" target="_blank">${news.externalHref!}</a>
+            <#if content.isExternalHref == 1>
+                <a href="${content.externalHref!}" target="_blank">${content.externalHref!}</a>
             <#else>
-                <#if newsImages ??>
+                <#if (contentImages?size gt 0)>
                     <div style="margin-left: auto;margin-right: auto;width: 300px;">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
-                                <#list newsImages as image>
+                                <#list contentImages as image>
                                     <li data-target="#carousel-example-generic" data-slide-to="${image_index}"
                                         <#if image_index==0 > class="active" </#if> ></li>
                                 </#list>
@@ -53,7 +53,7 @@
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox">
-                            <#list newsImages as image>
+                            <#list contentImages as image>
                                 <#if image_index==0>
                                     <div class="item active">
                                 <#else>
@@ -80,14 +80,14 @@
                     </div>
                 </#if>
                 <br/><br/>
-                <div class="wangEditor-txt" style="width:758px;display: block;">${news.content!}</div>
+                <div class="wangEditor-txt" style="width:758px;display: block;">${content.content!}</div>
             </#if>
         </div>
     </div>
     <div class="panel-footer" id="topic_footer">
         <div style="font-size: 12px;color: #838383; padding-top: 5px;">
-            <span>&nbsp;•&nbsp;作者:${news.author!}</span><br>
-            <span>&nbsp;•&nbsp;来源:${news.source!}</span>
+            <span>&nbsp;•&nbsp;作者:${content.author!}</span><br>
+            <span>&nbsp;•&nbsp;来源:${content.source!}</span>
         </div>
     </div>
 </div>

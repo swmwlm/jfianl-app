@@ -20,6 +20,8 @@ public class _MappingKit {
 		arp.addMapping("sk_admin_user", "id", AdminUser.class);
 		arp.addMapping("sk_area", "areaId", Area.class);
 		arp.addMapping("sk_collect", "id", Collect.class);
+		arp.addMapping("sk_content", "id", Content.class);
+		arp.addMapping("sk_content_images", "id", ContentImages.class);
 		arp.addMapping("sk_dict", "id", Dict.class);
 		arp.addMapping("sk_donate", "id", Donate.class);
 		arp.addMapping("sk_label", "id", Label.class);
@@ -28,8 +30,6 @@ public class _MappingKit {
 		arp.addMapping("sk_message", "id", Message.class);
 		arp.addMapping("sk_mission", "id", Mission.class);
 		arp.addMapping("sk_msg_contact", "id", MsgContact.class);
-		arp.addMapping("sk_news", "id", News.class);
-		arp.addMapping("sk_news_images", "id", NewsImages.class);
 		arp.addMapping("sk_notification", "id", Notification.class);
 		arp.addMapping("sk_permission", "id", Permission.class);
 		arp.addMapping("sk_reply", "id", Reply.class);

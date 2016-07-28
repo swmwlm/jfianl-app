@@ -17,7 +17,7 @@ Table: sk_admin_user
 ----------+--------------+------+-----+---------+---------
  id       | INT(10)      | NO   | PRI |         |         
  username | VARCHAR(45)  | NO   |     |         | 后台用户名   
- password | VARCHAR(45)  | NO   |     |         | 后台密码（明文）
+ password | VARCHAR(45)  | NO   |     |         | 后台密码    
  salt     | VARCHAR(45)  | NO   |     |         |         
  in_time  | DATETIME(19) | NO   |     |         |         
 ----------+--------------+------+-----+---------+---------
@@ -47,19 +47,52 @@ Table: sk_collect
  in_time   | DATETIME(19) | NO   |     |         | 录入时间    
 -----------+--------------+------+-----+---------+---------
 
+Table: sk_content
+----------------+----------------------+------+-----+---------+---------
+ Field          | Type                 | Null | Key | Default | Remarks 
+----------------+----------------------+------+-----+---------+---------
+ id             | INT(10)              | NO   | PRI |         |         
+ dictId         | INT(10)              | NO   |     |         | 新闻类型    
+ target         | VARCHAR(20)          | NO   |     | _blank  | 打开方式:_blank,_self,_top等
+ isExternalHref | INT(10)              | NO   |     | 0       | 1是外部链接;0 内部链接
+ externalHref   | VARCHAR(255)         | YES  |     |         | 外部链接url 
+ title          | VARCHAR(255)         | NO   |     |         | 标题      
+ introduction   | VARCHAR(255)         | YES  |     |         | 一句话描述,简介,摘要
+ img            | VARCHAR(255)         | YES  |     |         | 缩略图路径   
+ content        | LONGTEXT(2147483647) | YES  |     |         | 内容      
+ view           | INT(10)              | YES  |     | 0       | 浏览量     
+ author         | VARCHAR(50)          | YES  |     |         | 作者      
+ source         | VARCHAR(50)          | YES  |     |         | 文章来源    
+ isDeleted      | INT(10)              | NO   |     | 0       | 1删除;0默认 
+ createdTime    | DATETIME(19)         | YES  |     |         | 创建时间    
+ updatedTime    | DATETIME(19)         | YES  |     |         | 更新时间    
+ releaseTime    | DATETIME(19)         | NO   |     |         | 发布时间    
+----------------+----------------------+------+-----+---------+---------
+
+Table: sk_content_images
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ contentId   | INT(10)      | NO   |     |         | 新闻ID    
+ title       | VARCHAR(255) | NO   |     |         | 标题      
+ img         | VARCHAR(255) | YES  |     |         | 缩略图路径   
+ createdTime | DATETIME(19) | YES  |     |         | 创建时间    
+-------------+--------------+------+-----+---------+---------
+
 Table: sk_dict
--------------+---------------+------+-----+---------------------+---------
- Field       | Type          | Null | Key | Default             | Remarks 
--------------+---------------+------+-----+---------------------+---------
- id          | INT(10)       | NO   | PRI |                     |         
- type        | VARCHAR(50)   | NO   |     |                     | 类型      
- key         | VARCHAR(50)   | NO   |     |                     | key     
- value       | VARCHAR(50)   | NO   |     |                     | value   
- sort        | INT(10)       | NO   |     |                     | 排序      
- remark      | VARCHAR(255)  | NO   |     |                     | 备注信息    
- createdTime | TIMESTAMP(19) | NO   |     | CURRENT_TIMESTAMP   | 创建时间    
- updatedTime | TIMESTAMP(19) | NO   |     | 0000-00-00 00:00:00 | 更新时间    
--------------+---------------+------+-----+---------------------+---------
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ type        | VARCHAR(50)  | NO   |     |         | 类型      
+ key         | VARCHAR(50)  | NO   |     |         | key     
+ value       | VARCHAR(50)  | NO   |     |         | value   
+ sort        | INT(10)      | NO   |     |         | 排序      
+ remark      | VARCHAR(255) | NO   |     |         | 备注信息    
+ createdTime | DATETIME(19) | NO   |     |         | 创建时间    
+ updatedTime | DATETIME(19) | YES  |     |         | 更新时间    
+-------------+--------------+------+-----+---------+---------
 
 Table: sk_donate
 ---------+-------------+------+-----+---------+---------
@@ -99,8 +132,9 @@ Table: sk_link
  id            | INT(10)      | NO   | PRI |         |         
  name          | VARCHAR(45)  | NO   |     |         | 友链名称    
  url           | VARCHAR(255) | NO   |     |         | 友链地址    
- img           | VARCHAR(255) | NO   |     |         | 友链图片    
+ img           | VARCHAR(255) | YES  |     |         | 友链图片    
  display_index | INT(10)      | NO   |     |         | 友链排序    
+ description   | VARCHAR(255) | YES  |     |         | 描述      
 ---------------+--------------+------+-----+---------+---------
 
 Table: sk_message
@@ -138,39 +172,6 @@ Table: sk_msg_contact
  last_msg_time    | DATETIME(19)  | YES  |     |         |         
  is_delete        | INT(10)       | NO   |     | 0       | 是否删除会话，0默认1删除
 ------------------+---------------+------+-----+---------+---------
-
-Table: sk_news
-----------------+----------------------+------+-----+---------+---------
- Field          | Type                 | Null | Key | Default | Remarks 
-----------------+----------------------+------+-----+---------+---------
- id             | INT(10)              | NO   | PRI |         |         
- dictId         | INT(10)              | NO   |     |         | 新闻类型    
- target         | VARCHAR(20)          | NO   |     | _blank  | 打开方式:_blank,_self,_top等
- isExternalHref | INT(10)              | NO   |     | 0       | 1是外部链接;0 内部链接
- externalHref   | VARCHAR(255)         | YES  |     |         | 外部链接url 
- title          | VARCHAR(255)         | NO   |     |         | 标题      
- introduction   | VARCHAR(255)         | YES  |     |         | 一句话描述,简介,摘要
- img            | VARCHAR(255)         | YES  |     |         | 缩略图路径   
- content        | LONGTEXT(2147483647) | YES  |     |         | 内容      
- view           | INT(10)              | YES  |     | 0       | 浏览量     
- author         | VARCHAR(50)          | YES  |     |         | 作者      
- source         | VARCHAR(50)          | YES  |     |         | 文章来源    
- isDeleted      | INT(10)              | NO   |     | 0       | 1删除;0默认 
- createdTime    | DATETIME(19)         | YES  |     |         | 创建时间    
- updatedTime    | DATETIME(19)         | YES  |     |         | 更新时间    
- releaseTime    | DATETIME(19)         | NO   |     |         | 发布时间    
-----------------+----------------------+------+-----+---------+---------
-
-Table: sk_news_images
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- id          | INT(10)      | NO   | PRI |         |         
- newsId      | INT(10)      | NO   |     |         | 新闻ID    
- title       | VARCHAR(255) | NO   |     |         | 标题      
- img         | VARCHAR(255) | YES  |     |         | 缩略图路径   
- createdTime | DATETIME(19) | YES  |     |         | 创建时间    
--------------+--------------+------+-----+---------+---------
 
 Table: sk_notification
 ----------------+--------------+------+-----+---------+---------

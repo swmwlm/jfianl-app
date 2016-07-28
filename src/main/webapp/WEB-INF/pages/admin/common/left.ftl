@@ -50,10 +50,10 @@
                     </a>
                 </li>
             </@shiro.hasPermission>
-            <@shiro.hasPermission name="menu:news">
-                <li <#if page_tab="news"> class="active" </#if>>
-                    <a href="${path!}/admin/news">
-                        <i class="fa fa-newspaper-o"></i> <span>资讯</span>
+            <@shiro.hasPermission name="menu:content">
+                <li <#if page_tab="content"> class="active" </#if>>
+                    <a href="${path!}/admin/content">
+                        <i class="fa fa-newspaper-o"></i> <span>內容</span>
                     </a>
                 </li>
             </@shiro.hasPermission>
