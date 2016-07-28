@@ -56,7 +56,7 @@
         $("#send_email_btn").attr("disabled", true);
         $.ajax({
             url: "${path!}/sendValiCode",
-            async: false,
+            async: true,
             cache: false,
             type: 'post',
             dataType: "json",
@@ -91,7 +91,7 @@
             },
             success: function (data) {
                 if (data.code == '200') {
-                    location.href="${path!}/";
+                    location.href="${path!}/index";
                 } else {
                     $("#regMsg").css("color", "red").html(data.description);
                     $("#reg_btn").attr("disabled", false);

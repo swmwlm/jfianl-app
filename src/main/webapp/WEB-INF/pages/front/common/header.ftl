@@ -41,8 +41,11 @@
                 <#if session.user??>
                     <li <#if page_tab == 'message'> class="active" </#if>><a href="${path!}/user/message/${session.user.id!}">通知 <span class="badge" id="badge"></span></a></li>
                     <li class="dropdown">
-                        <a href="${path!}/user/${session.user.id!}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                            <img src="${imgPath}/${session.user.avatar!}" width="20" style="border-radius: 20px;"/>
+                        <a href="${path!}/user/${session.user.id!}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">     <#if session.user.avatar??>
+                                <img src="${imgPath}/${session.user.avatar!}" width="20" style="border-radius: 20px;"/>
+                            <#else>
+                                <img src="${path!}/static/img/default_avatar.png" width="20" style="border-radius: 20px;">
+                            </#if>
                             ${session.user.nickname!}
                             <span class="caret"></span>
                         </a>

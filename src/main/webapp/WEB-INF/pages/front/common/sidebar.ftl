@@ -12,7 +12,11 @@
             <div class="media">
                 <div class="media-left">
                     <a href="${path!}/user/${session.user.id!}" style="text-decoration: none;">
-                        <img src="${imgPath!}/${session.user.avatar!}" title="${session.user.nickname!}" class="avatar">
+                        <#if session.user.avatar??>
+                            <img src="${imgPath}/${session.user.avatar!}" class="avatar" alt="${session.user.nickname!}" title="${session.user.nickname!}" />
+                        <#else>
+                            <img src="${path!}/static/img/default_avatar.png" class="avatar" alt="${session.user.nickname!}" title="${session.user.nickname!}">
+                        </#if>
                     </a>
                 </div>
                 <div class="media-body">
@@ -46,7 +50,12 @@
         <div class="media">
             <div class="media-left">
                 <a href="${path!}/user/${topic.author_id!}" style="text-decoration: none;">
-                    <img src="${imgPath!}/${topic.avatar!}" title="${topic.nickname!}" class="avatar">
+
+                    <#if topic.avatar??>
+                        <img src="${imgPath!}/${topic.avatar!}" title="${topic.nickname!}" class="avatar">
+                    <#else>
+                        <img src="${path!}/static/img/default_avatar.png" class="avatar" alt="${topic.nickname!}" title="${topic.nickname!}">
+                    </#if>
                 </a>
             </div>
             <div class="media-body">

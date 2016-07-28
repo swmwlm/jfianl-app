@@ -199,7 +199,7 @@ public class IndexController extends BaseController {
 										.set("in_time", date)
 										.set("email", email)
 										.set("token", token)
-										.set("avatar", "/static/img/default_avatar.png")
+										//.set("avatar", "/static/img/default_avatar.png")
 										.save();
 							} else {
 								user = getSessionAttr("unsave_user");
@@ -213,7 +213,7 @@ public class IndexController extends BaseController {
 											.set("in_time", date)
 											.set("email", email)
 											.set("token", token)
-											.set("avatar", "/static/img/default_avatar.png")
+											//.set("avatar", "/static/img/default_avatar.png")
 											.save();
 								} else {
 									user.set("nickname", StrUtil.noHtml(nickname).trim())
@@ -223,7 +223,7 @@ public class IndexController extends BaseController {
 											.set("token", token)
 											.set("in_time", date)
 											.set("score", 0)
-											.set("avatar", "/static/img/default_avatar.png")
+											//.set("avatar", "/static/img/default_avatar.png")
 											.save();
 								}
 								removeSessionAttr("unsave_user");
@@ -244,7 +244,7 @@ public class IndexController extends BaseController {
 
 	public void sendValiCode() {
 		int minute = 30;
-		String email = getPara("email");
+		final String email = getPara("email");
 		if (StrUtil.isBlank(email)) {
 			error("邮箱不能为空");
 		} else if (!StrUtil.isEmail(email)) {
@@ -265,13 +265,26 @@ public class IndexController extends BaseController {
 							.set("expire_time", DateUtil.getMinuteAfter(new Date(), minute))
 							.set("target", email)
 							.save();
-					String sendHtml = new FreemarkerLoader("template/mails/retrieve_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
+					final String sendHtml = new FreemarkerLoader("template/mails/retrieve_email.ftl").setValue("code", valicode).setValue("minute", minute).getHtml();
+					/*
+					//同步发送,页面会一直等待邮件发送完毕才能操作,不太合适
 					try {
 						Mailer.sendHtml("shoukeApp-找回密码", sendHtml, email);
 						success();
 					} catch (EmailException e) {
 						e.printStackTrace();
-					}
+					}*/
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								Mailer.sendHtml("shoukeApp-找回密码", sendHtml, email);
+							} catch (EmailException e) {
+								e.printStackTrace();
+							}
+						}
+					}).start();
+					success();
 				}
 			} else if (type.equalsIgnoreCase(AppConstants.REG)) {
 				User user = User.dao.findByEmail(email);
