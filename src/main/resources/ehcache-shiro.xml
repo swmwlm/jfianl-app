@@ -74,5 +74,4 @@
            overflowToDisk="false"
            statistics="true">
     </cache>
-
 </ehcache>
