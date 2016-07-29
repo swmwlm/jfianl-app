@@ -40,7 +40,14 @@
                     <tbody>
                         <#list page.getList() as user>
                         <tr>
-                            <td><a href="${path!}/user/${user.id}"><img src="${imgPath!}/${user.avatar!}" width="30"></a></td>
+                            <td><a href="${path!}/user/${user.id}">
+                                <#if (user.avatar) ?? && (user.avatar != '')>
+                                    <img src="${imgPath!}/${user.avatar!}" width="30">
+                                <#else>
+                                    <img src="${path!}/static/img/default_avatar.png" width="30">
+                                </#if>
+                                </a>
+                            </td>
                             <td><a href="${path!}/user/${user.id}">${user.nickname!}</a></td>
                             <td><a href="mailto:${user.email!}">${user.email!}</a></td>
                             <td>
