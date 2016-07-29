@@ -95,7 +95,7 @@ public class IndexController extends BaseController {
 			String username = getPara("username");
 			String password = getPara("password");
 
-			CacheManager cacheManager = CacheManager.newInstance(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
+			CacheManager cacheManager = CacheManager.create(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
 			Ehcache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
 			Element element = passwordRetryCache.get(username);
 

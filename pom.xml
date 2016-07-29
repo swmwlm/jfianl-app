@@ -18,6 +18,7 @@
 		<servlet.version>3.1.0</servlet.version>
 		<jfinal-mailer.version>0.2</jfinal-mailer.version>
 		<jfinal-quartz.version>0.2</jfinal-quartz.version>
+		<shiro.version>1.2.4</shiro.version>
 	</properties>
 
 
@@ -152,17 +153,22 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
-			<version>1.2.4</version>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
-			<version>1.2.4</version>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-ehcache</artifactId>
-			<version>1.2.4</version>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-quartz</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>shiro-freemarker</groupId>
@@ -248,6 +254,13 @@
 				<includes>
 					<include>**/*.xml</include>
 				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 		<testResources>

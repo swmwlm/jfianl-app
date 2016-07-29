@@ -125,6 +125,13 @@ public class Config extends JFinalConfig {
 	@Override
 	public void configPlugin(Plugins me) {
 
+		//启用本地缓存
+		me.add(new EhCachePlugin());
+
+
+		//启用消息驱动插件
+		me.add(new MessagePlugin());
+
 		//C3p0数据源插件
 //		C3p0Plugin c3p0 = new C3p0Plugin(getProperty("jdbcUrl"), getProperty("user"), getProperty("password").trim());
 //		me.add(c3p0);
@@ -156,11 +163,6 @@ public class Config extends JFinalConfig {
 		//单独映射表和实体关系
 		//arp.addMapping("zc_user",ZcUser.class);
 
-		//启用消息驱动插件
-		me.add(new MessagePlugin());
-
-		//启用本地缓存
-		me.add(new EhCachePlugin());
 
 		//shiro权限框架
 		ShiroPlugin shiroPlugin = new ShiroPlugin(routes);

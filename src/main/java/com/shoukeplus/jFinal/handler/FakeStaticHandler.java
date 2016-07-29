@@ -28,9 +28,10 @@ public class FakeStaticHandler extends Handler {
 			next.handle(target, request, response, isHandled);
 			return;
 		}
+
 		//关于JFinal (;jsessionid=)形式URL丢session问题解决方法
 		//修复 url:test;jsessionid=XXXXXXXXXXX 形式url会话丢失问题
-		int indexJ = target.lastIndexOf(";jsessionid");
+		int indexJ = target.toLowerCase().lastIndexOf(";jsessionid");
 		target = indexJ == -1 ? target : target.substring(0, indexJ);
 
 		//去除伪路径,跳转到真实的路径
