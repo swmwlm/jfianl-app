@@ -52,4 +52,15 @@ public class Dict extends BaseDict<Dict> {
 		}
 		return dicts;
 	}
+
+	/**
+	 * 获取type='contentCategory',key 存在于dict表type列中的 list
+	 * @return
+	 */
+	public List<Dict> getListByContentCategory(){
+		List<Dict> dicts=super.find("select a.* from sk_dict a ,sk_dict b where a.type=b.key and b.type=? order by a.type,a.sort desc","contentCategory");
+		if(CollectionUtils.isEmpty(dicts))
+			return null;
+		return dicts;
+	}
 }

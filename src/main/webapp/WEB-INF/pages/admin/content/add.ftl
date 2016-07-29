@@ -23,7 +23,9 @@
                     <div class="col-sm-5">
                         <select name="content.dictId" id="dictId" class="form-control" required="required">
                             <#list categories as category>
-                                <option value="${category.id!}">${category.value!}</option>
+                                <option value="${category.id!}">
+                                    [${category.type!}]${category.value!}
+                                </option>
                             </#list>
                         </select>
                     </div>

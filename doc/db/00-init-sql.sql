@@ -661,7 +661,8 @@ VALUES
   (10,'news','ventureNews','创业资讯',1,'创业资讯',current_timestamp,null),
   (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,null),
   (12,'target','_self','默认',2,'浏览器打开链接的方式',current_timestamp,null),
-  (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,null);
+  (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,null),
+  (18,'contentCategory','news','新闻栏目',1,'内容分类；设置可以显示的key',current_timestamp,null);
 
 # 内容表
 DROP TABLE IF EXISTS sk_content;

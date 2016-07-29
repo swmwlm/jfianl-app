@@ -20,7 +20,7 @@
                         <option value="">请选择分类</option>
                         <#list categories as category>
                             <option value="${category.id!}" <#if '${category.id}'=='${dictId!}'>selected="selected"</#if>>
-                                ${category.value!}
+                                [${category.type!}]${category.value!}
                             </option>
                         </#list>
                     </select>

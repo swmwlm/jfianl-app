@@ -28,7 +28,7 @@ public class NewsAdminController extends BaseController {
 		setAttr("page", Content.dao.page(getParaToInt("p", 1), defaultPageSize(), value, dictId));
 		setAttr("name", value);
 		setAttr("dictId", dictId);
-		setAttr("categories", Dict.dao.getList4Type("news"));
+		setAttr("categories", Dict.dao.getListByContentCategory());
 		render("index.ftl");
 	}
 
@@ -36,7 +36,7 @@ public class NewsAdminController extends BaseController {
 	public void add() {
 		String method = getRequest().getMethod();
 		if (method.equalsIgnoreCase(AppConstants.GET)) {
-			setAttr("categories", Dict.dao.getList4Type("news"));
+			setAttr("categories", Dict.dao.getListByContentCategory());
 			setAttr("targetCategory", Dict.dao.getList4Type("target"));
 			render("add.ftl");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
@@ -90,7 +90,7 @@ public class NewsAdminController extends BaseController {
 			if (content == null) {
 				renderText("内容不存在");
 			}
-			setAttr("categories", Dict.dao.getList4Type("news"));
+			setAttr("categories", Dict.dao.getListByContentCategory());
 			setAttr("targetCategory", Dict.dao.getList4Type("target"));
 			setAttr("content", content);
 			setAttr("contentImages", ContentImages.dao.findByContentId(contentID));
@@ -161,7 +161,7 @@ public class NewsAdminController extends BaseController {
 		if (content == null) {
 			renderText("该内容不存在");
 		}
-		List<Dict> dictList=Dict.dao.getList4Type("news");
+		List<Dict> dictList=Dict.dao.getListByContentCategory();
 		setAttr("categories", dictList);
 		setAttr("targetCategory", Dict.dao.getList4Type("target"));
 

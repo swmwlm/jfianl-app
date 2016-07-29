@@ -25,7 +25,7 @@
                         <select name="content.dictId" id="dictId" class="form-control" required="required">
                             <#list categories as category>
                                 <option value="${category.id!}" <#if '${category.id}'=='${content.dictId!}'>selected="selected"</#if>>
-                                    ${category.value!}
+                                    [${category.type!}]${category.value!}
                                 </option>
                             </#list>
                         </select>
