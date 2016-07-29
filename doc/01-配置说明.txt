@@ -1,0 +1,12 @@
+处理中文乱码问题:
+1：YourJFinalConfig.configConstant(Constants me) {me.setEncoding("utf-8")}
+2：数据库连接 jdbcUrl = jdbc:mysql://127.0.0.1/jfinal?characterEncoding=utf8
+3：如果是页面发送 GET 请求，中文字符需要 encoding，除非在 tomcat 的 server.xml 中的 Connector
+    标记中添加 URIEncoding="UTF-8"  属性:
+<Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" URIEncoding="UTF-8" />
+
+另外,需要修改AJP协议中的编码
+
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" URIEncoding="UTF8" />

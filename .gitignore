@@ -1,0 +1,6 @@
+.idea
+target/
+*.iml
+myapp.log
+src/main/resources/rebel.xml
+*.DS_Store

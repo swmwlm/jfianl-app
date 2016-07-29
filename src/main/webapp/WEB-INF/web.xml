@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name>Archetype Created Web Application</display-name>
+	<context-param>
+		<param-name>shiroConfigLocations</param-name>
+		<param-value>classpath:shiro.ini</param-value>
+	</context-param>
+	<!--权限过滤器 start-->
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+
+	<!--本地过滤器  用于request本地化并判断前台需求的返回数据类型 start-->
+	<filter>
+	<filter-name>ThreadLocalFilter</filter-name>
+	<filter-class>com.shoukeplus.jFinal.filter.ThreadLocalFilter</filter-class>
+	<init-param>
+	<param-name>autoJson</param-name>
+	<param-value>false</param-value>
+	</init-param>
+	</filter>
+	<filter-mapping>
+	<filter-name>ThreadLocalFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--本地过滤器 end-->
+
+	<!--gzip compress filter-->
+	<filter>
+	<filter-name>gzipFilter</filter-name>
+	<filter-class>com.shoukeplus.jFinal.filter.gzip.GZIPFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	<filter-name>gzipFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	<dispatcher>REQUEST</dispatcher>
+	<dispatcher>FORWARD</dispatcher>
+	<dispatcher>INCLUDE</dispatcher>
+	<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+	<!--gzip compress filter-->
+
+	<filter>
+		<filter-name>shiro</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiro</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--权限过滤器 end-->
+
+	<!--jfinal start-->
+	<filter>
+		<filter-name>jfinal</filter-name>
+		<filter-class>com.jfinal.core.JFinalFilter</filter-class>
+		<init-param>
+			<param-name>configClass</param-name>
+			<param-value>com.shoukeplus.jFinal.common.Config</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>jfinal</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--jfinal end-->
+
+
+	<!--<welcome-file-list>-->
+		<!--<welcome-file>/view/index.html</welcome-file>-->
+	<!--</welcome-file-list>-->
+	<!--session start-->
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+	<!--session end-->
+</web-app>

@@ -1,0 +1,334 @@
+Table: sk_admin_log
+-----------+----------------------+------+-----+---------+---------
+ Field     | Type                 | Null | Key | Default | Remarks 
+-----------+----------------------+------+-----+---------+---------
+ id        | INT(10)              | NO   | PRI |         |         
+ uid       | INT(10)              | NO   |     |         | 后台用户id  
+ target_id | VARCHAR(32)          | NO   |     |         | 操作对象id  
+ source    | VARCHAR(255)         | NO   |     |         | 来源：topic,reply等
+ in_time   | DATETIME(19)         | NO   |     |         |         
+ action    | VARCHAR(45)          | NO   |     |         | 动作：delete,edit等
+ message   | LONGTEXT(2147483647) | YES  |     |         | 记录必要的删除内容
+-----------+----------------------+------+-----+---------+---------
+
+Table: sk_admin_user
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         |         
+ username | VARCHAR(45)  | NO   |     |         | 后台用户名   
+ password | VARCHAR(45)  | NO   |     |         | 后台密码    
+ salt     | VARCHAR(45)  | NO   |     |         |         
+ in_time  | DATETIME(19) | NO   |     |         |         
+----------+--------------+------+-----+---------+---------
+
+Table: sk_area
+------------+---------------------+------+-----+---------------------+---------
+ Field      | Type                | Null | Key | Default             | Remarks 
+------------+---------------------+------+-----+---------------------+---------
+ areaId     | BIGINT UNSIGNED(20) | NO   | PRI |                     |         
+ name       | VARCHAR(50)         | YES  |     |                     | 地区名称    
+ pinyin     | VARCHAR(100)        | YES  |     |                     | 拼音      
+ pid        | BIGINT(19)          | YES  |     | 0                   | 父级编号    
+ area_code  | VARCHAR(6)          | YES  |     |                     |         
+ zip_code   | VARCHAR(6)          | YES  |     |                     | 邮编      
+ created_at | TIMESTAMP(19)       | NO   |     | CURRENT_TIMESTAMP   |         
+ updated_at | TIMESTAMP(19)       | NO   |     | 0000-00-00 00:00:00 |         
+ deleted_at | TIMESTAMP(19)       | NO   |     | 0000-00-00 00:00:00 |         
+------------+---------------------+------+-----+---------------------+---------
+
+Table: sk_collect
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         |         
+ tid       | VARCHAR(32)  | NO   |     |         | 收藏话题id  
+ author_id | VARCHAR(32)  | NO   |     |         | 用户id    
+ in_time   | DATETIME(19) | NO   |     |         | 录入时间    
+-----------+--------------+------+-----+---------+---------
+
+Table: sk_content
+----------------+----------------------+------+-----+---------+---------
+ Field          | Type                 | Null | Key | Default | Remarks 
+----------------+----------------------+------+-----+---------+---------
+ id             | INT(10)              | NO   | PRI |         |         
+ dictId         | INT(10)              | NO   |     |         | 新闻类型    
+ target         | VARCHAR(20)          | NO   |     | _blank  | 打开方式:_blank,_self,_top等
+ isExternalHref | INT(10)              | NO   |     | 0       | 1是外部链接;0 内部链接
+ externalHref   | VARCHAR(255)         | YES  |     |         | 外部链接url 
+ title          | VARCHAR(255)         | NO   |     |         | 标题      
+ introduction   | VARCHAR(255)         | YES  |     |         | 一句话描述,简介,摘要
+ img            | VARCHAR(255)         | YES  |     |         | 缩略图路径   
+ content        | LONGTEXT(2147483647) | YES  |     |         | 内容      
+ view           | INT(10)              | YES  |     | 0       | 浏览量     
+ author         | VARCHAR(50)          | YES  |     |         | 作者      
+ source         | VARCHAR(50)          | YES  |     |         | 文章来源    
+ isDeleted      | INT(10)              | NO   |     | 0       | 1删除;0默认 
+ createdTime    | DATETIME(19)         | YES  |     |         | 创建时间    
+ updatedTime    | DATETIME(19)         | YES  |     |         | 更新时间    
+ releaseTime    | DATETIME(19)         | NO   |     |         | 发布时间    
+----------------+----------------------+------+-----+---------+---------
+
+Table: sk_content_images
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ contentId   | INT(10)      | NO   |     |         | 新闻ID    
+ title       | VARCHAR(255) | NO   |     |         | 标题      
+ img         | VARCHAR(255) | YES  |     |         | 缩略图路径   
+ createdTime | DATETIME(19) | YES  |     |         | 创建时间    
+-------------+--------------+------+-----+---------+---------
+
+Table: sk_dict
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ type        | VARCHAR(50)  | NO   |     |         | 类型      
+ key         | VARCHAR(50)  | NO   |     |         | key     
+ value       | VARCHAR(50)  | NO   |     |         | value   
+ sort        | INT(10)      | NO   |     |         | 排序      
+ remark      | VARCHAR(255) | NO   |     |         | 备注信息    
+ createdTime | DATETIME(19) | NO   |     |         | 创建时间    
+ updatedTime | DATETIME(19) | YES  |     |         | 更新时间    
+-------------+--------------+------+-----+---------+---------
+
+Table: sk_donate
+---------+-------------+------+-----+---------+---------
+ Field   | Type        | Null | Key | Default | Remarks 
+---------+-------------+------+-----+---------+---------
+ id      | INT(10)     | NO   | PRI |         |         
+ name    | VARCHAR(45) | NO   |     |         |         
+ price   | VARCHAR(45) | NO   |     |         |         
+ in_time | DATE(10)    | NO   |     |         |         
+---------+-------------+------+-----+---------+---------
+
+Table: sk_label
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ name        | VARCHAR(255) | NO   |     |         |         
+ in_time     | DATETIME(19) | NO   |     |         |         
+ topic_count | INT(10)      | NO   |     | 0       |         
+ img         | VARCHAR(255) | YES  |     |         | 标签图片    
+ description | VARCHAR(500) | YES  |     |         | 标签描述    
+-------------+--------------+------+-----+---------+---------
+
+Table: sk_label_topic_id
+-------+-------------+------+-----+---------+---------
+ Field | Type        | Null | Key | Default | Remarks 
+-------+-------------+------+-----+---------+---------
+ id    | INT(10)     | NO   | PRI |         |         
+ tid   | VARCHAR(32) | NO   |     |         |         
+ lid   | INT(10)     | NO   |     |         |         
+-------+-------------+------+-----+---------+---------
+
+Table: sk_link
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         |         
+ name          | VARCHAR(45)  | NO   |     |         | 友链名称    
+ url           | VARCHAR(255) | NO   |     |         | 友链地址    
+ img           | VARCHAR(255) | YES  |     |         | 友链图片    
+ display_index | INT(10)      | NO   |     |         | 友链排序    
+ description   | VARCHAR(255) | YES  |     |         | 描述      
+---------------+--------------+------+-----+---------+---------
+
+Table: sk_message
+------------+---------------+------+-----+---------+---------
+ Field      | Type          | Null | Key | Default | Remarks 
+------------+---------------+------+-----+---------+---------
+ id         | INT(10)       | NO   | PRI |         |         
+ contact_id | INT(10)       | NO   |     |         | 消息属于哪一个对话下的
+ content    | VARCHAR(1000) | NO   |     |         |         
+ author_id  | VARCHAR(32)   | NO   |     |         | 消息发出者   
+ in_time    | DATETIME(19)  | NO   |     |         |         
+------------+---------------+------+-----+---------+---------
+
+Table: sk_mission
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         |         
+ score     | INT(10)      | NO   |     |         | 签到随机获得积分
+ author_id | VARCHAR(32)  | NO   |     |         | 用户id    
+ in_time   | DATETIME(19) | NO   |     |         | 录入时间    
+ day       | INT(10)      | NO   |     | 0       | 连续签到天数  
+-----------+--------------+------+-----+---------+---------
+
+Table: sk_msg_contact
+------------------+---------------+------+-----+---------+---------
+ Field            | Type          | Null | Key | Default | Remarks 
+------------------+---------------+------+-----+---------+---------
+ id               | INT(10)       | NO   | PRI |         |         
+ author_id        | VARCHAR(32)   | NO   |     |         | 用户id    
+ to_author_id     | VARCHAR(32)   | NO   |     |         | 发送消息对象（包括接收，发送的人）id
+ msg_count        | INT(10)       | NO   |     |         | 当前会话下的消息数量
+ last_msg_content | VARCHAR(1000) | NO   |     |         | 当前会话的最后一条消息
+ in_time          | DATETIME(19)  | NO   |     |         |         
+ last_msg_time    | DATETIME(19)  | YES  |     |         |         
+ is_delete        | INT(10)       | NO   |     | 0       | 是否删除会话，0默认1删除
+------------------+---------------+------+-----+---------+---------
+
+Table: sk_notification
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         |         
+ message        | VARCHAR(255) | NO   |     |         | 消息内容    
+ read           | INT(10)      | NO   |     |         | 是否已读：0默认 1已读
+ from_author_id | VARCHAR(32)  | NO   |     |         | 来源用户id  
+ author_id      | VARCHAR(32)  | NO   |     |         | 目标用户id  
+ target_id      | VARCHAR(255) | YES  |     |         | 目标id    
+ in_time        | DATETIME(19) | NO   |     |         | 录入时间    
+ action         | VARCHAR(255) | YES  |     |         | 通知动作    
+ source         | VARCHAR(32)  | YES  |     |         | 通知来源    
+----------------+--------------+------+-----+---------+---------
+
+Table: sk_permission
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ name        | VARCHAR(45)  | NO   |     |         |         
+ description | VARCHAR(255) | YES  |     |         |         
+ pid         | INT(10)      | NO   |     |         | 父节点0    
+-------------+--------------+------+-----+---------+---------
+
+Table: sk_reply
+-----------+----------------------+------+-----+---------+---------
+ Field     | Type                 | Null | Key | Default | Remarks 
+-----------+----------------------+------+-----+---------+---------
+ id        | VARCHAR(32)          | NO   | PRI |         |         
+ tid       | VARCHAR(32)          | NO   |     |         | 话题id    
+ content   | LONGTEXT(2147483647) | NO   |     |         | 回复内容    
+ in_time   | DATETIME(19)         | NO   |     |         | 录入时间    
+ author_id | VARCHAR(32)          | NO   |     |         | 当前回复用户id
+ best      | INT(10)              | NO   |     | 0       | 采纳为最佳答案 0默认，1采纳
+ isdelete  | INT(10)              | NO   |     | 0       | 是否删除0 默认 1删除
+-----------+----------------------+------+-----+---------+---------
+
+Table: sk_role
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ name        | VARCHAR(45)  | NO   |     |         |         
+ description | VARCHAR(255) | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: sk_role_permission
+-------+---------+------+-----+---------+---------
+ Field | Type    | Null | Key | Default | Remarks 
+-------+---------+------+-----+---------+---------
+ id    | INT(10) | NO   | PRI |         |         
+ rid   | INT(10) | NO   |     |         |         
+ pid   | INT(10) | NO   |     |         |         
+-------+---------+------+-----+---------+---------
+
+Table: sk_roll_images
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ dictId       | INT(10)      | NO   |     |         | 轮播图类型   
+ title        | VARCHAR(255) | YES  |     |         | 标题      
+ introduction | VARCHAR(255) | YES  |     |         | 描述,简介,摘要
+ imgSrc       | VARCHAR(255) | NO   |     |         | 图片路径    
+ linkUrl      | VARCHAR(255) | YES  |     |         | 链接url   
+ target       | VARCHAR(20)  | YES  |     | _blank  | 打开方式:_blank,_self,_top等
+ sort         | INT(10)      | NO   |     |         | 排序      
+ createdTime  | DATETIME(19) | YES  |     |         | 创建时间    
+ updatedTime  | DATETIME(19) | YES  |     |         | 更新时间    
+--------------+--------------+------+-----+---------+---------
+
+Table: sk_section
+---------------+-------------+------+-----+---------+---------
+ Field         | Type        | Null | Key | Default | Remarks 
+---------------+-------------+------+-----+---------+---------
+ id            | INT(10)     | NO   | PRI |         |         
+ name          | VARCHAR(45) | NO   |     |         | 板块名称    
+ tab           | VARCHAR(45) | NO   |     |         | 板块标签    
+ show_status   | INT(10)     | NO   |     | 1       | 是否显示，0不显示1显示
+ display_index | INT(10)     | NO   |     |         | 板块排序    
+ default_show  | INT(10)     | NO   |     | 0       | 默认显示板块 0默认，1显示
+---------------+-------------+------+-----+---------+---------
+
+Table: sk_sys_config
+-------+--------------+------+-----+---------+---------
+ Field | Type         | Null | Key | Default | Remarks 
+-------+--------------+------+-----+---------+---------
+ id    | INT(10)      | NO   | PRI |         |         
+ key   | VARCHAR(45)  | NO   |     |         |         
+ value | VARCHAR(255) | YES  |     |         |         
+-------+--------------+------+-----+---------+---------
+
+Table: sk_topic
+----------------------+----------------------+------+-----+---------+---------
+ Field                | Type                 | Null | Key | Default | Remarks 
+----------------------+----------------------+------+-----+---------+---------
+ id                   | VARCHAR(32)          | NO   | PRI |         |         
+ s_id                 | INT(10)              | NO   |     |         | 版块id    
+ title                | VARCHAR(255)         | NO   |     |         | 话题标题    
+ content              | LONGTEXT(2147483647) | NO   |     |         | 话题内容    
+ in_time              | DATETIME(19)         | NO   |     |         | 录入时间    
+ modify_time          | DATETIME(19)         | YES  |     |         | 修改时间    
+ last_reply_time      | DATETIME(19)         | YES  |     |         | 最后回复话题时间，用于排序
+ last_reply_author_id | VARCHAR(32)          | YES  |     |         | 最后回复话题的用户id
+ view                 | INT(10)              | NO   |     |         | 浏览量     
+ author_id            | VARCHAR(32)          | NO   |     |         | 话题作者id  
+ top                  | INT(10)              | NO   |     | 0       | 1置顶 0默认 
+ good                 | INT(10)              | NO   |     | 0       | 1精华 0默认 
+ show_status          | INT(10)              | NO   |     | 1       | 1显示0不显示 
+ reply_count          | INT(10)              | NO   |     | 0       | 回复数量    
+ isdelete             | INT(10)              | NO   |     | 0       | 1删除0默认  
+----------------------+----------------------+------+-----+---------+---------
+
+Table: sk_user
+---------------+---------------+------+-----+---------+---------
+ Field         | Type          | Null | Key | Default | Remarks 
+---------------+---------------+------+-----+---------+---------
+ id            | VARCHAR(32)   | NO   | PRI |         |         
+ nickname      | VARCHAR(50)   | NO   |     |         | 昵称      
+ score         | INT(10)       | NO   |     |         | 积分      
+ token         | VARCHAR(255)  | NO   |     |         | 用户唯一标识，用于客户端和网页存入cookie
+ avatar        | VARCHAR(255)  | NO   |     |         | 头像      
+ mission       | DATE(10)      | NO   |     |         | 签到日期    
+ in_time       | DATETIME(19)  | NO   |     |         | 录入时间    
+ email         | VARCHAR(255)  | YES  |     |         | 邮箱      
+ password      | VARCHAR(255)  | NO   |     |         | 密码      
+ url           | VARCHAR(255)  | YES  |     |         | 个人主页    
+ signature     | VARCHAR(1000) | YES  |     |         | 个性签名    
+ qq_open_id    | VARCHAR(255)  | YES  |     |         | qq登录唯一标识
+ qq_avatar     | VARCHAR(255)  | YES  |     |         | qq头像    
+ qq_nickname   | VARCHAR(255)  | YES  |     |         | qq昵称    
+ sina_open_id  | VARCHAR(255)  | YES  |     |         | 新浪微博登录唯一标识
+ sina_avatar   | VARCHAR(255)  | YES  |     |         | 新浪微博头像  
+ sina_nickname | VARCHAR(255)  | YES  |     |         | 新浪微博昵称  
+---------------+---------------+------+-----+---------+---------
+
+Table: sk_user_role
+-------+---------+------+-----+---------+---------
+ Field | Type    | Null | Key | Default | Remarks 
+-------+---------+------+-----+---------+---------
+ id    | INT(10) | NO   | PRI |         |         
+ uid   | INT(10) | NO   |     |         |         
+ rid   | INT(10) | NO   |     |         |         
+-------+---------+------+-----+---------+---------
+
+Table: sk_valicode
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ code        | VARCHAR(32)  | NO   |     |         | 验证码     
+ in_time     | DATETIME(19) | NO   |     |         | 录入时间    
+ status      | INT(10)      | NO   |     |         | 0未使用  1已使用
+ type        | VARCHAR(45)  | NO   |     |         | 验证码类型，比如：找回密码
+ expire_time | DATETIME(19) | NO   |     |         | 过期时间    
+ target      | VARCHAR(255) | NO   |     |         | 发送目标，如邮箱等
+-------------+--------------+------+-----+---------+---------
+
