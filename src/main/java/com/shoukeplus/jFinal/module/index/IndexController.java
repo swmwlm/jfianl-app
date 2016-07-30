@@ -94,6 +94,8 @@ public class IndexController extends BaseController {
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
 			String username = getPara("username");
 			String password = getPara("password");
+			String rememberMe = getPara("rememberMe");
+			boolean isRememberMe="true".equals(rememberMe)? true:false;
 
 			CacheManager cacheManager = CacheManager.create(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
 			Ehcache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
@@ -114,9 +116,13 @@ public class IndexController extends BaseController {
 			Subject subject = SecurityUtils.getSubject();
 			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 			try {
+				if(isRememberMe){
+					usernamePasswordToken.setRememberMe(true);
+				}
 				subject.login(usernamePasswordToken);
+
 				//用户登录成功,发送消息,消息驱动,
-				MessageKit.sendMessage(Actions.USER_LOGINED,AdminUser.dao.findByUsername(username));
+				MessageKit.sendMessage(Actions.USER_LOGINED, AdminUser.dao.findByUsername(username));
 				setSessionAttr(AppConstants.SESSION_ADMIN_USERNAME, username);
 				redirect("/admin/index");
 			} catch (ExcessiveAttemptsException e) {
