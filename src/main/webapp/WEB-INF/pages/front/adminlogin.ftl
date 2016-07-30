@@ -54,7 +54,7 @@
                 </div>
             </#if>
             <div class="form-group has-feedback">
-                <input type="checkbox" name="rememberMe" value="true"> Remember me
+                <input type="checkbox" name="rememberMe" value="true"> 24小时内自动登录
             </div>
             <#if error??>
                 <div class="form-group">
