@@ -53,9 +53,9 @@
                     </div>
                 </div>
             </#if>
-            <div class="form-group has-feedback">
+            <#--<div class="form-group has-feedback">
                 <input type="checkbox" name="rememberMe" id="rememberMe" value="true" onchange="changValue();"> Remember me
-            </div>
+            </div>-->
             <#if error??>
                 <div class="form-group">
                     <p class="text-red">

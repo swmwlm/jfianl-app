@@ -94,8 +94,8 @@ public class IndexController extends BaseController {
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
 			String username = getPara("username");
 			String password = getPara("password");
-			String rememberMe = getPara("rememberMe");
-			boolean isRememberMe="true".equals(rememberMe)? true:false;
+			//String rememberMe = getPara("rememberMe");
+			//boolean isRememberMe="true".equals(rememberMe)? true:false;
 
 			CacheManager cacheManager = CacheManager.create(CacheManager.class.getClassLoader().getResource("ehcache-shiro.xml"));
 			Ehcache passwordRetryCache = cacheManager.getCache("passwordRetryCache");
@@ -116,8 +116,8 @@ public class IndexController extends BaseController {
 			Subject subject = SecurityUtils.getSubject();
 			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 			try {
-
-				usernamePasswordToken.setRememberMe(isRememberMe);
+				//该功能开启会导致安全问题,还是不开启的好..http://my.oschina.net/ayao/blog/420764
+				//usernamePasswordToken.setRememberMe(isRememberMe);
 				subject.login(usernamePasswordToken);
 
 				// 在使用RememberMe功能时,需要配合相应的拦截器实现相应的功能,用错了拦截器可能就满足不了需求.
