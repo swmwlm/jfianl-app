@@ -24,6 +24,9 @@
                 </li>
                 <!-- Control Sidebar Toggle Button -->
                 <li>
+                    <a href="${path!}/admin/runas">切换身份</a>
+                </li>
+                <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                 </li>
             </ul>

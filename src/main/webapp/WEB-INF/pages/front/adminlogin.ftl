@@ -53,9 +53,9 @@
                     </div>
                 </div>
             </#if>
-            <#--<div class="form-group has-feedback">
-                <input type="checkbox" name="rememberMe" id="rememberMe" value="true" onchange="changValue();"> Remember me
-            </div>-->
+            <div class="form-group has-feedback">
+                <input type="checkbox" name="rememberMe" value="true"> Remember me
+            </div>
             <#if error??>
                 <div class="form-group">
                     <p class="text-red">
@@ -89,14 +89,6 @@
             increaseArea: '20%' // optional
         });
     });
-    function changValue() {
-        $element=$("#rememberMe");
-        if($element.is(':checked')){
-            $element.val(true);
-        }else{
-            $element.val(false);
-        }
-    }
 </script>
 </body>
 </html>

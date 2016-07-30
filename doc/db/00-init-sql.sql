@@ -714,3 +714,11 @@ CREATE TABLE IF NOT EXISTS sk_roll_images (
   `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+# 授予身份/切换身份表
+DROP TABLE IF EXISTS sk_admin_user_runas;
+create table sk_admin_user_runas (
+  from_user_id int(11),
+  to_user_id int(11),
+  constraint pk_sys_admin_user_runas primary key(from_user_id, to_user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;

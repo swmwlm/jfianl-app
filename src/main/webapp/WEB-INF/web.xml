@@ -73,7 +73,7 @@
 	<!--</welcome-file-list>-->
 	<!--session start-->
 	<session-config>
-		<session-timeout>20</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 	<!--session end-->
 </web-app>

@@ -5,14 +5,10 @@ import com.shoukeplus.jFinal.common.model.SysConfig;
 public class AppConstants {
   //默认字符编码
   public static final String DEFAULT_ENCODING = "UTF-8";
-  //验证码
-  public static final String CAPTCHA_NAME = "captcha";
-  //保存用户信息
-  public static final String LOGIN_USER_NAME = "username";
-
-  public static final String TEMP_USER = "tempUser";
 
   public static final String CURRENT_USER = "currentUser";
+  //public static final String SESSION_ADMIN_USER = "admin_user";
+  public static final String CURRENT_ADMIN_USER = "currrent_admin_user";
 
   //CSRF TOKEN
   public static final String CSRF_TOKEN="token";
@@ -60,7 +56,6 @@ public class AppConstants {
 
   public static final String DEFAULT_CACHE_NAME = "defaultCache";
 
-  public static final String SESSION_ADMIN_USERNAME = "admin_username";
   //link
   public static final String LINKLISTKEY = "linklistkey";
   //sysconfig

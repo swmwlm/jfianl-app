@@ -8,7 +8,7 @@
                 <img src="${path!}/static/AdminLTE/dist/img/user0-160x160.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>欢迎你,${session.admin_username!}</p>
+                <p>欢迎你,<label id="username">${currrent_admin_user.username!}</label></p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>

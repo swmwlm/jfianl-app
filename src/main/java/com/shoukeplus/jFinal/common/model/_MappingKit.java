@@ -18,6 +18,8 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("sk_admin_log", "id", AdminLog.class);
 		arp.addMapping("sk_admin_user", "id", AdminUser.class);
+		// Composite Primary Key order: from_user_id,to_user_id
+		arp.addMapping("sk_admin_user_runas", "from_user_id,to_user_id", AdminUserRunas.class);
 		arp.addMapping("sk_area", "areaId", Area.class);
 		arp.addMapping("sk_collect", "id", Collect.class);
 		arp.addMapping("sk_content", "id", Content.class);
