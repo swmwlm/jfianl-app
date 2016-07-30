@@ -116,10 +116,20 @@ public class IndexController extends BaseController {
 			Subject subject = SecurityUtils.getSubject();
 			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 			try {
-				if(isRememberMe){
-					usernamePasswordToken.setRememberMe(true);
-				}
+
+				usernamePasswordToken.setRememberMe(isRememberMe);
 				subject.login(usernamePasswordToken);
+
+				// 在使用RememberMe功能时,需要配合相应的拦截器实现相应的功能,用错了拦截器可能就满足不了需求.
+				// /aa.jsp=auth 表示访问该地址必须用户身份验证通过; /**=user 表示访问该地址必须是身份验证通过或者RememberMe登录.
+				// 在需要 使用该功能的地方,加上如下代码进行操作;
+				// 例如: 可以先通过cookie获取用户名密码,然后进行new UsernamePasswordToken,进行subject.login登录;
+				/*if(subject.isRemembered()){
+					//isRememberMe,记住me
+					System.out.println("---------isRememberMe---------");
+				}*/
+
+
 
 				//用户登录成功,发送消息,消息驱动,
 				MessageKit.sendMessage(Actions.USER_LOGINED, AdminUser.dao.findByUsername(username));
