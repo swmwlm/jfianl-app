@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @ControllerBind(controllerKey = "/admin/content", viewPath = "/WEB-INF/pages/admin/content")
-public class NewsAdminController extends BaseController {
+public class ContentAdminController extends BaseController {
 
 	@RequiresPermissions("menu:content")
 	public void index() {
