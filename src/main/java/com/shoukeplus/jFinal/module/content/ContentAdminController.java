@@ -1,4 +1,4 @@
-package com.shoukeplus.jFinal.module.news;
+package com.shoukeplus.jFinal.module.content;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
@@ -40,8 +40,11 @@ public class ContentAdminController extends BaseController {
 			setAttr("targetCategory", Dict.dao.getList4Type("target"));
 			render("add.ftl");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
+			AdminUser adminUser = getAdminUser();
+
 			Content content = getModel(Content.class);
 			content.setCreatedTime(DateUtil.getCurrentDateTime());
+			content.setCreator(adminUser.getId());
 			content.save();
 			Integer contentId = content.getId();
 			List<ContentImages> newsImagesList = getModels(ContentImages.class, "contentImages");
@@ -49,6 +52,7 @@ public class ContentAdminController extends BaseController {
 				for (ContentImages img : newsImagesList) {
 					img.setContentId(contentId);
 					img.setCreatedTime(DateUtil.getCurrentDateTime());
+					img.setCreator(adminUser.getId());
 					img.save();
 				}
 			}
@@ -96,8 +100,11 @@ public class ContentAdminController extends BaseController {
 			setAttr("contentImages", ContentImages.dao.findByContentId(contentID));
 			render("edit.ftl");
 		} else if (method.equalsIgnoreCase(AppConstants.POST)) {
+			AdminUser adminUser = getAdminUser();
+
 			Content contentEdit = getModel(Content.class);
 			contentEdit.setUpdatedTime(DateUtil.getCurrentDateTime());
+			contentEdit.setLastModifier(adminUser.getId());
 			contentEdit.update();
 			String newsImagesIDS = getRequest().getParameter("newsImagesIDS");
 
@@ -128,16 +135,19 @@ public class ContentAdminController extends BaseController {
 				for (ContentImages img : contentImagesList) {
 					img.setCreatedTime(DateUtil.getCurrentDateTime());
 					if (ObjectUtils.notEqual(img.getId(), null)) {
+						img.setLastModifier(adminUser.getId());
+						img.setUpdatedTime(DateUtil.getCurrentDateTime());
 						img.update();
 					} else {
 						img.setContentId(Integer.parseInt(contentID));
+						img.setCreatedTime(DateUtil.getCurrentDateTime());
+						img.setCreator(adminUser.getId());
 						img.save();
 					}
 				}
 			}
 
 			//记录日志
-			AdminUser adminUser = getAdminUser();
 			AdminLog adminLog = new AdminLog();
 			adminLog.set("uid", adminUser.getInt("id"))
 					.set("target_id", contentEdit.getId())

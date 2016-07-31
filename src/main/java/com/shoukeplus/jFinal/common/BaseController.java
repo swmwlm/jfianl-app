@@ -10,8 +10,6 @@ import com.shoukeplus.jFinal.common.utils.Result;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.render.JCaptchaRender;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,9 +64,10 @@ public class BaseController extends Controller {
      * @return
      */
     public AdminUser getAdminUser() {
-        Subject subject = SecurityUtils.getSubject();
-        String username = subject.getPrincipal().toString();
-        return AdminUser.dao.findByUsername(username);
+        //Subject subject = SecurityUtils.getSubject();
+        //String username = subject.getPrincipal().toString();
+        //return AdminUser.dao.findByUsername(username);
+        return (AdminUser) getRequest().getAttribute(AppConstants.CURRENT_ADMIN_USER);
     }
     /**
      * 处理前台传递的对象数组 参数

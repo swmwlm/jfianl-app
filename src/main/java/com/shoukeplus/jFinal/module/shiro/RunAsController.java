@@ -1,6 +1,5 @@
 package com.shoukeplus.jFinal.module.shiro;
 
-import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
 import com.shoukeplus.jFinal.common.model.AdminUser;
 import com.shoukeplus.jFinal.common.model.AdminUserRunas;
@@ -17,7 +16,7 @@ import java.util.List;
 @ControllerBind(controllerKey = "/admin/runas", viewPath = "/WEB-INF/pages/admin/shiro/runas")
 public class RunAsController extends BaseController {
 	public void index() {
-		AdminUser adminUser = (AdminUser) getRequest().getAttribute(AppConstants.CURRENT_ADMIN_USER);
+		AdminUser adminUser = getAdminUser();
 		List<Integer> fromUserIds = AdminUserRunas.dao.findFromUserIds(adminUser.getId());
 		List<AdminUser> fromUsers = AdminUser.dao.findByIds(fromUserIds);
 		setAttr("fromUsers", fromUsers);
@@ -41,7 +40,7 @@ public class RunAsController extends BaseController {
 
 	public void grant() {
 		Integer toUserId = getParaToInt(0);
-		AdminUser adminUser = (AdminUser) getRequest().getAttribute(AppConstants.CURRENT_ADMIN_USER);
+		AdminUser adminUser = getAdminUser();
 		if (adminUser.getId().equals(toUserId)) {
 			setAttr("msg", "自己不能切换到自己的身份");
 			redirect("/admin/runas");
@@ -54,7 +53,7 @@ public class RunAsController extends BaseController {
 
 	public void revoke() {
 		Integer toUserId = getParaToInt(0);
-		AdminUser adminUser = (AdminUser) getRequest().getAttribute(AppConstants.CURRENT_ADMIN_USER);
+		AdminUser adminUser = getAdminUser();
 		AdminUserRunas.dao.revokeRunAs(adminUser.getId(), toUserId);
 		setAttr("msg", "操作成功");
 		redirect("/admin/runas");
@@ -62,7 +61,7 @@ public class RunAsController extends BaseController {
 
 	public void switchTo() {
 		Integer switchToUserId = getParaToInt(0);
-		AdminUser adminUser = (AdminUser) getRequest().getAttribute(AppConstants.CURRENT_ADMIN_USER);
+		AdminUser adminUser = getAdminUser();
 		Subject subject = SecurityUtils.getSubject();
 
 		AdminUser switchToUser = AdminUser.dao.findById(switchToUserId);

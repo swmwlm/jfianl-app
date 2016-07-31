@@ -2,6 +2,7 @@ package com.shoukeplus.jFinal.module.dict;
 
 import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
+import com.shoukeplus.jFinal.common.model.AdminUser;
 import com.shoukeplus.jFinal.common.model.Dict;
 import com.shoukeplus.jFinal.common.utils.DateUtil;
 import com.shoukeplus.jFinal.common.utils.ext.route.ControllerBind;
@@ -38,6 +39,7 @@ public class DictAdminController extends BaseController {
         if (method.equalsIgnoreCase(AppConstants.GET)) {
             render("add.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
+            AdminUser adminUser = getAdminUser();
 
             Dict dict = new Dict();
             dict.setType(getPara("type"));
@@ -46,6 +48,7 @@ public class DictAdminController extends BaseController {
             dict.setSort(getParaToInt("sort"));
             dict.setRemark(getPara("remark"));
             dict.setCreatedTime(DateUtil.getCurrentDateTime());
+            dict.setCreator(adminUser.getId());
             dict.save();
 
             redirect("/admin/dict/index");
@@ -60,9 +63,11 @@ public class DictAdminController extends BaseController {
             setAttr("dict", dict);
             render("edit.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
+            AdminUser adminUser= getAdminUser();
             Dict dict = Dict.dao.findById(getParaToInt("id"));
             dict.set("type", getPara("type")).set("key",getPara("key")).set("value",getPara("value")).set("sort",getParaToInt("sort"))
                     .set("remark", getPara("remark")).set("updatedTime",DateUtil.getCurrentDateTime())
+                    .set("lastModifier",adminUser.getId())
                     .update();
             redirect("/admin/dict/index");
         }

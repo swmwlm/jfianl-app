@@ -2,6 +2,7 @@ package com.shoukeplus.jFinal.module.rollimages;
 
 import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
+import com.shoukeplus.jFinal.common.model.AdminUser;
 import com.shoukeplus.jFinal.common.model.Dict;
 import com.shoukeplus.jFinal.common.model.RollImages;
 import com.shoukeplus.jFinal.common.utils.DateUtil;
@@ -30,8 +31,11 @@ public class RollImagesAdminController extends BaseController {
             setAttr("targetDict", Dict.dao.getList4Type("target"));
             render("add.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
+            AdminUser adminUser = getAdminUser();
+
             RollImages rollImages = getModel(RollImages.class, "rollImages");
             rollImages.setCreatedTime(DateUtil.getCurrentDateTime());
+            rollImages.setCreator(adminUser.getId());
             rollImages.save();
             redirect("/admin/rollimages/index");
         }
@@ -48,8 +52,11 @@ public class RollImagesAdminController extends BaseController {
             setAttr("rollimage", RollImages.dao.findById(id));
             render("edit.ftl");
         } else if (method.equalsIgnoreCase(AppConstants.POST)) {
+            AdminUser adminUser = getAdminUser();
+
             RollImages rollImages = getModel(RollImages.class, "rollImages");
             rollImages.setUpdatedTime(DateUtil.getCurrentDateTime());
+            rollImages.setLastModifier(adminUser.getId());
             rollImages.update();
             redirect("/admin/rollimages/index");
         }

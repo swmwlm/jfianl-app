@@ -81,12 +81,28 @@ public abstract class BaseRollImages<M extends BaseRollImages<M>> extends Model<
 		return get("createdTime");
 	}
 
+	public void setCreator(java.lang.Integer creator) {
+		set("creator", creator);
+	}
+
+	public java.lang.Integer getCreator() {
+		return get("creator");
+	}
+
 	public void setUpdatedTime(java.util.Date updatedTime) {
 		set("updatedTime", updatedTime);
 	}
 
 	public java.util.Date getUpdatedTime() {
 		return get("updatedTime");
+	}
+
+	public void setLastModifier(java.lang.Integer lastModifier) {
+		set("lastModifier", lastModifier);
+	}
+
+	public java.lang.Integer getLastModifier() {
+		return get("lastModifier");
 	}
 
 }

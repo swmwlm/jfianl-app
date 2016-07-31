@@ -647,24 +647,27 @@ CREATE TABLE IF NOT EXISTS sk_dict (
   `sort` int(4) NOT NULL COMMENT '排序',
   `remark` varchar(255) NOT NULL COMMENT '备注信息',
   `createdTime` DATETIME NOT NULL COMMENT '创建时间',
+  `creator` INT(11) COMMENT '创建者',
   `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `lastModifier` INT(11) COMMENT '修改者',
   PRIMARY KEY (`id`),
   CONSTRAINT `unq_type_key` UNIQUE (`type`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
-INSERT INTO `sk_dict` (`id`, `type`, `key`, `value`, `sort`, `remark`,`createdTime`,`updatedTime`)
+INSERT INTO `sk_dict` (`id`, `type`, `key`, `value`, `sort`, `remark`,`createdTime`,`creator`,`updatedTime`,`lastModifier`)
 VALUES
-  (1,'sex','male','男',0,'性别',current_timestamp,null),
-  (2,'sex','remale','女',1,'性别',current_timestamp,null),
-  (3,'public','key1','test1',1,'单一的键值对，统一使用public类型',current_timestamp,null),
-  (4,'slider','index','首页轮播图',1,'首页轮播图',current_timestamp,null),
-  (10,'news','ventureNews','创业资讯',1,'创业资讯',current_timestamp,null),
-  (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,null),
-  (12,'target','_self','默认',2,'浏览器打开链接的方式',current_timestamp,null),
-  (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,null),
-  (18,'contentCategory','news','新闻栏目',1,'内容分类；设置可以显示的type',current_timestamp,null);
+  (1,'sex','male','男',0,'性别',current_timestamp,1,null,null),
+  (2,'sex','remale','女',1,'性别',current_timestamp,1,null,null),
+  (3,'public','key1','test1',1,'单一的键值对，统一使用public类型',current_timestamp,1,null,null),
+  (4,'slider','index','首页轮播图',1,'首页轮播图',current_timestamp,1,null,null),
+  (10,'news','ventureNews','创业资讯',1,'创业资讯',current_timestamp,1,null,null),
+  (11,'news','industryNews','行业资讯',2,'行业资讯',current_timestamp,1,null,null),
+  (12,'target','_self','默认',2,'浏览器打开链接的方式',current_timestamp,1,null,null),
+  (13,'target','_blank','新页面打开',2,'浏览器打开链接的方式',current_timestamp,1,null,null),
+  (18,'contentCategory','news','新闻栏目',1,'内容分类；设置可以显示的type',current_timestamp,1,null,null);
 
 # 内容表
+DROP TABLE IF EXISTS sk_content_images;
 DROP TABLE IF EXISTS sk_content;
 CREATE TABLE IF NOT EXISTS sk_content (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -681,19 +684,23 @@ CREATE TABLE IF NOT EXISTS sk_content (
   `source` VARCHAR(50) DEFAULT NULL COMMENT '文章来源',
   `isDeleted` int(1) NOT NULL DEFAULT 0 COMMENT '1删除;0默认',
   `createdTime` DATETIME COMMENT '创建时间',
+  `creator` INT(11) COMMENT '创建者',
   `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `lastModifier` INT(11) COMMENT '修改者',
   `releaseTime` DATETIME NOT NULL COMMENT '发布时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 # 内容组图表
-DROP TABLE IF EXISTS sk_content_images;
 CREATE TABLE IF NOT EXISTS sk_content_images (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contentId` int(11) NOT  NULL COMMENT '新闻ID',
   `title` varchar(255) NOT NULL COMMENT '标题',
   `img` VARCHAR(255) DEFAULT NULL COMMENT '缩略图路径',
   `createdTime` DATETIME COMMENT '创建时间',
+  `creator` INT(11) COMMENT '创建者',
+  `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `lastModifier` INT(11) COMMENT '修改者',
   PRIMARY KEY (`id`),
 	CONSTRAINT `fk_content_images` FOREIGN KEY (`contentId`) REFERENCES `sk_content` (`id`),
 	INDEX `contentId` USING BTREE (contentId)
@@ -711,7 +718,9 @@ CREATE TABLE IF NOT EXISTS sk_roll_images (
   `target` VARCHAR(20)  DEFAULT '_blank' COMMENT '打开方式:_blank,_self,_top等',
   `sort` int(4) NOT NULL COMMENT '排序',
   `createdTime` DATETIME COMMENT '创建时间',
+  `creator` INT(11) COMMENT '创建者',
   `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `lastModifier` INT(11) COMMENT '修改者',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 

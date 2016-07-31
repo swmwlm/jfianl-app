@@ -73,34 +73,41 @@ Table: sk_content
  source         | VARCHAR(50)          | YES  |     |         | 文章来源    
  isDeleted      | INT(10)              | NO   |     | 0       | 1删除;0默认 
  createdTime    | DATETIME(19)         | YES  |     |         | 创建时间    
+ creator        | INT(10)              | YES  |     |         | 创建者     
  updatedTime    | DATETIME(19)         | YES  |     |         | 更新时间    
+ lastModifier   | INT(10)              | YES  |     |         | 修改者     
  releaseTime    | DATETIME(19)         | NO   |     |         | 发布时间    
 ----------------+----------------------+------+-----+---------+---------
 
 Table: sk_content_images
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- id          | INT(10)      | NO   | PRI |         |         
- contentId   | INT(10)      | NO   |     |         | 新闻ID    
- title       | VARCHAR(255) | NO   |     |         | 标题      
- img         | VARCHAR(255) | YES  |     |         | 缩略图路径   
- createdTime | DATETIME(19) | YES  |     |         | 创建时间    
--------------+--------------+------+-----+---------+---------
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ contentId    | INT(10)      | NO   |     |         | 新闻ID    
+ title        | VARCHAR(255) | NO   |     |         | 标题      
+ img          | VARCHAR(255) | YES  |     |         | 缩略图路径   
+ createdTime  | DATETIME(19) | YES  |     |         | 创建时间    
+ creator      | INT(10)      | YES  |     |         | 创建者     
+ updatedTime  | DATETIME(19) | YES  |     |         | 更新时间    
+ lastModifier | INT(10)      | YES  |     |         | 修改者     
+--------------+--------------+------+-----+---------+---------
 
 Table: sk_dict
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- id          | INT(10)      | NO   | PRI |         |         
- type        | VARCHAR(50)  | NO   |     |         | 类型      
- key         | VARCHAR(50)  | NO   |     |         | key     
- value       | VARCHAR(50)  | NO   |     |         | value   
- sort        | INT(10)      | NO   |     |         | 排序      
- remark      | VARCHAR(255) | NO   |     |         | 备注信息    
- createdTime | DATETIME(19) | NO   |     |         | 创建时间    
- updatedTime | DATETIME(19) | YES  |     |         | 更新时间    
--------------+--------------+------+-----+---------+---------
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ type         | VARCHAR(50)  | NO   |     |         | 类型      
+ key          | VARCHAR(50)  | NO   |     |         | key     
+ value        | VARCHAR(50)  | NO   |     |         | value   
+ sort         | INT(10)      | NO   |     |         | 排序      
+ remark       | VARCHAR(255) | NO   |     |         | 备注信息    
+ createdTime  | DATETIME(19) | NO   |     |         | 创建时间    
+ creator      | INT(10)      | YES  |     |         | 创建者     
+ updatedTime  | DATETIME(19) | YES  |     |         | 更新时间    
+ lastModifier | INT(10)      | YES  |     |         | 修改者     
+--------------+--------------+------+-----+---------+---------
 
 Table: sk_donate
 ---------+-------------+------+-----+---------+---------
@@ -250,7 +257,9 @@ Table: sk_roll_images
  target       | VARCHAR(20)  | YES  |     | _blank  | 打开方式:_blank,_self,_top等
  sort         | INT(10)      | NO   |     |         | 排序      
  createdTime  | DATETIME(19) | YES  |     |         | 创建时间    
+ creator      | INT(10)      | YES  |     |         | 创建者     
  updatedTime  | DATETIME(19) | YES  |     |         | 更新时间    
+ lastModifier | INT(10)      | YES  |     |         | 修改者     
 --------------+--------------+------+-----+---------+---------
 
 Table: sk_section
