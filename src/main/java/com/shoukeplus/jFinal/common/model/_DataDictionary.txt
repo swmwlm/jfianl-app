@@ -79,6 +79,20 @@ Table: sk_content
  releaseTime    | DATETIME(19)         | NO   |     |         | 发布时间    
 ----------------+----------------------+------+-----+---------+---------
 
+Table: sk_content_files
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ contentId    | INT(10)      | NO   |     |         | 新闻ID    
+ title        | VARCHAR(255) | NO   |     |         | 标题      
+ file         | VARCHAR(255) | YES  |     |         | 上传路径    
+ createdTime  | DATETIME(19) | YES  |     |         | 创建时间    
+ creator      | INT(10)      | YES  |     |         | 创建者     
+ updatedTime  | DATETIME(19) | YES  |     |         | 更新时间    
+ lastModifier | INT(10)      | YES  |     |         | 修改者     
+--------------+--------------+------+-----+---------+---------
+
 Table: sk_content_images
 --------------+--------------+------+-----+---------+---------
  Field        | Type         | Null | Key | Default | Remarks 
