@@ -54,7 +54,7 @@
             <@shiro.hasPermission name="menu:content">
                 <li <#if page_tab="content"> class="active" </#if>>
                     <a href="${path!}/admin/content">
-                        <i class="fa fa-newspaper-o"></i> <span>內容</span>
+                        <i class="fa fa-newspaper-o"></i> <span>内容</span>
                     </a>
                 </li>
             </@shiro.hasPermission>
