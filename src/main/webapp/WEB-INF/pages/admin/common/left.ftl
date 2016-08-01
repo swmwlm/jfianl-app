@@ -10,6 +10,7 @@
             <div class="pull-left info">
                 <p>欢迎你,<label id="username">${currrent_admin_user.username!}</label></p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <a href="${path!}/admin/runas"><i class="fa fa-exchange text-success"></i> 切换身份</a>
             </div>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
