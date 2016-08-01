@@ -668,6 +668,7 @@ VALUES
 
 # 内容表
 DROP TABLE IF EXISTS sk_content_images;
+DROP TABLE IF EXISTS sk_content_files;
 DROP TABLE IF EXISTS sk_content;
 CREATE TABLE IF NOT EXISTS sk_content (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -705,7 +706,20 @@ CREATE TABLE IF NOT EXISTS sk_content_images (
 	CONSTRAINT `fk_content_images` FOREIGN KEY (`contentId`) REFERENCES `sk_content` (`id`),
 	INDEX `contentId` USING BTREE (contentId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
+# 内容附件表
+CREATE TABLE IF NOT EXISTS sk_content_files (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contentId` int(11) NOT  NULL COMMENT '新闻ID',
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `file` VARCHAR(255) DEFAULT NULL COMMENT '上传路径',
+  `createdTime` DATETIME COMMENT '创建时间',
+  `creator` INT(11) COMMENT '创建者',
+  `updatedTime` DATETIME DEFAULT NULL COMMENT '更新时间',
+  `lastModifier` INT(11) COMMENT '修改者',
+  PRIMARY KEY (`id`),
+	CONSTRAINT `fk_content_files` FOREIGN KEY (`contentId`) REFERENCES `sk_content` (`id`),
+	INDEX `contentId` USING BTREE (contentId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 # 轮播图表
 DROP TABLE IF EXISTS sk_roll_images;
 CREATE TABLE IF NOT EXISTS sk_roll_images (
