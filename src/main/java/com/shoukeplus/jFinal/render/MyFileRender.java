@@ -34,9 +34,10 @@ public class MyFileRender extends Render {
         //response.addHeader("Content-disposition", "attachment; filename=" + file.getName());
         //修改后的代码 解决中文乱码问题
         try {
-            response.addHeader("Content-disposition",
-                    "attachment; filename=" + new String(fileName.contains(".") ? fileName.getBytes("GBK") : file.getName().getBytes("GBK"), "ISO8859-1"));
-        } catch (UnsupportedEncodingException e1) {
+            //response.addHeader("Content-disposition",
+            //        "attachment; filename=" + new String(fileName.contains(".") ? fileName.getBytes("GBK") : file.getName().getBytes("GBK"), "ISO8859-1"));
+            response.addHeader("Content-disposition", "attachment; filename=" + new String(fileName.getBytes("utf-8"),"ISO8859-1"));
+        } catch (Exception e1) {
             e1.printStackTrace();
         }
         String contentType = servletContext.getMimeType(file.getName());
