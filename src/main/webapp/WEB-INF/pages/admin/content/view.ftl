@@ -81,6 +81,15 @@
                 </#if>
                 <br/><br/>
                 <div class="wangEditor-txt" style="width:758px;display: block;">${content.content!}</div>
+
+                <#if (contentFiles?size gt 0)>
+                    <#list contentFiles as file>
+                        <div>
+                        <a href="${path!}/admin/content/downloadFile/${file.id!}" target="_blank" title="${file.title!}">${file.title!}</a>
+                        </div>
+                    </#list>
+                </#if>
+
             </#if>
         </div>
     </div>
