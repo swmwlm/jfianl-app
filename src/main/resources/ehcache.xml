@@ -7,6 +7,8 @@
 		
 	<cache name="userList" maxElementsInMemory="150" eternal="false" timeToLiveSeconds="3600"
 			 timeToIdleSeconds="360" overflowToDisk="true"/>
+	<cache name="linkCache" maxElementsInMemory="150" eternal="false" timeToLiveSeconds="3600"
+		   timeToIdleSeconds="360" overflowToDisk="true"/>
 
 	<!-- action缓存 10分钟 ,例如,为IndexController index() 增加注解@ActionCache -->
 	<cache name="actionCache"

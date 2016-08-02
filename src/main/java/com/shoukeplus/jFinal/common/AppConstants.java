@@ -66,7 +66,7 @@ public class AppConstants {
 
   // 缓存名称
   public static final String SECTIONCACHE = "sectioncache";
-  public static final String LINKCACHE = "linkcache";
+  public static final String LINKCACHE = "linkCache";
   public static final String SYSCONFIGCACHE = "sysconfigcache";
   public static final String TOPICCACHE = "topiccache";
   public static final String SHIROCACHE = "shirocache";
