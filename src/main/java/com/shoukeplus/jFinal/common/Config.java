@@ -19,6 +19,7 @@ import com.jfinal.render.FreeMarkerRender;
 import com.jfinal.render.ViewType;
 import com.shoukeplus.jFinal.cache.ActionCacheHandler;
 import com.shoukeplus.jFinal.common.model._MappingKit;
+import com.shoukeplus.jFinal.common.utils.PropertiesConfigUtil;
 import com.shoukeplus.jFinal.common.utils.ext.plugin.shiro.ShiroInterceptor;
 import com.shoukeplus.jFinal.common.utils.ext.plugin.shiro.ShiroPlugin;
 import com.shoukeplus.jFinal.common.utils.ext.route.AutoBindRoutes;
@@ -26,14 +27,12 @@ import com.shoukeplus.jFinal.handler.FakeStaticHandler;
 import com.shoukeplus.jFinal.handler.ResourceHandler;
 import com.shoukeplus.jFinal.handler.SkipHandler;
 import com.shoukeplus.jFinal.handler.xss.AttackHandler;
-import com.shoukeplus.jFinal.interceptor.csrf.CSRFInterceptor;
 import com.shoukeplus.jFinal.interceptor.CommonInterceptor;
 import com.shoukeplus.jFinal.interceptor.ExceptionAndLogInterceptor;
+import com.shoukeplus.jFinal.interceptor.csrf.CSRFInterceptor;
 import com.shoukeplus.jFinal.plugin.message.MessagePlugin;
 import com.shoukeplus.jFinal.render.MyAppRenderFactory;
 import freemarker.template.TemplateModelException;
-
-import java.util.Properties;
 
 public class Config extends JFinalConfig {
 
@@ -42,18 +41,10 @@ public class Config extends JFinalConfig {
 	 */
 	private Routes routes;
 
-	public Properties loadProp(String pro, String dev) {
-		try {
-			return loadPropertyFile(pro);
-		} catch (Exception e) {
-			return loadPropertyFile(dev);
-		}
-	}
-
 	@Override
 	public void configConstant(Constants me) {
 		// 如果生产环境配置文件存在，则优先加载该配置，否则加载开发环境配置文件
-		loadProp("application_pro.properties", "application.properties");
+		super.prop=PropertiesConfigUtil.getInstance().getJProp();
 		//loadPropertyFile("a_little_config.txt");
 		me.setDevMode(getPropertyToBoolean("devMode"));
 
@@ -67,7 +58,7 @@ public class Config extends JFinalConfig {
 		me.setViewType(ViewType.FREE_MARKER);
 		me.setEncoding(AppConstants.DEFAULT_ENCODING);
 		me.setFreeMarkerViewExtension("ftl");
-		me.setBaseUploadPath(AppConstants.UPLOAD_DIR);
+		me.setBaseUploadPath(getProperty("uploadPathDisk"));
 		me.setMaxPostSize(1024 * 1024 * 200);
 		me.setFreeMarkerTemplateUpdateDelay(0);
 		me.setMainRenderFactory(new MyAppRenderFactory());
@@ -80,7 +71,7 @@ public class Config extends JFinalConfig {
 		//shiro 对 freemarker 的支持
 		FreeMarkerRender.getConfiguration().setSharedVariable("shiro", new ShiroTags());
 		try {
-			FreeMarkerRender.getConfiguration().setSharedVariable("imgPath", AppConstants.IMG_HOSTURL);
+			FreeMarkerRender.getConfiguration().setSharedVariable("imgPath", PropertiesConfigUtil.getInstance().getUploadPathVistHost());
 		} catch (TemplateModelException e) {
 			e.printStackTrace();
 		}

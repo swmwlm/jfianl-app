@@ -8,6 +8,7 @@ import com.shoukeplus.jFinal.common.AppConstants;
 import com.shoukeplus.jFinal.common.BaseController;
 import com.shoukeplus.jFinal.common.model.*;
 import com.shoukeplus.jFinal.common.utils.DateUtil;
+import com.shoukeplus.jFinal.common.utils.PropertiesConfigUtil;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.common.utils.ext.route.ControllerBind;
 import com.shoukeplus.jFinal.render.MyFileRender;
@@ -247,7 +248,7 @@ public class ContentAdminController extends BaseController {
         if (contentFiles == null) {
             renderText(AppConstants.OP_ERROR_MESSAGE);
         }
-        String filePath = AppConstants.UPLOAD_DIR + contentFiles.get("file");
+        String filePath = PropertiesConfigUtil.getInstance().getUploadPathDisk() + contentFiles.get("file");
         File file = new File(filePath);
         if (file.isFile()) {
             render(new MyFileRender(file, contentFiles.getTitle()));

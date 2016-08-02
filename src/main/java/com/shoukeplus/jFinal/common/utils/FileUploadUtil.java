@@ -45,7 +45,7 @@ public class FileUploadUtil {
 		//按天来创建文件夹
 		String dateFolder = "/" + DateUtil.formatDate(DateUtil.getCurrentDateTime()) + "/";
 		String relativePath = "/" + paramPath + dateFolder;
-		String destFolder = AppConstants.UPLOAD_DIR + relativePath;
+		String destFolder =  PropertiesConfigUtil.getInstance().getUploadPathDisk()+ relativePath;
 
 		File destFile = new File(destFolder);
 		if (!destFile.exists()) {

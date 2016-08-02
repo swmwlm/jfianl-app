@@ -10,6 +10,7 @@ import com.shoukeplus.jFinal.common.model.Topic;
 import com.shoukeplus.jFinal.common.model.User;
 import com.shoukeplus.jFinal.common.utils.FileUploadUtil;
 import com.shoukeplus.jFinal.common.utils.ImageUtil;
+import com.shoukeplus.jFinal.common.utils.PropertiesConfigUtil;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.common.utils.ext.route.ControllerBind;
 import com.shoukeplus.jFinal.interceptor.UserInterceptor;
@@ -167,7 +168,7 @@ public class UserController extends BaseController {
         User user = (User) getSession().getAttribute(AppConstants.USER_SESSION);
         user.set("avatar", relativePath).update();
         //裁剪图片
-        String realPath=AppConstants.UPLOAD_DIR+relativePath;
+        String realPath= PropertiesConfigUtil.getInstance().getUploadPathDisk()+relativePath;
         ImageUtil.zoomImage(realPath, realPath, 100, 100);
         redirect("/user/setting");
     }

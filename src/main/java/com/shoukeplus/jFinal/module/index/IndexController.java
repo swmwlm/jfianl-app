@@ -9,6 +9,7 @@ import com.shoukeplus.jFinal.common.BaseController;
 import com.shoukeplus.jFinal.common.model.*;
 import com.shoukeplus.jFinal.common.utils.DateUtil;
 import com.shoukeplus.jFinal.common.utils.FileUploadUtil;
+import com.shoukeplus.jFinal.common.utils.PropertiesConfigUtil;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.common.utils.ext.route.ControllerBind;
 import com.shoukeplus.jFinal.plugin.message.Actions;
@@ -366,7 +367,7 @@ public class IndexController extends BaseController {
 		//获取图片的相对路径
 		String relativePath = FileUploadUtil.upload(paramPath, getFiles(paramPath));
 		//富编辑器里需要加上图片访问路径 ,因为有XSS过滤,只有src的protocol 为http或者https 的才能保存;
-		renderText(AppConstants.IMG_HOSTURL + relativePath);
+		renderText(PropertiesConfigUtil.getInstance().getUploadPathVistHost() + relativePath);
 	}
 
 	/**
