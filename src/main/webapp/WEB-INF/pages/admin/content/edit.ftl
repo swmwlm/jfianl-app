@@ -114,7 +114,7 @@
                                     <div class="contentFiles_upload">
                                     ${file.title}&nbsp;&nbsp;&nbsp;&nbsp;
                                         <img src="${path!}/static/img/uploadClose.png"
-                                             style="background-color: #666666;border-radius: 50%">
+                                             style="background-color: #666666;border-radius: 50%;cursor: pointer;">
                                         <input type="text" style="display:none;" flag="contentFilesId"
                                                name="contentFiles[${file_index}].id" value="${file.id}"/>
                                         <input type="text" style="display:none;" name="contentFiles[${file_index}].file"

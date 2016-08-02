@@ -351,7 +351,7 @@
     <div style="display: block;">
         <div class="contentFiles_upload">
             {{filename}}&nbsp;&nbsp;&nbsp;&nbsp;<img src="${path!}/static/img/uploadClose.png"
-                                                     style="background-color: #666666;border-radius: 50%">
+                                                     style="background-color: #666666;border-radius: 50%;cursor: pointer">
             <input type="text" style="display:none;" name="contentFiles[{{index}}].file" value="{{value}}"/>
             <br/>
             <input type="text" name="contentFiles[{{index}}].title" required="required" value="{{filename}}" style="width: 300px;">
