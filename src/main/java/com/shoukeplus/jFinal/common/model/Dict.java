@@ -58,7 +58,7 @@ public class Dict extends BaseDict<Dict> {
 	 * @return
 	 */
 	public List<Dict> getListByContentCategory(){
-		List<Dict> dicts=super.find("select a.* from sk_dict a ,sk_dict b where a.type=b.key and b.type=? order by a.type,a.sort","contentCategory");
+		List<Dict> dicts=super.find("select a.* from sk_dict a ,sk_dict b where a.type=b.key and b.type=? order by b.sort,a.sort","contentCategory");
 		if(CollectionUtils.isEmpty(dicts))
 			return null;
 		return dicts;
