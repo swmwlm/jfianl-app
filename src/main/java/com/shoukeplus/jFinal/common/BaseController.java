@@ -10,6 +10,11 @@ import com.shoukeplus.jFinal.common.utils.Result;
 import com.shoukeplus.jFinal.common.utils.StrUtil;
 import com.shoukeplus.jFinal.render.JCaptchaRender;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.DefaultSessionManager;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -143,5 +148,12 @@ public class BaseController extends Controller {
     @Before(NotAction.class)
     public String getUserAgent() {
         return getRequest().getHeader("User-Agent");
+    }
+    @Before(NotAction.class)
+    public SessionDAO getSessionDao(){
+        SecurityManager securityManager= SecurityUtils.getSecurityManager();
+        DefaultWebSecurityManager defaultWebSecurityManager= (DefaultWebSecurityManager) securityManager;
+        DefaultSessionManager defaultSessionManager= (DefaultSessionManager) defaultWebSecurityManager.getSessionManager();
+        return defaultSessionManager.getSessionDAO();
     }
 }

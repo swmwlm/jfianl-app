@@ -7,8 +7,8 @@ public class AppConstants {
   public static final String DEFAULT_ENCODING = "UTF-8";
 
   public static final String CURRENT_USER = "currentUser";
-  //public static final String SESSION_ADMIN_USER = "admin_user";
   public static final String CURRENT_ADMIN_USER = "currrent_admin_user";
+  public static final String SESSION_FORCE_LOGOUT_KEY = "session.force.logout";
 
   //CSRF TOKEN
   public static final String CSRF_TOKEN="token";

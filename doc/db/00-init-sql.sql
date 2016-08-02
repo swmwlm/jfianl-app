@@ -319,7 +319,8 @@ VALUES
   (64,'rollimages:edit','编辑轮播图',63),
   (65,'rollimages:delete','删除轮播图',63),
   (66,'rollimages:add','新增轮播图',63),
-  (67,'menu:rollimages','菜单，轮播图管理',10);
+  (67,'menu:rollimages','菜单，轮播图管理',10),
+  (68,'setting:session','后台会话管理',18);
 
 /*!40000 ALTER TABLE `sk_permission` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -432,6 +433,7 @@ VALUES
   (1,65),
   (1,66),
   (1,67),
+  (1,68),
   (2,1),
   (2,4),
   (2,5),

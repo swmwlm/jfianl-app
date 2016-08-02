@@ -87,7 +87,7 @@
                 </li>
             </@shiro.hasPermission>
             <@shiro.hasPermission name="menu:setting">
-                <li class="treeview <#if page_tab="druid" || page_tab="sysconfig" || page_tab="dict" || page_tab="adminuser" || page_tab="role" || page_tab="permission" || page_tab="modifypwd">active</#if>">
+                <li class="treeview <#if page_tab="druid" || page_tab="sysconfig" || page_tab="dict"|| page_tab="session" || page_tab="adminuser" || page_tab="role" || page_tab="permission" || page_tab="modifypwd">active</#if>">
                     <a href="javascript:;">
                         <i class="fa fa-cogs"></i> <span>设置</span>
                         <i class="fa fa-angle-left pull-right"></i>
@@ -104,6 +104,10 @@
                         <@shiro.hasPermission name="setting:dict">
                             <li <#if page_tab="dict"> class="active" </#if>><a
                                     href="${path!}/admin/dict"><i class="fa fa-circle-o"></i> 系统字典</a></li>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="setting:session">
+                            <li <#if page_tab="session"> class="active" </#if>><a
+                                    href="${path!}/admin/session"><i class="fa fa-circle-o"></i> 后台会话</a></li>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="setting:adminuser">
                             <li <#if page_tab="adminuser"> class="active" </#if>><a
