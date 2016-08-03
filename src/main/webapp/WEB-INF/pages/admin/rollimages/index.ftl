@@ -47,7 +47,7 @@
                     <tbody id="sortable">
                     <#--<#list admin_rollimages as rollimage>-->
                         <#list page.getList()  as rollimage>
-                        <tr class="ui-state-default" id="rollimage_${rollimage.id!}">
+                        <tr id="rollimage_${rollimage.id!}">
                             <td>
                                 <input type="hidden" name="ids" value="${rollimage.id!}">
                             <#--<#list rollimageDict! as dict>-->

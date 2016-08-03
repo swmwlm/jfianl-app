@@ -31,7 +31,7 @@
                         </thead>
                         <tbody id="sortable">
                             <#list admin_sections as section>
-                            <tr class="ui-state-default" id="section_${section.id!}">
+                            <tr id="section_${section.id!}">
                                 <td>
                                     <input type="hidden" name="ids" value="${section.id!}">
                                 ${section.name!}

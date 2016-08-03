@@ -31,7 +31,7 @@
                         </thead>
                         <tbody id="sortable">
                             <#list admin_links as link>
-                            <tr class="ui-state-default" id="link_${link.id!}">
+                            <tr id="link_${link.id!}">
                                 <td>
                                     <input type="hidden" name="ids" value="${link.id!}">
                                 ${link.name!}
