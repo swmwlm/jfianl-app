@@ -23,7 +23,7 @@
             <div class="dataTables_wrapper form-inline dt-bootstrap">
                 <table class="table table-hover table-bordered">
                     <thead>
-                    <th style="width: 280px;">会话ID</th>
+                    <th style="width: 320px;">会话ID</th>
                     <th>用户名</th>
                     <th>主机地址</th>
                     <th>最后访问时间</th>
