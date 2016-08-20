@@ -135,6 +135,12 @@ public class MessagePlugin implements IPlugin {
 
 	@Override
 	public boolean stop() {
-		return true;
+		//解决linux下tomcat 执行shutdown.sh，java进程无法关闭的问题
+		try {
+			threadPool.shutdown();
+			return true;
+		} catch (Exception e) {
+			throw new RuntimeException("Can\'t stop MessagePlugin.", e);
+		}
 	}
 }
