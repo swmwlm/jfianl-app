@@ -12,12 +12,13 @@ public class Content extends BaseContent<Content> {
 	public static final Content dao = new Content();
 	public Page<Content> page(int pageNumber, int pageSize, String value, String dictId) {
 		StringBuffer condition = new StringBuffer();
-		if (!StrUtil.isBlank(value)) condition.append(" and n.title like \"%" + value + "%\" ");
-		if (!StrUtil.isBlank(dictId)) condition.append(" and n.dictId = " + dictId);
+		if (!StrUtil.isBlank(value)) condition.append(" and c.title like \"%" + value + "%\" ");
+		if (!StrUtil.isBlank(dictId)) condition.append(" and c.dictId = " + dictId);
+
+		String select="select c.*, d.value as categoryName";
+		String sqlExceptSelect="from sk_content c left join sk_dict d on c.dictId = d.id left join sk_dict d2 on d.type=d2.key where c.isDeleted = 0 and d2.type='contentCategory' "+condition+" order by d2.sort, d.sort,c.releaseTime desc, c.id desc";
 
 		return super.paginate(pageNumber, pageSize,
-				"select n.*, d.value as categoryName ",
-				"from sk_content n left join sk_dict d on n.dictId = d.id " +
-						"where n.isDeleted = 0 "+ condition +" order by n.releaseTime desc, n.id desc");
+				select, sqlExceptSelect);
 	}
 }
