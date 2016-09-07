@@ -70,6 +70,7 @@ public class AppConstants {
   public static final String SYSCONFIGCACHE = "sysconfigcache";
   public static final String TOPICCACHE = "topiccache";
   public static final String SHIROCACHE = "shirocache";
+  public static final String CURRENTADMINUSERCACHE = "currentadminusercache";
 
   // 缓存KEY
   // section
@@ -77,6 +78,7 @@ public class AppConstants {
   public static final String SECTIONBYTABKEY = "sectionbytabkey";
   public static final String SECTIONSHOWLISTKEY = "sectionshowlistkey";
   public static final String DEFAULTSECTIONKEY = "defaultsectionkey";
+  public static final String CURRENTADMINUSERCACHEKEY = "currentadminusercachekey";
   //role
   public static final String ROLECACHEKEY = "rolecachekey";
   public static final String PERMISSIONCACHEKEY = "permissioncachekey";
