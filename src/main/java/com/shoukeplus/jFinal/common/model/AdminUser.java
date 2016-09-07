@@ -20,7 +20,7 @@ public class AdminUser extends BaseAdminUser<AdminUser> {
 	}
 
 	public AdminUser findByUsername(String username) {
-		return super.findFirst("select * from sk_admin_user where username = ?", username);
+		return super.findFirstByCache(AppConstants.CURRENTADMINUSERCACHE,AppConstants.CURRENTADMINUSERCACHEKEY+"_"+username,"select * from sk_admin_user where username = ?", username);
 	}
 
 	public void correlationRole(Integer userId, Integer[] roles) {
